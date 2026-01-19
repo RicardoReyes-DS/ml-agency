@@ -1,26 +1,119 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Premium Aurora Palette - Sophisticated Dark Theme */
+  --background: #0a0a0a;        /* Deep charcoal black */
+  --surface: #0f1419;          /* Rich dark blue-gray */
+  --surface-hover: #1a2332;    /* Slightly lighter surface for hover states */
+  --primary: #00d4ff;          /* Electric cyan - vibrant but professional */
+  --primary-hover: #33e0ff;    /* Softer cyan for hover states */
+  --accent: #ff6b6b;           /* Coral red - warm accent color */
+  --accent-hover: #ff8e8e;     /* Softer coral for hover states */
+  --secondary: #6366f1;        /* Indigo - complementary accent */
+  --tertiary: #10b981;         /* Emerald green - success/tech color */
+  --foreground: #ffffff;       /* Pure white */
+  --foreground-muted: #94a3b8; /* Muted slate for secondary text */
+  --foreground-subtle: #64748b; /* Subtle text color */
+  --border: #1e293b;           /* Subtle borders */
+  --border-hover: #334155;     /* Slightly visible borders on hover */
+  --glow-primary: rgba(0, 212, 255, 0.5);
+  --glow-accent: rgba(255, 107, 107, 0.5);
+  --glow-secondary: rgba(99, 102, 241, 0.5);
 }
 
 @theme inline {
   --color-background: var(--background);
+  --color-surface: var(--surface);
+  --color-surface-hover: var(--surface-hover);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
+  --color-accent: var(--accent);
+  --color-accent-hover: var(--accent-hover);
+  --color-secondary: var(--secondary);
+  --color-tertiary: var(--tertiary);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-foreground-muted: var(--foreground-muted);
+  --color-foreground-subtle: var(--foreground-subtle);
+  --color-border: var(--border);
+  --color-border-hover: var(--border-hover);
+  --font-sans: var(--font-inter);
+  --font-mono: var(--font-jetbrains-mono);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+}
+
+/* Premium Visual Enhancements */
+.gradient-primary {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+}
+
+.gradient-accent {
+  background: linear-gradient(135deg, var(--accent) 0%, #ff4757 100%);
+}
+
+.gradient-surface {
+  background: linear-gradient(135deg, var(--surface) 0%, var(--surface-hover) 100%);
+}
+
+.glow-primary {
+  box-shadow: 0 0 20px var(--glow-primary);
+}
+
+.glow-accent {
+  box-shadow: 0 0 20px var(--glow-accent);
+}
+
+.glow-secondary {
+  box-shadow: 0 0 20px var(--glow-secondary);
+}
+
+.text-gradient-primary {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.text-gradient-accent {
+  background: linear-gradient(135deg, var(--accent) 0%, #ff4757 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.border-gradient {
+  background: linear-gradient(135deg, var(--primary), var(--accent), var(--secondary));
+  padding: 1px;
+}
+
+.border-gradient > * {
+  background: var(--background);
+}
+
+/* Enhanced scrollbar for premium feel */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(135deg, var(--primary), var(--accent));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(135deg, var(--primary-hover), var(--accent-hover));
+}
+
+/* Selection colors */
+::selection {
+  background: rgba(0, 212, 255, 0.3);
+  color: var(--foreground);
 }
