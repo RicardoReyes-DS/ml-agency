@@ -18,6 +18,7 @@ import { DemoContent, getIconComponent } from "@/lib/demo-data";
 
 interface DemoTemplateProps {
   content: DemoContent;
+  customDemoComponent?: React.ReactNode;
 }
 
 const containerVariants = {
@@ -44,7 +45,7 @@ const itemVariants = {
   },
 };
 
-export function DemoTemplate({ content }: DemoTemplateProps) {
+export function DemoTemplate({ content, customDemoComponent }: DemoTemplateProps) {
   // Pre-resolve icon components to avoid hydration issues
   const BadgeIcon = getIconComponent(content.badgeIcon);
   const SecondaryCTAIcon = getIconComponent(content.secondaryCtaIcon);
@@ -152,6 +153,9 @@ export function DemoTemplate({ content }: DemoTemplateProps) {
       >
         <div className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto">
+            {customDemoComponent ? (
+              customDemoComponent
+            ) : (
             <DemoWrapper demo={{
               id: content.demoId,
               title: content.demoTitle,
@@ -248,6 +252,7 @@ export function DemoTemplate({ content }: DemoTemplateProps) {
                 </div>
               </div>
             </DemoWrapper>
+            )}
           </div>
         </div>
       </motion.section>
