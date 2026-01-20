@@ -9,28 +9,28 @@ import { ArrowRight, Sparkles } from "lucide-react";
 
 const heroMetrics = [
   {
-    label: "Accuracy",
+    label: "Model Precision",
     value: 98,
     suffix: ".5%",
-    description: "Model precision"
+    description: "Average accuracy"
   },
   {
-    label: "Projects",
+    label: "Deployed Models",
     value: 247,
     suffix: "+",
-    description: "Successfully delivered"
+    description: "In production"
   },
   {
-    label: "Speed",
+    label: "Inference Speed",
     value: 150,
-    suffix: "x",
-    description: "Performance boost"
+    suffix: "ms",
+    description: "Avg latency"
   },
   {
-    label: "Clients",
+    label: "Active Pilots",
     value: 89,
     suffix: "+",
-    description: "Trusted partners"
+    description: "Ongoing projects"
   }
 ];
 
@@ -72,18 +72,18 @@ export function HeroSection() {
             className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-primary/10 to-accent/10 border border-primary/30 mb-8 glow-primary"
           >
             <Sparkles className="h-5 w-5 text-primary drop-shadow-[0_0_8px_rgba(0,212,255,0.6)]" />
-            <span className="text-sm font-medium text-gradient-primary font-mono">High-End ML Solutions</span>
+            <span className="text-sm font-medium text-gradient-primary font-mono">Production-Ready ML</span>
           </motion.div>
 
           {/* Main Headline with Typewriter Effect */}
           <div className="mb-6">
             <TypewriterText
               texts={[
-                "Scientific Machine Learning",
-                "Advanced AI Solutions",
-                "Data-Driven Intelligence",
-                "Neural Network Architecture",
-                "Predictive Analytics Engine"
+                "Custom Machine Learning",
+                "Automated Decision Systems",
+                "Predictive Analytics",
+                "Computer Vision Systems",
+                "NLP & Text Analysis"
               ]}
               className="text-4xl md:text-7xl lg:text-8xl font-bold text-gradient-primary leading-tight"
               typingSpeed={80}
@@ -99,7 +99,7 @@ export function HeroSection() {
             transition={{ delay: 1, duration: 0.8 }}
             className="text-lg md:text-xl text-foreground/70 max-w-4xl mx-auto leading-relaxed mb-12"
           >
-            Transforming industries through cutting-edge artificial intelligence, computer vision, and deep learning technologies.
+            We build custom machine learning solutions that solve real business problems. No hype, just measurable results.
           </motion.p>
 
           {/* CTA Buttons */}
@@ -110,7 +110,7 @@ export function HeroSection() {
             className="flex flex-col sm:flex-row gap-4 justify-center mb-16"
           >
             <Button size="lg" className="gradient-primary hover:shadow-xl glow-primary text-white px-8 py-4 text-lg font-semibold transition-all duration-300 transform hover:scale-105">
-              Explore Our Work
+              See Our Work
               <ArrowRight className="ml-2 h-5 w-5" />
             </Button>
             <Button
@@ -118,7 +118,7 @@ export function HeroSection() {
               variant="outline"
               className="border-2 border-primary/50 hover:border-accent/70 hover:bg-accent/5 text-foreground-muted hover:text-foreground px-8 py-4 text-lg font-semibold transition-all duration-300 hover:glow-accent"
             >
-              Schedule Consultation
+              Talk to an Engineer
             </Button>
           </motion.div>
 

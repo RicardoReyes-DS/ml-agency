@@ -20,24 +20,24 @@ export function ContactSection() {
   const contactMethods = [
     {
       icon: Mail,
-      title: "Email Us",
-      description: "Get in touch with our team",
+      title: "Email Engineering",
+      description: "Direct line to our team",
       contact: "hello@ml-agency.com",
       action: "Send Email",
       color: "from-blue-500/20 to-blue-600/20"
     },
     {
       icon: Calendar,
-      title: "Schedule a Call",
-      description: "Book a consultation with our experts",
+      title: "Book a Technical Call",
+      description: "Speak directly with an engineer",
       contact: "30-minute discovery call",
       action: "Book Now",
       color: "from-purple-500/20 to-purple-600/20"
     },
     {
       icon: MessageCircle,
-      title: "Live Chat",
-      description: "Chat with our AI assistant",
+      title: "Support Chat",
+      description: "Get quick answers",
       contact: "Available 24/7",
       action: "Start Chat",
       color: "from-emerald-500/20 to-emerald-600/20"
@@ -110,9 +110,9 @@ export function ContactSection() {
             transition={{ delay: 0.4, duration: 0.8 }}
             className="text-4xl md:text-6xl lg:text-7xl font-bold text-foreground mb-6 leading-tight"
           >
-            Let's Build
+            Let's Talk
             <span className="block bg-gradient-to-r from-accent via-primary to-accent bg-clip-text text-transparent">
-              Something Amazing
+              Shop
             </span>
           </motion.h2>
 
@@ -124,8 +124,7 @@ export function ContactSection() {
             transition={{ delay: 0.6, duration: 0.8 }}
             className="text-lg md:text-xl text-foreground/70 max-w-4xl mx-auto leading-relaxed"
           >
-            Ready to transform your business with AI? We're here to help you navigate the possibilities
-            and turn your vision into reality. Let's start a conversation about your next breakthrough.
+            No sales pitch. Just a conversation about your technical needs and business goals.
           </motion.p>
         </motion.div>
 
@@ -268,12 +267,11 @@ export function ContactSection() {
               </motion.div>
 
               <h3 className="text-2xl font-bold text-foreground mb-4">
-                Transform Your Business Today
+                Start Your Pilot
               </h3>
 
               <p className="text-foreground/70 mb-6 leading-relaxed">
-                Take the first step towards AI-powered innovation. Our team is ready to understand
-                your challenges and design solutions that deliver measurable results.
+                Let's scope out a pilot project to prove the value. We start small and scale what works.
               </p>
 
               <div className="space-y-4">
@@ -281,7 +279,7 @@ export function ContactSection() {
                   size="lg"
                   className="w-full bg-accent hover:bg-accent/90 text-accent-foreground px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
                 >
-                  Schedule Free Consultation
+                  Book Technical Review
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Button>
 

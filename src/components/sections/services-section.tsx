@@ -14,7 +14,7 @@ const services = [
   {
     icon: Eye,
     title: "Computer Vision",
-    description: "Advanced neural networks for real-time image recognition, object detection, and visual intelligence at enterprise scale.",
+    description: "Automated visual inspection and object detection. We process 500M+ images with high accuracy.",
     features: ["Real-time Processing", "99.7% Accuracy", "Multi-modal Analysis"],
     metric: "500M+ Images Processed",
     color: "from-blue-500/20 to-blue-600/20"
@@ -22,7 +22,7 @@ const services = [
   {
     icon: MessageSquare,
     title: "Natural Language Processing",
-    description: "Transformer-based architectures for sentiment analysis, entity recognition, and conversational AI systems.",
+    description: "Sentiment analysis and text processing that understands context. Supports 50+ languages.",
     features: ["Multi-language Support", "Context Awareness", "Real-time Inference"],
     metric: "50+ Languages Supported",
     color: "from-purple-500/20 to-purple-600/20"
@@ -30,15 +30,15 @@ const services = [
   {
     icon: Brain,
     title: "Deep Learning",
-    description: "Custom neural network design, distributed training pipelines, and model optimization for production deployment.",
-    features: ["Custom Architectures", "Distributed Training", "AutoML Pipeline"],
+    description: "Custom model development and optimization. We build architectures that fit your specific data.",
+    features: ["Custom Architectures", "Scalable Training", "Production Deployment"],
     metric: "1000+ Models Deployed",
     color: "from-emerald-500/20 to-emerald-600/20"
   },
   {
     icon: TrendingUp,
     title: "Predictive Analytics",
-    description: "Time series forecasting, anomaly detection, and business intelligence powered by advanced statistical models.",
+    description: "Forecast trends and detect anomalies before they impact your business.",
     features: ["Real-time Forecasting", "Anomaly Detection", "Multi-variate Analysis"],
     metric: "95% Prediction Accuracy",
     color: "from-orange-500/20 to-orange-600/20"
@@ -130,7 +130,7 @@ export function ServicesSection() {
               className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-secondary/10 to-tertiary/10 border border-secondary/30 glow-secondary"
             >
               <Microscope className="h-5 w-5 text-secondary drop-shadow-[0_0_8px_rgba(99,102,241,0.6)]" />
-              <span className="text-sm font-medium text-secondary font-mono">Core Technologies</span>
+              <span className="text-sm font-medium text-secondary font-mono">Core Capabilities</span>
             </motion.div>
 
             {/* Main Headline */}
@@ -141,11 +141,10 @@ export function ServicesSection() {
               transition={{ delay: 0.4, duration: 0.8 }}
               className="text-4xl md:text-5xl lg:text-6xl font-bold text-foreground leading-tight"
             >
-              Scientific
+              Production-Ready
               <span className="block bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent drop-shadow-[0_0_10px_rgba(0,212,255,0.3)]">
-                Machine Learning
+                AI Systems
               </span>
-              Expertise
             </motion.h2>
 
             {/* Subtitle */}
@@ -156,8 +155,7 @@ export function ServicesSection() {
               transition={{ delay: 0.6, duration: 0.8 }}
               className="text-lg md:text-xl text-foreground/70 leading-relaxed"
             >
-              Our team of PhD researchers and engineers delivers production-ready AI solutions
-              that transform industries through cutting-edge algorithms and scalable architectures.
+              From computer vision to predictive analytics, we build models that run efficiently in production.
             </motion.p>
 
             {/* CTA Button */}
@@ -321,20 +319,19 @@ export function ServicesSection() {
             >
               <Zap className="h-5 w-5 text-primary" />
               <span className="text-sm font-medium text-primary font-mono">
-                Ready to Transform Your Business?
+                Ready to Start?
               </span>
             </motion.div>
 
             <h3 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-              Let's Build Something
+              Let's Solve Your
               <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
-                Extraordinary
+                Hardest Problems
               </span>
             </h3>
 
             <p className="text-lg text-foreground/70 mb-8 max-w-2xl mx-auto">
-              Schedule a consultation with our ML experts and discover how we can accelerate
-              your AI transformation with production-ready solutions.
+              Schedule a technical call to see if your data is ready for AI.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -342,7 +339,7 @@ export function ServicesSection() {
                 size="lg"
                 className="gradient-accent hover:shadow-xl glow-accent text-white px-8 py-4 text-lg font-semibold transition-all duration-300 transform hover:scale-105"
               >
-                Start Your Project
+                Start Pilot
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
               <Button
@@ -351,7 +348,7 @@ export function ServicesSection() {
                 className="border-2 border-primary/30 hover:bg-primary/10 hover:border-primary/50 text-foreground px-8 py-4 text-lg font-semibold transition-all duration-300"
               >
                 <Target className="mr-2 h-5 w-5" />
-                View Case Studies
+                See Examples
               </Button>
             </div>
           </div>

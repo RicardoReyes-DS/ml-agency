@@ -112,8 +112,8 @@ export function getIconComponent(iconName: string) {
 
 // Computer Vision Demo Data
 export const computerVisionDemo: DemoContent = {
-  title: "Real-time Object Detection Engine",
-  subtitle: "Experience our state-of-the-art object detection system powered by advanced deep learning architectures, delivering enterprise-grade accuracy with real-time performance.",
+  title: "Object Detection System",
+  subtitle: "Object detection system with 98.5% accuracy and <100ms latency. Optimized for real-time video streams.",
   badge: "Computer Vision",
   badgeIcon: "Eye",
 
@@ -126,12 +126,12 @@ export const computerVisionDemo: DemoContent = {
 
   demoId: "computer-vision",
   demoTitle: "Real-time Object Detection",
-  demoDescription: "Advanced computer vision model for detecting and classifying objects in real-time video streams.",
+  demoDescription: "Detects and classifies objects in real-time video streams.",
   demoCategory: "computer-vision",
   demoTechnologies: ["TensorFlow", "OpenCV", "Python"],
 
-  architectureTitle: "Model Architecture Deep Dive",
-  architectureSubtitle: "Understanding the neural network architecture that powers our object detection capabilities",
+  architectureTitle: "Model Architecture",
+  architectureSubtitle: "The neural network architecture powering the object detection system",
   architectureComponents: [
     {
       title: "Input Processing",
@@ -145,7 +145,7 @@ export const computerVisionDemo: DemoContent = {
     },
     {
       title: "Backbone Network",
-      description: "EfficientNet-B4 with compound scaling for optimal performance",
+      description: "EfficientNet-B4 with compound scaling",
       icon: "Layers",
       details: [
         "Compound scaling (depth, width, resolution)",
@@ -155,7 +155,7 @@ export const computerVisionDemo: DemoContent = {
     },
     {
       title: "Feature Pyramid Network",
-      description: "Multi-scale feature fusion for robust detection",
+      description: "Multi-scale feature fusion",
       icon: "Target",
       details: [
         "Top-down pathway with lateral connections",
@@ -165,7 +165,7 @@ export const computerVisionDemo: DemoContent = {
     },
     {
       title: "Detection Head",
-      description: "Anchor-free detection with centerness prediction",
+      description: "Anchor-free detection",
       icon: "Cpu",
       details: [
         "Center-based object detection",
@@ -175,18 +175,18 @@ export const computerVisionDemo: DemoContent = {
     }
   ],
 
-  challengesTitle: "Technical Challenges & Solutions",
-  challengesSubtitle: "Overcoming real-world computer vision challenges through innovative engineering",
+  challengesTitle: "Technical Challenges",
+  challengesSubtitle: "Engineering solutions for computer vision challenges",
   challenges: [
     {
       challenge: "Real-time Performance",
       solution: "Model quantization and TensorRT optimization",
-      impact: "45% faster inference with minimal accuracy loss"
+      impact: "45% faster inference"
     },
     {
       challenge: "Scale Invariance",
       solution: "Multi-scale training and test-time augmentation",
-      impact: "Consistent performance across object sizes"
+      impact: "Consistent performance across sizes"
     },
     {
       challenge: "Occlusion Handling",
@@ -195,7 +195,7 @@ export const computerVisionDemo: DemoContent = {
     },
     {
       challenge: "Lighting Variations",
-      solution: "Adaptive normalization and illumination modeling",
+      solution: "Adaptive normalization",
       impact: "Stable performance across lighting conditions"
     }
   ],
@@ -205,31 +205,31 @@ export const computerVisionDemo: DemoContent = {
     {
       stage: "Data Preparation",
       icon: "Database",
-      description: "Dataset curation, preprocessing, and augmentation",
+      description: "Dataset curation and augmentation",
       technologies: ["COCO Dataset", "Data Normalization", "Augmentation", "Cross-validation"]
     },
     {
       stage: "Model Training",
       icon: "Cpu",
-      description: "Distributed training with hyperparameter optimization",
+      description: "Distributed training",
       technologies: ["PyTorch", "CUDA", "Multi-GPU", "Gradient Checkpointing"]
     },
     {
       stage: "Inference Optimization",
       icon: "Zap",
-      description: "Real-time deployment with performance optimization",
+      description: "Real-time deployment",
       technologies: ["TensorRT", "ONNX", "Model Quantization", "CUDA Acceleration"]
     },
     {
       stage: "Production Deployment",
       icon: "Code",
-      description: "Scalable API deployment with monitoring",
+      description: "Scalable API deployment",
       technologies: ["FastAPI", "Docker", "Prometheus", "Load Balancing"]
     }
   ],
 
-  ctaTitle: "Transform Your Visual Data Into Actionable Insights",
-  ctaSubtitle: "Deploy our battle-tested computer vision models in your applications. From real-time video analysis to automated quality inspection, we deliver production-ready solutions.",
+  ctaTitle: "Deploy Object Detection",
+  ctaSubtitle: "Integrate object detection into your workflow. From real-time video analysis to automated quality inspection.",
   primaryCta: "Schedule Technical Review",
   secondaryCta: "View Source Code",
   secondaryCtaIcon: "Code"
@@ -237,8 +237,8 @@ export const computerVisionDemo: DemoContent = {
 
 // NLP Demo Data
 export const nlpDemo: DemoContent = {
-  title: "Sentiment Analysis Transformer Engine",
-  subtitle: "Experience our advanced sentiment analysis system powered by transformer architectures, delivering nuanced emotional intelligence with enterprise-grade accuracy and multilingual support.",
+  title: "Sentiment Analysis System",
+  subtitle: "Transformer-based sentiment analysis with support for 50+ languages.",
   badge: "Natural Language Processing",
   badgeIcon: "MessageSquare",
 
@@ -251,16 +251,16 @@ export const nlpDemo: DemoContent = {
 
   demoId: "nlp-analysis",
   demoTitle: "Sentiment Analysis Engine",
-  demoDescription: "Natural language processing model that analyzes text sentiment with 95% accuracy.",
+  demoDescription: "Analyzes text sentiment with 95% accuracy.",
   demoCategory: "nlp",
   demoTechnologies: ["BERT", "Transformers", "PyTorch"],
 
-  architectureTitle: "Transformer Architecture Technical Deep Dive",
-  architectureSubtitle: "Understanding the attention mechanism and transformer layers that power our NLP capabilities",
+  architectureTitle: "Transformer Architecture",
+  architectureSubtitle: "The attention mechanism and transformer layers powering the NLP system",
   architectureComponents: [
     {
       title: "Tokenization",
-      description: "WordPiece tokenization with vocabulary of 30,522 subword units",
+      description: "WordPiece tokenization (30,522 subword units)",
       icon: "Database",
       details: [
         "WordPiece algorithm implementation",
@@ -271,7 +271,7 @@ export const nlpDemo: DemoContent = {
     },
     {
       title: "Embedding Layer",
-      description: "768-dimensional embeddings with positional encoding",
+      description: "768-dimensional embeddings",
       icon: "Layers",
       details: [
         "Token embeddings + position embeddings",
@@ -282,7 +282,7 @@ export const nlpDemo: DemoContent = {
     },
     {
       title: "Multi-Head Attention",
-      description: "12 attention heads with scaled dot-product attention mechanism",
+      description: "12 attention heads",
       icon: "Brain",
       details: [
         "Query-Key-Value attention computation",
@@ -293,7 +293,7 @@ export const nlpDemo: DemoContent = {
     },
     {
       title: "Feed Forward Networks",
-      description: "Position-wise feed-forward networks with GELU activation",
+      description: "Position-wise FFN with GELU",
       icon: "Cpu",
       details: [
         "Two-layer MLP: 768 → 3072 → 768",
@@ -304,37 +304,37 @@ export const nlpDemo: DemoContent = {
     }
   ],
 
-  challengesTitle: "NLP Challenges & Breakthroughs",
-  challengesSubtitle: "Solving the fundamental challenges in understanding human language",
+  challengesTitle: "Technical Challenges",
+  challengesSubtitle: "Solving challenges in understanding human language",
   challenges: [
     {
       challenge: "Context Understanding",
-      solution: "Bidirectional attention with masked language modeling pre-training",
-      impact: "92% improvement in contextual understanding"
+      solution: "Bidirectional attention with masked language modeling",
+      impact: "92% improvement in context"
     },
     {
       challenge: "Long-range Dependencies",
       solution: "Self-attention mechanism with global receptive field",
-      impact: "Handles sequences up to 512 tokens effectively"
+      impact: "Handles sequences up to 512 tokens"
     },
     {
       challenge: "Computational Efficiency",
-      solution: "Distillation and quantization techniques",
-      impact: "60% smaller model with 95% performance retention"
+      solution: "Distillation and quantization",
+      impact: "60% smaller model"
     },
     {
       challenge: "Domain Adaptation",
       solution: "Fine-tuning on domain-specific datasets",
-      impact: "Consistent performance across different text domains"
+      impact: "Consistent performance across domains"
     }
   ],
 
-  implementationTitle: "Training Methodology Pre-training & Fine-tuning",
+  implementationTitle: "Training Methodology",
   trainingPhases: [
     {
       phase: "Masked Language Modeling",
       duration: "80%",
-      description: "Bidirectional context prediction pre-training",
+      description: "Bidirectional context prediction",
       techniques: ["15% token masking", "Bidirectional prediction", "Next sentence prediction", "Trained on 570GB text"]
     },
     {
@@ -346,13 +346,13 @@ export const nlpDemo: DemoContent = {
     {
       phase: "Knowledge Distillation",
       duration: "5%",
-      description: "Model compression for production deployment",
+      description: "Model compression for production",
       techniques: ["Teacher-student architecture", "Soft target matching", "Temperature scaling", "60% size reduction"]
     }
   ],
 
-  ctaTitle: "Transform Text Data Into Actionable Intelligence",
-  ctaSubtitle: "Deploy our multilingual NLP models to extract insights from customer feedback, automate content moderation, or power conversational AI experiences.",
+  ctaTitle: "Start Text Analysis",
+  ctaSubtitle: "Deploy our multilingual NLP models to extract insights from customer feedback, automate content moderation, or power conversational AI.",
   primaryCta: "Schedule NLP Consultation",
   secondaryCta: "Explore Transformer Models",
   secondaryCtaIcon: "Brain"
@@ -360,8 +360,8 @@ export const nlpDemo: DemoContent = {
 
 // Deep Learning Demo Data
 export const deepLearningDemo: DemoContent = {
-  title: "Neural Network Architecture Lab",
-  subtitle: "Explore our custom deep learning architectures with interactive model visualization, real-time training metrics, and comprehensive performance analysis tools.",
+  title: "Neural Architecture Design",
+  subtitle: "Design and train custom deep learning models. Visual tools for architecture search and optimization.",
   badge: "Deep Learning",
   badgeIcon: "Brain",
 
@@ -378,12 +378,12 @@ export const deepLearningDemo: DemoContent = {
   demoCategory: "deep-learning",
   demoTechnologies: ["PyTorch", "CUDA", "TensorBoard"],
 
-  architectureTitle: "Neural Architecture Layer by Layer",
-  architectureSubtitle: "Understanding the building blocks that power modern deep learning systems",
+  architectureTitle: "Neural Architecture Layers",
+  architectureSubtitle: "Building blocks of the deep learning system",
   architectureComponents: [
     {
       title: "Input Layer",
-      description: "Multi-modal data preprocessing with feature normalization",
+      description: "Data preprocessing and normalization",
       icon: "Database",
       details: [
         "Batch normalization (mean=0, std=1)",
@@ -394,7 +394,7 @@ export const deepLearningDemo: DemoContent = {
     },
     {
       title: "Convolutional Blocks",
-      description: "ResNet-style residual connections with bottleneck design",
+      description: "ResNet-style residual connections",
       icon: "Layers",
       details: [
         "3x3 convolutions with stride 1",
@@ -405,7 +405,7 @@ export const deepLearningDemo: DemoContent = {
     },
     {
       title: "Attention Mechanism",
-      description: "Multi-head self-attention for long-range dependencies",
+      description: "Multi-head self-attention",
       icon: "Brain",
       details: [
         "Scaled dot-product attention",
@@ -416,7 +416,7 @@ export const deepLearningDemo: DemoContent = {
     },
     {
       title: "Output Layer",
-      description: "Task-specific heads with softmax classification",
+      description: "Task-specific heads",
       icon: "Target",
       details: [
         "Global average pooling",
@@ -427,8 +427,8 @@ export const deepLearningDemo: DemoContent = {
     }
   ],
 
-  challengesTitle: "Technical Breakthroughs Solving Deep Learning Challenges",
-  challengesSubtitle: "Innovative solutions to the fundamental challenges in deep learning",
+  challengesTitle: "Technical Solutions",
+  challengesSubtitle: "Solving common deep learning challenges",
   challenges: [
     {
       challenge: "Vanishing Gradients",
@@ -443,7 +443,7 @@ export const deepLearningDemo: DemoContent = {
     {
       challenge: "Computational Scalability",
       solution: "Mixed precision training and gradient accumulation",
-      impact: "4x faster training with same resources"
+      impact: "4x faster training"
     },
     {
       challenge: "Model Interpretability",
@@ -452,36 +452,36 @@ export const deepLearningDemo: DemoContent = {
     }
   ],
 
-  implementationTitle: "Training Pipeline End-to-End Process",
+  implementationTitle: "Training Pipeline",
   trainingPhases: [
     {
       phase: "Data Preparation",
       duration: "15%",
-      description: "Dataset curation, preprocessing, and augmentation",
+      description: "Dataset curation and preprocessing",
       techniques: ["Data normalization", "Augmentation", "Class balancing", "Cross-validation splits"]
     },
     {
       phase: "Architecture Design",
       duration: "20%",
-      description: "Neural network design and hyperparameter optimization",
+      description: "Network design and hyperparameter optimization",
       techniques: ["Grid search", "Random search", "Bayesian optimization", "Neural architecture search"]
     },
     {
       phase: "Training Execution",
       duration: "50%",
-      description: "Distributed training with monitoring and early stopping",
+      description: "Distributed training with monitoring",
       techniques: ["Multi-GPU training", "Gradient checkpointing", "Learning rate scheduling", "Model checkpointing"]
     },
     {
       phase: "Model Optimization",
       duration: "15%",
-      description: "Post-training quantization and deployment preparation",
+      description: "Post-training quantization and deployment",
       techniques: ["Model pruning", "Quantization", "Knowledge distillation", "ONNX conversion"]
     }
   ],
 
-  ctaTitle: "Design & Deploy Custom AI Solutions",
-  ctaSubtitle: "From concept to production, we design, train, and deploy custom deep learning models that solve your unique business challenges with enterprise-grade performance.",
+  ctaTitle: "Build Custom Models",
+  ctaSubtitle: "Design, train, and deploy custom deep learning models that solve your unique business challenges.",
   primaryCta: "Start Model Development",
   secondaryCta: "Explore Architectures",
   secondaryCtaIcon: "Layers"
@@ -489,8 +489,8 @@ export const deepLearningDemo: DemoContent = {
 
 // Predictive Analytics Demo Data
 export const predictiveAnalyticsDemo: DemoContent = {
-  title: "Forecasting Intelligence Engine",
-  subtitle: "Experience our advanced predictive analytics platform with real-time forecasting, automated model selection, and comprehensive performance monitoring across multiple domains.",
+  title: "Predictive Analytics System",
+  subtitle: "Real-time forecasting and anomaly detection for time-series data.",
   badge: "Predictive Analytics",
   badgeIcon: "TrendingUp",
 
@@ -503,16 +503,16 @@ export const predictiveAnalyticsDemo: DemoContent = {
 
   demoId: "predictive-analytics",
   demoTitle: "Predictive Maintenance Engine",
-  demoDescription: "Machine learning system that predicts equipment failures before they occur.",
+  demoDescription: "Predicts equipment failures before they occur.",
   demoCategory: "predictive",
   demoTechnologies: ["Scikit-learn", "Time Series", "AWS"],
 
-  architectureTitle: "Forecasting Models Algorithm Deep Dive",
-  architectureSubtitle: "Understanding the mathematical foundations of our predictive analytics algorithms",
+  architectureTitle: "Forecasting Algorithms",
+  architectureSubtitle: "Mathematical foundations of the predictive models",
   architectureComponents: [
     {
       title: "ARIMA/SARIMA",
-      description: "Classical statistical forecasting with seasonal decomposition",
+      description: "Statistical forecasting with seasonal decomposition",
       icon: "BarChart3",
       details: [
         "Auto-regressive integrated moving average",
@@ -523,7 +523,7 @@ export const predictiveAnalyticsDemo: DemoContent = {
     },
     {
       title: "Prophet Framework",
-      description: "Additive regression model for time series forecasting",
+      description: "Additive regression model",
       icon: "TrendingUp",
       details: [
         "Trend + seasonality + holidays",
@@ -534,7 +534,7 @@ export const predictiveAnalyticsDemo: DemoContent = {
     },
     {
       title: "LSTM Networks",
-      description: "Deep learning approach for sequential pattern recognition",
+      description: "Deep learning for sequential patterns",
       icon: "Activity",
       details: [
         "Long short-term memory cells",
@@ -545,7 +545,7 @@ export const predictiveAnalyticsDemo: DemoContent = {
     },
     {
       title: "Gradient Boosting",
-      description: "Ensemble learning for regression and classification",
+      description: "Ensemble learning for regression",
       icon: "Target",
       details: [
         "XGBoost/LightGBM implementation",
@@ -556,13 +556,13 @@ export const predictiveAnalyticsDemo: DemoContent = {
     }
   ],
 
-  challengesTitle: "Predictive Analytics Innovation Challenges",
-  challengesSubtitle: "Solving the fundamental challenges in predictive modeling and time series forecasting",
+  challengesTitle: "Innovation Challenges",
+  challengesSubtitle: "Solving challenges in predictive modeling",
   challenges: [
     {
       challenge: "Data Quality Issues",
       solution: "Multi-stage preprocessing with anomaly detection",
-      impact: "95% reduction in prediction errors"
+      impact: "95% reduction in errors"
     },
     {
       challenge: "Concept Drift",
@@ -572,7 +572,7 @@ export const predictiveAnalyticsDemo: DemoContent = {
     {
       challenge: "Cold Start Problem",
       solution: "Transfer learning from similar domains",
-      impact: "Immediate predictions for new scenarios"
+      impact: "Immediate predictions"
     },
     {
       challenge: "Uncertainty Quantification",
@@ -581,36 +581,36 @@ export const predictiveAnalyticsDemo: DemoContent = {
     }
   ],
 
-  implementationTitle: "End-to-End Pipeline Production Architecture",
+  implementationTitle: "Production Architecture",
   pipelineStages: [
     {
       stage: "Data Ingestion",
       icon: "Database",
-      description: "Real-time data collection from multiple sources",
+      description: "Real-time data collection",
       technologies: ["Apache Kafka", "AWS Kinesis", "Time-series DB"]
     },
     {
       stage: "Feature Engineering",
       icon: "Code",
-      description: "Automated feature extraction and transformation",
+      description: "Automated feature extraction",
       technologies: ["Pandas", "Featuretools", "Custom ETL"]
     },
     {
       stage: "Model Training",
       icon: "Cpu",
-      description: "Distributed training with hyperparameter optimization",
+      description: "Distributed training",
       technologies: ["MLflow", "Optuna", "Distributed computing"]
     },
     {
       stage: "Prediction Serving",
       icon: "Zap",
-      description: "Low-latency inference with monitoring",
+      description: "Low-latency inference",
       technologies: ["FastAPI", "Redis", "Prometheus"]
     }
   ],
 
-  ctaTitle: "Transform Data Into Predictive Power",
-  ctaSubtitle: "Deploy our enterprise-grade forecasting systems to anticipate trends, prevent failures, and optimize operations with AI-powered predictive analytics.",
+  ctaTitle: "Start Forecasting",
+  ctaSubtitle: "Anticipate trends and prevent failures with predictive models.",
   primaryCta: "Start Predictive Analytics",
   secondaryCta: "Explore Forecasting Models",
   secondaryCtaIcon: "Clock"

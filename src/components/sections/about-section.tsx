@@ -47,23 +47,23 @@ export function AboutSection() {
   const values = [
     {
       icon: Lightbulb,
-      title: "Innovation First",
-      description: "We push the boundaries of what's possible with AI, constantly exploring new architectures and methodologies."
+      title: "Practical Innovation",
+      description: "We explore new tech only when it solves a problem better."
     },
     {
       icon: Code,
-      title: "Engineering Excellence",
-      description: "Every solution is built for scale, performance, and reliability in production environments."
+      title: "Production Ready",
+      description: "Code built to run reliably 24/7."
     },
     {
       icon: GraduationCap,
-      title: "Scientific Rigor",
-      description: "Our work is grounded in peer-reviewed research and validated through rigorous testing and validation."
+      title: "Data Driven",
+      description: "Decisions based on evidence, not guesswork."
     },
     {
       icon: Building,
-      title: "Business Impact",
-      description: "We measure success by the tangible value we create for our clients and their customers."
+      title: "Measurable ROI",
+      description: "We track success by the value we create."
     },
   ];
 
@@ -115,9 +115,9 @@ export function AboutSection() {
             transition={{ delay: 0.4, duration: 0.8 }}
             className="text-4xl md:text-6xl lg:text-7xl font-bold text-foreground mb-6 leading-tight"
           >
-            Bridging Research
+            Research-Grade
             <span className="block bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
-              & Reality
+              Engineering
             </span>
           </motion.h2>
 
@@ -129,8 +129,7 @@ export function AboutSection() {
             transition={{ delay: 0.6, duration: 0.8 }}
             className="text-lg md:text-xl text-foreground/70 max-w-4xl mx-auto leading-relaxed"
           >
-            Founded by leading AI researchers from top universities, we transform groundbreaking
-            academic research into production-ready solutions that drive real business value.
+            We combine academic rigor with production engineering. Our team delivers solutions that don't just look good in a paper—they work in the real world.
           </motion.p>
         </motion.div>
 
@@ -190,13 +189,12 @@ export function AboutSection() {
               </h3>
               <div className="space-y-4 text-foreground/80 leading-relaxed">
                 <p>
-                  We exist to democratize access to cutting-edge AI technology. By combining world-class
-                  research with pragmatic engineering, we help organizations of all sizes harness the
-                  transformative power of machine learning.
+                  We apply machine learning to practical business challenges. Our focus is on reliability,
+                  scalability, and measurable impact.
                 </p>
                 <p>
-                  Our team brings together the best of academia and industry: PhD researchers who
-                  publish in top conferences, and engineers who build systems that serve millions of users daily.
+                  We bridge the gap between research labs and production environments, ensuring your models
+                  perform as well in the real world as they do in development.
                 </p>
               </div>
             </motion.div>
@@ -285,14 +283,14 @@ export function AboutSection() {
             </motion.div>
 
             <h3 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-              Ready to Transform Your
+              Have a Specific
               <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
-                Industry?
+                Challenge?
               </span>
             </h3>
 
             <p className="text-lg text-foreground/70 mb-8 max-w-2xl mx-auto">
-              Let's discuss how we can help you harness the power of AI to solve your most challenging problems.
+              Tell us about your data and your goals. We'll tell you if we can help.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -300,7 +298,7 @@ export function AboutSection() {
                 size="lg"
                 className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300"
               >
-                Start a Conversation
+                Contact Us
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
               <Button
@@ -309,7 +307,7 @@ export function AboutSection() {
                 className="border-accent/30 hover:bg-accent/10 hover:border-accent/50 text-foreground px-8 py-4 text-lg font-semibold transition-all duration-300"
               >
                 <Award className="mr-2 h-5 w-5" />
-                View Our Research
+                Read Technical Blog
               </Button>
             </div>
           </div>
