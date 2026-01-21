@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { FloatingParticles } from "@/components/visuals/floating-particles";
 import { DemoWrapper } from "@/components/demos/demo-wrapper";
+import { usePrefersReducedMotion } from "@/hooks/use-performance";
 import {
   ArrowLeft,
   ArrowRight,
@@ -46,102 +47,96 @@ const itemVariants = {
 };
 
 export function DemoTemplate({ content, customDemoComponent }: DemoTemplateProps) {
+  const prefersReducedMotion = usePrefersReducedMotion();
+  
   // Pre-resolve icon components to avoid hydration issues
   const BadgeIcon = getIconComponent(content.badgeIcon);
   const SecondaryCTAIcon = getIconComponent(content.secondaryCtaIcon);
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-background relative">
       {/* Background Layers */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-surface to-background" />
-      <div className="absolute inset-0 bg-gradient-to-tl from-primary/3 via-transparent to-accent/3" />
-      <FloatingParticles count={15} className="opacity-20" />
+      <div className="fixed inset-0 bg-gradient-to-br from-background via-surface to-background pointer-events-none" />
+      <div className="fixed inset-0 bg-gradient-to-tl from-primary/3 via-transparent to-accent/3 pointer-events-none" />
+      {!prefersReducedMotion && <FloatingParticles count={15} className="opacity-20" />}
 
-      {/* Header */}
-      <motion.section
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8 }}
-        className="relative py-20"
-      >
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <Link href="/#services">
-              <Button variant="ghost" className="mb-8 text-foreground/70 hover:text-foreground">
-                <ArrowLeft className="mr-2 h-4 w-4" />
-                Back to Services
-              </Button>
-            </Link>
+      {/* Main Content Container */}
+      <div className="relative z-10">
+        {/* Header */}
+        <section className="pt-24 pb-6 md:pt-28 md:pb-8">
+          <div className="container mx-auto px-4">
+            <div className="max-w-4xl mx-auto text-center">
+              <Link href="/#services">
+                <Button variant="ghost" className="mb-4 text-foreground/70 hover:text-foreground">
+                  <ArrowLeft className="mr-2 h-4 w-4" />
+                  Back to Services
+                </Button>
+              </Link>
 
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ delay: 0.2, duration: 0.6 }}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-8"
-            >
-              <BadgeIcon className="h-4 w-4 text-primary" />
-              <span className="text-sm font-medium text-gradient-primary font-mono">{content.badge}</span>
-            </motion.div>
-
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.8 }}
-              className="text-4xl md:text-6xl lg:text-7xl font-bold text-gradient-primary mb-6 leading-tight"
-            >
-              {content.title.split(' ').slice(0, -1).join(' ')}
-              <span className="block bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
-                {content.title.split(' ').slice(-1)}
-              </span>
-            </motion.h1>
-
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.8 }}
-              className="text-lg md:text-xl text-foreground/70 max-w-3xl mx-auto leading-relaxed mb-12"
-            >
-              {content.subtitle}
-            </motion.p>
-          </div>
-        </div>
-      </motion.section>
-
-      {/* Metrics Dashboard */}
-      <motion.section
-        initial={{ opacity: 0, y: 30 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ delay: 0.2, duration: 0.8 }}
-        className="py-16"
-      >
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-4xl mx-auto">
-            {content.metrics.map((metric, index) => (
               <motion.div
-                key={metric.label}
                 initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.1 * index, duration: 0.6 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.2, duration: 0.6 }}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-4"
               >
-                <Card className="bg-surface/60 backdrop-blur-sm border-primary/10 text-center">
-                  <CardContent className="p-6">
-                    <div className="text-3xl font-bold font-mono text-accent mb-2">
-                      {metric.value}
-                    </div>
-                    <div className="text-lg font-semibold text-foreground mb-1">
-                      {metric.label}
-                    </div>
-                    <div className="text-sm text-foreground/70">
-                      {metric.description}
-                    </div>
-                  </CardContent>
-                </Card>
+                <BadgeIcon className="h-4 w-4 text-primary" />
+                <span className="text-sm font-medium text-gradient-primary font-mono">{content.badge}</span>
               </motion.div>
-            ))}
+
+              <motion.h1
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.4, duration: 0.8 }}
+                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-gradient-primary mb-3 leading-tight"
+              >
+                {content.title.split(' ').slice(0, -1).join(' ')}
+                <span className="block bg-gradient-to-r from-primary via-accent to-primary bg-clip-text text-transparent">
+                  {content.title.split(' ').slice(-1)}
+                </span>
+              </motion.h1>
+
+              <motion.p
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.6, duration: 0.8 }}
+                className="text-sm md:text-base text-foreground/70 max-w-2xl mx-auto leading-relaxed"
+              >
+                {content.subtitle}
+              </motion.p>
+            </div>
           </div>
-        </div>
-      </motion.section>
+        </section>
+
+        {/* Metrics Dashboard */}
+        <section className="py-6 md:py-8">
+          <div className="container mx-auto px-4">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 md:gap-4 max-w-4xl mx-auto">
+              {content.metrics.map((metric, index) => (
+                <motion.div
+                  key={metric.label}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: 0.1 * index, duration: 0.6 }}
+                  className="h-full"
+                >
+                  <Card className="bg-surface/60 backdrop-blur-sm border-primary/10 text-center h-full">
+                    <CardContent className="p-3 md:p-4">
+                      <div className="text-xl md:text-2xl font-bold font-mono text-accent mb-1">
+                        {metric.value}
+                      </div>
+                      <div className="text-sm md:text-base font-semibold text-foreground mb-0.5">
+                        {metric.label}
+                      </div>
+                      <div className="text-xs text-foreground/70 line-clamp-2">
+                        {metric.description}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
 
       {/* Interactive Demo */}
       <motion.section
@@ -535,6 +530,7 @@ export function DemoTemplate({ content, customDemoComponent }: DemoTemplateProps
           </div>
         </div>
       </motion.section>
+      </div>{/* End Main Content Container */}
     </div>
   );
 }

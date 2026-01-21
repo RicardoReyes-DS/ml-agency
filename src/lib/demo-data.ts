@@ -112,126 +112,130 @@ export function getIconComponent(iconName: string) {
 
 // Computer Vision Demo Data
 export const computerVisionDemo: DemoContent = {
-  title: "Object Detection System",
-  subtitle: "Object detection system with 98.5% accuracy and <100ms latency. Optimized for real-time video streams.",
+  title: "Object Detection Interface",
+  subtitle: "Interactive object detection powered by COCO-SSD. Identify 80+ classes of objects in uploaded images with instant feedback.",
   badge: "Computer Vision",
   badgeIcon: "Eye",
 
   metrics: [
-    { label: "Accuracy", value: "98.5%", description: "Object detection precision" },
-    { label: "Processing Speed", value: "< 100ms", description: "Real-time inference" },
-    { label: "Model Size", value: "45MB", description: "Optimized deployment" },
-    { label: "Classes", value: "1000+", description: "Object categories" },
+    { label: "Classes", value: "80+", description: "COCO Dataset categories" },
+    { label: "Architecture", value: "SSD MobileNet", description: "Efficient lightweight model" },
+    { label: "Inference", value: "Real-time", description: "Server-side processing" },
+    { label: "Input", value: "Multi-format", description: "JPG, PNG, WEBP support" },
   ],
 
   demoId: "computer-vision",
-  demoTitle: "Real-time Object Detection",
-  demoDescription: "Detects and classifies objects in real-time video streams.",
+  demoTitle: "Interactive Object Detection",
+  demoDescription: "Upload any image to instantly detect and classify objects. Visualizes bounding boxes and confidence scores for 80+ standard categories.",
   demoCategory: "computer-vision",
-  demoTechnologies: ["TensorFlow", "OpenCV", "Python"],
+  demoTechnologies: ["COCO-SSD", "TensorFlow.js", "Server Actions", "React"],
 
-  architectureTitle: "Model Architecture",
-  architectureSubtitle: "The neural network architecture powering the object detection system",
+  architectureTitle: "System Architecture",
+  architectureSubtitle: "Built on the Single Shot MultiBox Detector (SSD) architecture",
   architectureComponents: [
     {
-      title: "Input Processing",
-      description: "Multi-scale feature extraction with adaptive pooling",
+      title: "Image Preprocessing",
+      description: "Client-side optimization and normalization",
       icon: "Database",
       details: [
-        "RGB image normalization",
-        "Multi-resolution feature maps",
-        "Channel-wise attention mechanisms"
+        "Automatic image resizing",
+        "Format validation & conversion",
+        "Tensor normalization (0-1 range)",
+        "Batch dimension expansion"
       ]
     },
     {
-      title: "Backbone Network",
-      description: "EfficientNet-B4 with compound scaling",
+      title: "MobileNet Backbone",
+      description: "Efficient feature extraction network",
       icon: "Layers",
       details: [
-        "Compound scaling (depth, width, resolution)",
-        "MBConv blocks with squeeze-excitation",
-        "Progressive resolution reduction"
+        "Depthwise separable convolutions",
+        "Inverted residual blocks",
+        "Linear bottlenecks",
+        "Low-latency execution"
       ]
     },
     {
-      title: "Feature Pyramid Network",
-      description: "Multi-scale feature fusion",
+      title: "SSD Detection Head",
+      description: "Single Shot MultiBox Detector",
       icon: "Target",
       details: [
-        "Top-down pathway with lateral connections",
-        "Feature map fusion at multiple scales",
-        "Context aggregation across resolutions"
+        "Multi-scale feature maps",
+        "Anchor box generation",
+        "Class probability prediction",
+        "Bounding box regression"
       ]
     },
     {
-      title: "Detection Head",
-      description: "Anchor-free detection",
+      title: "Post-Processing",
+      description: "Result filtering and formatting",
       icon: "Cpu",
       details: [
-        "Center-based object detection",
-        "Heatmap prediction for object centers",
-        "Size-aware bounding box regression"
+        "Non-Maximum Suppression (NMS)",
+        "Confidence threshold filtering",
+        "Coordinate rescaling",
+        "JSON result serialization"
       ]
     }
   ],
 
-  challengesTitle: "Technical Challenges",
-  challengesSubtitle: "Engineering solutions for computer vision challenges",
+  challengesTitle: "Engineering Challenges",
+  challengesSubtitle: "Optimizing computer vision for web deployment",
   challenges: [
     {
-      challenge: "Real-time Performance",
-      solution: "Model quantization and TensorRT optimization",
-      impact: "45% faster inference"
+      challenge: "Inference Latency",
+      solution: "Server-side TensorFlow execution",
+      impact: "Fast, consistent response times"
     },
     {
-      challenge: "Scale Invariance",
-      solution: "Multi-scale training and test-time augmentation",
-      impact: "Consistent performance across sizes"
+      challenge: "Model Size vs Accuracy",
+      solution: "MobileNet V2 architecture",
+      impact: "Good balance of speed and precision"
     },
     {
-      challenge: "Occlusion Handling",
-      solution: "Part-based detection and context modeling",
-      impact: "Robust detection under partial occlusion"
+      challenge: "Input Variation",
+      solution: "Robust image preprocessing pipeline",
+      impact: "Handles diverse resolutions and formats"
     },
     {
-      challenge: "Lighting Variations",
-      solution: "Adaptive normalization",
-      impact: "Stable performance across lighting conditions"
+      challenge: "Result Visualization",
+      solution: "Responsive bounding box overlay system",
+      impact: "Accurate mapping across device sizes"
     }
   ],
 
-  implementationTitle: "Implementation Details",
+  implementationTitle: "Processing Pipeline",
   pipelineStages: [
     {
-      stage: "Data Preparation",
+      stage: "User Upload",
       icon: "Database",
-      description: "Dataset curation and augmentation",
-      technologies: ["COCO Dataset", "Data Normalization", "Augmentation", "Cross-validation"]
+      description: "Secure file handling",
+      technologies: ["React Dropzone", "Client-side Preview", "File Validation"]
     },
     {
-      stage: "Model Training",
-      icon: "Cpu",
-      description: "Distributed training",
-      technologies: ["PyTorch", "CUDA", "Multi-GPU", "Gradient Checkpointing"]
-    },
-    {
-      stage: "Inference Optimization",
-      icon: "Zap",
-      description: "Real-time deployment",
-      technologies: ["TensorRT", "ONNX", "Model Quantization", "CUDA Acceleration"]
-    },
-    {
-      stage: "Production Deployment",
+      stage: "Server Action",
       icon: "Code",
-      description: "Scalable API deployment",
-      technologies: ["FastAPI", "Docker", "Prometheus", "Load Balancing"]
+      description: "Request processing",
+      technologies: ["Next.js Server Actions", "FormData Handling", "Error Management"]
+    },
+    {
+      stage: "Model Inference",
+      icon: "Brain",
+      description: "Object detection",
+      technologies: ["TensorFlow.js Node", "COCO-SSD Model", "Tensor Operations"]
+    },
+    {
+      stage: "Response Rendering",
+      icon: "Zap",
+      description: "Visual feedback",
+      technologies: ["Framer Motion", "Canvas/CSS Overlay", "Statistical Summary"]
     }
   ],
 
-  ctaTitle: "Deploy Object Detection",
-  ctaSubtitle: "Integrate object detection into your workflow. From real-time video analysis to automated quality inspection.",
-  primaryCta: "Schedule Technical Review",
-  secondaryCta: "View Source Code",
+  ctaTitle: "Integrate Vision Capabilities",
+  ctaSubtitle: "Add powerful object detection to your applications. From automated tagging to visual search, we build scalable computer vision solutions.",
+  primaryCta: "Start Vision Pilot",
+  secondaryCta: "View Documentation",
   secondaryCtaIcon: "Code"
 };
 

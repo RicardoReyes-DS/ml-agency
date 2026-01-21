@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { FloatingParticles } from "@/components/visuals/floating-particles";
 import { Card, CardContent } from "@/components/ui/card";
+import { usePrefersReducedMotion } from "@/hooks/use-performance";
 import {
   ArrowRight,
   Users,
@@ -17,6 +18,8 @@ import {
 } from "lucide-react";
 
 export function AboutSection() {
+  const prefersReducedMotion = usePrefersReducedMotion();
+  
   const achievements = [
     {
       icon: Users,
@@ -72,7 +75,7 @@ export function AboutSection() {
       {/* Background Layers */}
       <div className="absolute inset-0 bg-gradient-to-br from-surface via-background to-surface" />
       <div className="absolute inset-0 bg-gradient-to-tr from-primary/3 via-transparent to-accent/3" />
-      <FloatingParticles count={18} className="opacity-20" />
+      {!prefersReducedMotion && <FloatingParticles count={18} className="opacity-20" />}
 
       {/* Subtle Grid Pattern */}
       <div

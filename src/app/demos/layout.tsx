@@ -1,6 +1,4 @@
 import { Metadata } from "next";
-import { Navbar } from "@/components/ui/navbar";
-import { PerformanceMonitor } from "@/components/ui/performance-monitor";
 
 export const metadata: Metadata = {
   title: "ML Demos | ML Agency",
@@ -12,13 +10,11 @@ export default function DemosLayout({
 }: {
   children: React.ReactNode;
 }) {
+  // Note: Navbar and PerformanceMonitor are included in the root layout 
+  // (src/app/layout.tsx) so we don't include them here to avoid duplication
   return (
-    <>
-      <Navbar />
-      <main className="min-h-screen bg-background">
-        {children}
-      </main>
-      <PerformanceMonitor />
-    </>
+    <main className="min-h-screen bg-background">
+      {children}
+    </main>
   );
 }

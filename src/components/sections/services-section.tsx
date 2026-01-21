@@ -1,14 +1,32 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { FloatingParticles } from "@/components/visuals/floating-particles";
 import { LazyWrapper } from "@/components/ui/lazy-wrapper";
 import { useMagneticField } from "@/hooks/use-magnetic";
+import { usePrefersReducedMotion } from "@/hooks/use-performance";
 import { Eye, MessageSquare, Brain, TrendingUp, ArrowRight, Zap, Target, Microscope } from "lucide-react";
 import Link from "next/link";
+
+// Hook to detect touch devices
+function useIsTouchDevice() {
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+  
+  useEffect(() => {
+    const checkTouch = () => {
+      setIsTouchDevice(
+        'ontouchstart' in window || 
+        navigator.maxTouchPoints > 0
+      );
+    };
+    checkTouch();
+  }, []);
+  
+  return isTouchDevice;
+}
 
 const services = [
   {
@@ -81,22 +99,32 @@ const getDemoUrl = (serviceTitle: string): string => {
 };
 
 export function ServicesSection() {
+  // Detect touch devices and reduced motion preference
+  const isTouchDevice = useIsTouchDevice();
+  const prefersReducedMotion = usePrefersReducedMotion();
+  
   // Create refs for magnetic interaction
   const cardRefs = services.map(() => useRef<HTMLDivElement>(null));
 
-  // Magnetic field effect for all service cards
-  const magneticStates = useMagneticField(cardRefs, {
-    strength: 0.25,
-    range: 120,
-    ease: 0.12,
-  });
+  // Magnetic field effect for all service cards (disabled on touch devices)
+  const magneticStates = useMagneticField(
+    isTouchDevice ? [] : cardRefs, 
+    {
+      strength: 0.25,
+      range: 120,
+      ease: 0.12,
+    }
+  );
+  
+  // Determine if complex animations should be enabled
+  const enableComplexAnimations = !isTouchDevice && !prefersReducedMotion;
 
   return (
     <section id="services" className="relative py-32 overflow-hidden">
       {/* Background Layers */}
       <div className="absolute inset-0 bg-gradient-to-br from-surface via-surface to-background" />
       <div className="absolute inset-0 bg-gradient-to-tl from-primary/3 via-transparent to-accent/3" />
-      <FloatingParticles count={20} className="opacity-30" />
+      {!prefersReducedMotion && <FloatingParticles count={20} className="opacity-30" />}
 
       {/* Subtle Grid Pattern */}
       <div
@@ -190,14 +218,14 @@ export function ServicesSection() {
               key={service.title}
               ref={cardRefs[index]}
               variants={itemVariants}
-              animate={{
+              animate={enableComplexAnimations ? {
                 x: magneticStates[index]?.x || 0,
                 y: magneticStates[index]?.y || 0,
                 scale: magneticStates[index]?.isActive ? 1.02 : 1,
                 rotateX: magneticStates[index]?.isActive ? 2 : 0,
                 rotateY: magneticStates[index]?.isActive ? 2 : 0,
-              }}
-              whileHover={{
+              } : undefined}
+              whileHover={enableComplexAnimations ? {
                 scale: 1.05,
                 rotateX: 3,
                 rotateY: 3,
@@ -207,7 +235,8 @@ export function ServicesSection() {
                   stiffness: 300,
                   damping: 25
                 }
-              }}
+              } : { scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               transition={{
                 type: "spring",
                 stiffness: 200,
@@ -274,21 +303,13 @@ export function ServicesSection() {
                     transition={{ delay: 1.2 + index * 0.1 }}
                     className="mt-6 pt-4 border-t border-primary/10"
                   >
-                    <Link href={getDemoUrl(service.title)}>
+                    <Link href={getDemoUrl(service.title)} className="inline-block">
                       <Button
                         variant="ghost"
-                        size="sm"
-                        className="group/btn p-0 h-auto text-primary hover:text-accent font-medium transition-all duration-300 hover:drop-shadow-[0_0_8px_rgba(255,107,107,0.6)]"
+                        className="min-h-[44px] px-4 py-2 text-primary hover:text-accent font-medium transition-all duration-300 hover:drop-shadow-[0_0_8px_rgba(255,107,107,0.6)] active:bg-primary/20 active:scale-95"
                       >
                         Learn More
-                        <motion.div
-                          className="ml-2"
-                          initial={{ x: 0 }}
-                          whileHover={{ x: 4 }}
-                          transition={{ type: "spring", stiffness: 400 }}
-                        >
-                          →
-                        </motion.div>
+                        <span className="ml-2 inline-block transition-transform group-hover:translate-x-1">→</span>
                       </Button>
                     </Link>
                   </motion.div>

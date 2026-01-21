@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { FloatingParticles } from "@/components/visuals/floating-particles";
+import { usePrefersReducedMotion } from "@/hooks/use-performance";
 import {
   ArrowRight,
   Mail,
@@ -17,6 +18,8 @@ import {
 } from "lucide-react";
 
 export function ContactSection() {
+  const prefersReducedMotion = usePrefersReducedMotion();
+  
   const contactMethods = [
     {
       icon: Mail,
@@ -67,7 +70,7 @@ export function ContactSection() {
       {/* Background Layers */}
       <div className="absolute inset-0 bg-gradient-to-br from-surface via-background to-surface" />
       <div className="absolute inset-0 bg-gradient-to-tl from-accent/4 via-transparent to-primary/4" />
-      <FloatingParticles count={20} className="opacity-25" />
+      {!prefersReducedMotion && <FloatingParticles count={20} className="opacity-25" />}
 
       {/* Subtle Grid Pattern */}
       <div
