@@ -4,10 +4,12 @@ import { motion } from "framer-motion";
 import { useRef, useState, useEffect } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { FloatingParticles } from "@/components/visuals/floating-particles";
+import { DomainColoringCanvas } from "@/components/visuals/domain-coloring-canvas";
+import { InteractiveBlob } from "@/components/visuals/interactive-blob";
 import { LazyWrapper } from "@/components/ui/lazy-wrapper";
 import { useMagneticField } from "@/hooks/use-magnetic";
 import { usePrefersReducedMotion } from "@/hooks/use-performance";
+import { getSectionSettings } from "@/lib/complex-functions";
 import { Eye, MessageSquare, Brain, TrendingUp, ArrowRight, Zap, Target, Microscope } from "lucide-react";
 import Link from "next/link";
 
@@ -102,6 +104,7 @@ export function ServicesSection() {
   // Detect touch devices and reduced motion preference
   const isTouchDevice = useIsTouchDevice();
   const prefersReducedMotion = usePrefersReducedMotion();
+  const servicesSettings = getSectionSettings('services');
   
   // Create refs for magnetic interaction
   const cardRefs = services.map(() => useRef<HTMLDivElement>(null));
@@ -121,10 +124,33 @@ export function ServicesSection() {
 
   return (
     <section id="services" className="relative py-32 overflow-hidden">
-      {/* Background Layers */}
-      <div className="absolute inset-0 bg-gradient-to-br from-surface via-surface to-background" />
-      <div className="absolute inset-0 bg-gradient-to-tl from-primary/3 via-transparent to-accent/3" />
-      {!prefersReducedMotion && <FloatingParticles count={20} className="opacity-30" />}
+      {/* Enhanced Fallback Background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-surface via-background to-surface" />
+      
+      {/* Vibrant Ambient Glow - Visible immediately */}
+      <InteractiveBlob 
+        className="top-[10%] left-[-10%] w-[40%] h-[40%] rounded-full bg-primary/20 blur-[100px]"
+        parallaxStrength={0.15}
+        mouseStrength={0.3}
+      />
+      <InteractiveBlob 
+        className="bottom-[10%] right-[-10%] w-[40%] h-[40%] rounded-full bg-secondary/20 blur-[100px] delay-1000"
+        parallaxStrength={-0.15}
+        mouseStrength={0.5}
+      />
+
+      {/* Domain Coloring Background - sinc ripple patterns */}
+      {!prefersReducedMotion && (
+        <DomainColoringCanvas
+          functionType={servicesSettings.type}
+          speed={servicesSettings.recommendedSettings.speed}
+          opacity={0.5}
+          mouseInfluence={servicesSettings.recommendedSettings.mouseInfluence}
+          colorShift={servicesSettings.recommendedSettings.colorShift}
+          zoom={servicesSettings.recommendedSettings.zoom}
+          className="z-0 mix-blend-screen"
+        />
+      )}
 
       {/* Subtle Grid Pattern */}
       <div

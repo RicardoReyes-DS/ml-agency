@@ -2,9 +2,11 @@
 
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { FloatingParticles } from "@/components/visuals/floating-particles";
+import { DomainColoringCanvas } from "@/components/visuals/domain-coloring-canvas";
+import { InteractiveBlob } from "@/components/visuals/interactive-blob";
 import { Card, CardContent } from "@/components/ui/card";
 import { usePrefersReducedMotion } from "@/hooks/use-performance";
+import { getSectionSettings } from "@/lib/complex-functions";
 import {
   ArrowRight,
   Users,
@@ -19,6 +21,7 @@ import {
 
 export function AboutSection() {
   const prefersReducedMotion = usePrefersReducedMotion();
+  const aboutSettings = getSectionSettings('about');
   
   const achievements = [
     {
@@ -72,10 +75,33 @@ export function AboutSection() {
 
   return (
     <section id="about" className="relative py-32 overflow-hidden">
-      {/* Background Layers */}
-      <div className="absolute inset-0 bg-gradient-to-br from-surface via-background to-surface" />
-      <div className="absolute inset-0 bg-gradient-to-tr from-primary/3 via-transparent to-accent/3" />
-      {!prefersReducedMotion && <FloatingParticles count={18} className="opacity-20" />}
+      {/* Enhanced Fallback Background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-surface via-background to-surface" />
+      
+      {/* Vibrant Ambient Glow - Visible immediately */}
+      <InteractiveBlob 
+        className="top-[20%] right-[-5%] w-[45%] h-[45%] rounded-full bg-primary/20 blur-[110px]"
+        parallaxStrength={0.1}
+        mouseStrength={0.25}
+      />
+      <InteractiveBlob 
+        className="bottom-[10%] left-[-5%] w-[40%] h-[40%] rounded-full bg-accent/20 blur-[110px] delay-1000"
+        parallaxStrength={-0.1}
+        mouseStrength={0.4}
+      />
+
+      {/* Domain Coloring Background - essential singularity spirals */}
+      {!prefersReducedMotion && (
+        <DomainColoringCanvas
+          functionType={aboutSettings.type}
+          speed={aboutSettings.recommendedSettings.speed}
+          opacity={0.5}
+          mouseInfluence={aboutSettings.recommendedSettings.mouseInfluence}
+          colorShift={aboutSettings.recommendedSettings.colorShift}
+          zoom={aboutSettings.recommendedSettings.zoom}
+          className="z-0 mix-blend-screen"
+        />
+      )}
 
       {/* Subtle Grid Pattern */}
       <div

@@ -19,12 +19,22 @@ export function TypewriterText({
   deletingSpeed = 50,
   delayBetweenTexts = 2000,
 }: TypewriterTextProps) {
-  const [displayText, setDisplayText] = useState("");
+  const [displayText, setDisplayText] = useState(texts[0] || "");
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
   const [isDeleting, setIsDeleting] = useState(false);
   const [showCursor, setShowCursor] = useState(true);
+  const [isStarted, setIsStarted] = useState(false);
 
   useEffect(() => {
+    // Initial delay before starting the animation cycle
+    if (!isStarted) {
+      const startTimeout = setTimeout(() => {
+        setIsStarted(true);
+        setIsDeleting(true);
+      }, delayBetweenTexts);
+      return () => clearTimeout(startTimeout);
+    }
+
     const currentText = texts[currentTextIndex];
 
     const timeout = setTimeout(() => {
@@ -57,6 +67,7 @@ export function TypewriterText({
     typingSpeed,
     deletingSpeed,
     delayBetweenTexts,
+    isStarted,
   ]);
 
   // Cursor blinking effect

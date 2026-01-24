@@ -3,8 +3,10 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { FloatingParticles } from "@/components/visuals/floating-particles";
+import { DomainColoringCanvas } from "@/components/visuals/domain-coloring-canvas";
+import { InteractiveBlob } from "@/components/visuals/interactive-blob";
 import { usePrefersReducedMotion } from "@/hooks/use-performance";
+import { getSectionSettings } from "@/lib/complex-functions";
 import {
   ArrowRight,
   Mail,
@@ -19,6 +21,7 @@ import {
 
 export function ContactSection() {
   const prefersReducedMotion = usePrefersReducedMotion();
+  const contactSettings = getSectionSettings('contact');
   
   const contactMethods = [
     {
@@ -67,10 +70,33 @@ export function ContactSection() {
 
   return (
     <section id="contact" className="relative py-32 overflow-hidden">
-      {/* Background Layers */}
-      <div className="absolute inset-0 bg-gradient-to-br from-surface via-background to-surface" />
-      <div className="absolute inset-0 bg-gradient-to-tl from-accent/4 via-transparent to-primary/4" />
-      {!prefersReducedMotion && <FloatingParticles count={20} className="opacity-25" />}
+      {/* Enhanced Fallback Background */}
+      <div className="absolute inset-0 bg-gradient-to-b from-surface via-background to-surface" />
+      
+      {/* Vibrant Ambient Glow - Visible immediately */}
+      <InteractiveBlob 
+        className="top-[15%] left-[10%] w-[45%] h-[45%] rounded-full bg-accent/20 blur-[120px]"
+        parallaxStrength={0.12}
+        mouseStrength={0.35}
+      />
+      <InteractiveBlob 
+        className="bottom-[15%] right-[10%] w-[45%] h-[45%] rounded-full bg-primary/20 blur-[120px] delay-1000"
+        parallaxStrength={-0.12}
+        mouseStrength={0.55}
+      />
+
+      {/* Domain Coloring Background - Mobius flow for calming effect */}
+      {!prefersReducedMotion && (
+        <DomainColoringCanvas
+          functionType={contactSettings.type}
+          speed={contactSettings.recommendedSettings.speed}
+          opacity={0.5}
+          mouseInfluence={contactSettings.recommendedSettings.mouseInfluence}
+          colorShift={contactSettings.recommendedSettings.colorShift}
+          zoom={contactSettings.recommendedSettings.zoom}
+          className="z-0 mix-blend-screen"
+        />
+      )}
 
       {/* Subtle Grid Pattern */}
       <div

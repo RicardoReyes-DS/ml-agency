@@ -2,10 +2,12 @@
 
 import { motion } from "framer-motion";
 import { TypewriterText } from "@/components/visuals/typewriter-text";
-import { ProphetBackground } from "@/components/visuals/prophet-background";
+import { DomainColoringCanvas } from "@/components/visuals/domain-coloring-canvas";
 import { MetricsDisplay } from "@/components/visuals/metrics-display";
+import { InteractiveBlob } from "@/components/visuals/interactive-blob";
 import { Button } from "@/components/ui/button";
 import { usePrefersReducedMotion } from "@/hooks/use-performance";
+import { getSectionSettings } from "@/lib/complex-functions";
 import { ArrowRight, Sparkles } from "lucide-react";
 
 const heroMetrics = [
@@ -37,23 +39,38 @@ const heroMetrics = [
 
 export function HeroSection() {
   const prefersReducedMotion = usePrefersReducedMotion();
+  const heroSettings = getSectionSettings('hero');
   
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Prophet Estate Background - hidden when reduced motion is preferred */}
+      {/* Enhanced Fallback Background for LCP and Reduced Motion */}
+      <div className="absolute inset-0 bg-gradient-to-b from-background via-background/90 to-surface" />
+      
+      {/* Vibrant Ambient Glow - Visible immediately */}
+      <InteractiveBlob 
+        className="top-[-20%] left-[-10%] w-[50%] h-[50%] rounded-full bg-primary/20 blur-[120px]"
+        parallaxStrength={0.2}
+        mouseStrength={0.4}
+      />
+      <InteractiveBlob 
+        className="bottom-[-20%] right-[-10%] w-[50%] h-[50%] rounded-full bg-accent/20 blur-[120px] delay-1000"
+        parallaxStrength={-0.1}
+        mouseStrength={0.6}
+      />
+
+      {/* Domain Coloring Background - cinematic mathematical visualization */}
       {!prefersReducedMotion && (
-        <ProphetBackground
-          intensity={1.2}
-          speed={0.8}
-          colorPrimary="#040812"
-          colorSecondary="#1a1a2e"
-          className="opacity-60"
+        <DomainColoringCanvas
+          functionType={heroSettings.type}
+          speed={heroSettings.recommendedSettings.speed}
+          opacity={0.5}
+          mouseInfluence={heroSettings.recommendedSettings.mouseInfluence}
+          colorShift={heroSettings.recommendedSettings.colorShift}
+          zoom={heroSettings.recommendedSettings.zoom}
+          className="z-0 mix-blend-screen"
         />
       )}
 
-      {/* Background Layers */}
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-surface" />
-      <div className="absolute inset-0 bg-gradient-to-tr from-primary/5 via-transparent to-accent/5" />
 
       {/* Grid Pattern Overlay */}
       <div

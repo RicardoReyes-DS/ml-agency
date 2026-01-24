@@ -3,6 +3,7 @@ import { Inter, JetBrains_Mono } from "next/font/google";
 import { Navbar } from "@/components/ui/navbar";
 import { PerformanceMonitor } from "@/components/ui/performance-monitor";
 import { OrganizationStructuredData, WebSiteStructuredData } from "@/components/seo/structured-data";
+import { Providers } from "@/components/providers";
 import "./globals.css";
 
 const inter = Inter({
@@ -94,9 +95,11 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${jetbrainsMono.variable} antialiased`}
       >
-        <Navbar />
-        {children}
-        <PerformanceMonitor />
+        <Providers>
+          <Navbar />
+          {children}
+          <PerformanceMonitor />
+        </Providers>
       </body>
     </html>
   );

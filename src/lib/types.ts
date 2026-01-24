@@ -1,17 +1,5 @@
 // Shared TypeScript interfaces for the ML Agency portfolio
 
-export interface ProphetBackgroundProps {
-  className?: string;
-  intensity?: number;
-  speed?: number;
-}
-
-export interface ShaderUniforms {
-  time: { value: number };
-  resolution: { value: [number, number] };
-  mouse: { value: [number, number] };
-}
-
 export interface MLDemo {
   id: string;
   title: string;
@@ -21,12 +9,6 @@ export interface MLDemo {
   status: 'live' | 'beta' | 'coming-soon';
   demoUrl?: string;
   codeUrl?: string;
-}
-
-export interface DemoConfig {
-  loading: boolean;
-  error: string | null;
-  data: Record<string, unknown> | null;
 }
 
 export interface DemoConfig {
@@ -62,4 +44,23 @@ export interface MeshGradientConfig {
   amplitude: number;
   frequency: number;
   speed: number;
+}
+
+// Domain Coloring Types
+export type ComplexFunctionType = 'transfer' | 'sinc' | 'essential' | 'mobius';
+
+export interface DomainColoringProps {
+  functionType?: ComplexFunctionType;
+  speed?: number;
+  opacity?: number;
+  mouseInfluence?: number;
+  colorShift?: number;
+  zoom?: number;
+  className?: string;
+}
+
+export interface ScrollSectionProgress {
+  sectionId: string;
+  progress: number;
+  isInView: boolean;
 }

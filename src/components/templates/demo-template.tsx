@@ -4,7 +4,9 @@ import { motion } from "framer-motion";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
-import { FloatingParticles } from "@/components/visuals/floating-particles";
+// // import { FloatingParticles } from "@/components/visuals/floating-particles";
+import { DomainColoringCanvas } from "@/components/visuals/domain-coloring-canvas";
+import { InteractiveBlob } from "@/components/visuals/interactive-blob";
 import { DemoWrapper } from "@/components/demos/demo-wrapper";
 import { usePrefersReducedMotion } from "@/hooks/use-performance";
 import {
@@ -16,11 +18,20 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { DemoContent, getIconComponent } from "@/lib/demo-data";
+import { getFunctionConfig } from "@/lib/complex-functions";
+import { ComplexFunctionType } from "@/lib/types";
 
 interface DemoTemplateProps {
   content: DemoContent;
   customDemoComponent?: React.ReactNode;
 }
+
+const categoryFunctionMap: Record<string, ComplexFunctionType> = {
+  'computer-vision': 'transfer',
+  'nlp': 'sinc',
+  'deep-learning': 'essential',
+  'predictive': 'mobius'
+};
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -48,6 +59,8 @@ const itemVariants = {
 
 export function DemoTemplate({ content, customDemoComponent }: DemoTemplateProps) {
   const prefersReducedMotion = usePrefersReducedMotion();
+  const functionType = categoryFunctionMap[content.demoCategory] || 'transfer';
+  const functionConfig = getFunctionConfig(functionType);
   
   // Pre-resolve icon components to avoid hydration issues
   const BadgeIcon = getIconComponent(content.badgeIcon);
@@ -55,9 +68,32 @@ export function DemoTemplate({ content, customDemoComponent }: DemoTemplateProps
   return (
     <div className="min-h-screen bg-background relative">
       {/* Background Layers */}
-      <div className="fixed inset-0 bg-gradient-to-br from-background via-surface to-background pointer-events-none" />
-      <div className="fixed inset-0 bg-gradient-to-tl from-primary/3 via-transparent to-accent/3 pointer-events-none" />
-      {!prefersReducedMotion && <FloatingParticles count={15} className="opacity-20" />}
+      <div className="fixed inset-0 bg-gradient-to-b from-background via-surface to-background pointer-events-none" />
+      
+      {/* Vibrant Ambient Glow - Visible immediately */}
+      <InteractiveBlob 
+        className="top-[-10%] left-[-10%] w-[50%] h-[50%] rounded-full bg-primary/20 blur-[120px]"
+        parallaxStrength={0.15}
+        mouseStrength={0.3}
+      />
+      <InteractiveBlob 
+        className="bottom-[-10%] right-[-10%] w-[50%] h-[50%] rounded-full bg-accent/20 blur-[120px] delay-1000"
+        parallaxStrength={-0.15}
+        mouseStrength={0.5}
+      />
+
+      {/* Domain Coloring Background */}
+      {!prefersReducedMotion && (
+        <DomainColoringCanvas
+          functionType={functionType}
+          speed={functionConfig.recommendedSettings.speed}
+          opacity={0.5}
+          mouseInfluence={functionConfig.recommendedSettings.mouseInfluence}
+          colorShift={functionConfig.recommendedSettings.colorShift}
+          zoom={functionConfig.recommendedSettings.zoom}
+          className="z-0 mix-blend-screen fixed"
+        />
+      )}
 
       {/* Main Content Container */}
       <div className="relative z-10">
