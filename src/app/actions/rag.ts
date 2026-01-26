@@ -6,13 +6,11 @@ import mammoth from 'mammoth';
 
 const PROJECT_ID = process.env.GOOGLE_CLOUD_PROJECT_ID || process.env.GCP_PROJECT_ID || 'ml-agency'; // Fallback or env
 const LOCATION = 'us-central1';
-const MODEL_NAME = 'gemini-1.5-pro-preview-0409'; // Deprecated preview model
-// const MODEL_NAME = 'gemini-1.5-pro-001'; // Stable version
-const MODEL_NAME_STABLE = 'gemini-1.5-pro'; // Using generic alias for auto-resolution
+const MODEL_NAME = 'gemini-2.5-pro'; // Using generic alias for auto-resolution
 
 // Initialize Vertex AI
 const vertexAI = new VertexAI({ project: PROJECT_ID, location: LOCATION });
-const model = vertexAI.getGenerativeModel({ model: MODEL_NAME_STABLE });
+const model = vertexAI.getGenerativeModel({ model: MODEL_NAME });
 
 export interface ProcessedDocument {
   text: string;
