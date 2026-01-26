@@ -87,26 +87,27 @@ export interface DemoContent {
   secondaryCtaIcon: string; // Icon name identifier
 }
 
+// Icon map moved outside to avoid recreation
+const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
+  Eye,
+  MessageSquare,
+  Brain,
+  TrendingUp,
+  Database,
+  Layers,
+  Target,
+  Cpu,
+  Code,
+  Zap,
+  BarChart3,
+  Activity,
+  AlertTriangle,
+  CheckCircle,
+  Clock,
+};
+
 // Helper function to get icon component by name
 export function getIconComponent(iconName: string) {
-  const iconMap: Record<string, React.ComponentType<{ className?: string }>> = {
-    Eye,
-    MessageSquare,
-    Brain,
-    TrendingUp,
-    Database,
-    Layers,
-    Target,
-    Cpu,
-    Code,
-    Zap,
-    BarChart3,
-    Activity,
-    AlertTriangle,
-    CheckCircle,
-    Clock,
-  };
-
   return iconMap[iconName] || Eye; // Default to Eye if not found
 }
 
@@ -241,23 +242,23 @@ export const computerVisionDemo: DemoContent = {
 
 // NLP Demo Data
 export const nlpDemo: DemoContent = {
-  title: "Sentiment Analysis System",
-  subtitle: "Transformer-based sentiment analysis with support for 50+ languages.",
+  title: "Document Analysis System",
+  subtitle: "Interactive RAG system powered by Vertex AI & Gemini with support for 50+ languages.",
   badge: "Natural Language Processing",
   badgeIcon: "MessageSquare",
 
   metrics: [
     { label: "Sentiment Accuracy", value: "94.2%", description: "Context-aware analysis" },
     { label: "Language Support", value: "50+", description: "Languages covered" },
-    { label: "Inference Speed", value: "< 50ms", description: "Per prediction" },
-    { label: "Model Size", value: "420MB", description: "DistilBERT optimized" },
+    { label: "Context Window", value: "1M+", description: "Tokens supported" },
+    { label: "Model", value: "Gemini 1.5", description: "Pro Preview" },
   ],
 
   demoId: "nlp-analysis",
-  demoTitle: "Sentiment Analysis Engine",
-  demoDescription: "Analyzes text sentiment with 95% accuracy.",
+  demoTitle: "Interactive Document Chat",
+  demoDescription: "Upload a PDF or DOCX file to instantly chat with its content using Retrieval-Augmented Generation.",
   demoCategory: "nlp",
-  demoTechnologies: ["BERT", "Transformers", "PyTorch"],
+  demoTechnologies: ["Vertex AI", "Gemini 1.5", "RAG", "Next.js"],
 
   architectureTitle: "Transformer Architecture",
   architectureSubtitle: "The attention mechanism and transformer layers powering the NLP system",

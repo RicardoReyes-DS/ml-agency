@@ -119,7 +119,9 @@ export function ScrollProvider({ children }: ScrollProviderProps) {
   // Set up scroll listener
   useEffect(() => {
     // Initial calculation
-    calculateSectionProgress();
+    requestAnimationFrame(() => {
+      calculateSectionProgress();
+    });
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     window.addEventListener("resize", handleScroll, { passive: true });

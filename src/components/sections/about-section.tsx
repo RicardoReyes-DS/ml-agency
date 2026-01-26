@@ -158,7 +158,7 @@ export function AboutSection() {
             transition={{ delay: 0.6, duration: 0.8 }}
             className="text-lg md:text-xl text-foreground/70 max-w-4xl mx-auto leading-relaxed"
           >
-            We combine academic rigor with production engineering. Our team delivers solutions that don't just look good in a paper—they work in the real world.
+            We combine academic rigor with production engineering. Our team delivers solutions that don&apos;t just look good in a paper—they work in the real world.
           </motion.p>
         </motion.div>
 
@@ -319,7 +319,7 @@ export function AboutSection() {
             </h3>
 
             <p className="text-lg text-foreground/70 mb-8 max-w-2xl mx-auto">
-              Tell us about your data and your goals. We'll tell you if we can help.
+              Tell us about your data and your goals. We&apos;ll tell you if we can help.
             </p>
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

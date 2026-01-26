@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useEffect, useMemo } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { DomainColoringCanvas } from "@/components/visuals/domain-coloring-canvas";
@@ -107,7 +107,11 @@ export function ServicesSection() {
   const servicesSettings = getSectionSettings('services');
   
   // Create refs for magnetic interaction
-  const cardRefs = services.map(() => useRef<HTMLDivElement>(null));
+  const ref0 = useRef<HTMLDivElement>(null);
+  const ref1 = useRef<HTMLDivElement>(null);
+  const ref2 = useRef<HTMLDivElement>(null);
+  const ref3 = useRef<HTMLDivElement>(null);
+  const cardRefs = useMemo(() => [ref0, ref1, ref2, ref3], [ref0, ref1, ref2, ref3]);
 
   // Magnetic field effect for all service cards (disabled on touch devices)
   const magneticStates = useMagneticField(
@@ -371,7 +375,7 @@ export function ServicesSection() {
             </motion.div>
 
             <h3 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-              Let's Solve Your
+              Let&apos;s Solve Your
               <span className="block text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent">
                 Hardest Problems
               </span>

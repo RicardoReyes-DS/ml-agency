@@ -18,7 +18,7 @@ export function PerformanceMonitor({ showDetails = false, className }: Performan
   useEffect(() => {
     // Only show in development or when explicitly requested
     if (process.env.NODE_ENV === 'development' || window.location.search.includes('perf=true')) {
-      setIsVisible(true);
+      requestAnimationFrame(() => setIsVisible(true));
     }
   }, []);
 
@@ -114,7 +114,7 @@ export function PerformanceMonitor({ showDetails = false, className }: Performan
           )}
 
           <div className="text-xs text-foreground/50 text-center pt-2 border-t border-primary/10">
-            Press 'P' to toggle details
+            Press &apos;P&apos; to toggle details
           </div>
         </CardContent>
       </Card>

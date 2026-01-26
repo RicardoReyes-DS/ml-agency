@@ -1,5 +1,6 @@
 "use client";
 
+import { createElement } from "react";
 import { motion } from "framer-motion";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -14,7 +15,8 @@ import {
   ArrowRight,
   CheckCircle,
   AlertTriangle,
-  TrendingUp
+  TrendingUp,
+  LucideProps
 } from "lucide-react";
 import Link from "next/link";
 import { DemoContent, getIconComponent } from "@/lib/demo-data";
@@ -57,14 +59,16 @@ const itemVariants = {
   },
 };
 
+function DynamicIcon({ name, className, ...props }: { name: string, className?: string } & LucideProps) {
+  const Icon = getIconComponent(name);
+  return createElement(Icon, { className, ...props });
+}
+
 export function DemoTemplate({ content, customDemoComponent }: DemoTemplateProps) {
   const prefersReducedMotion = usePrefersReducedMotion();
   const functionType = categoryFunctionMap[content.demoCategory] || 'transfer';
   const functionConfig = getFunctionConfig(functionType);
   
-  // Pre-resolve icon components to avoid hydration issues
-  const BadgeIcon = getIconComponent(content.badgeIcon);
-  const SecondaryCTAIcon = getIconComponent(content.secondaryCtaIcon);
   return (
     <div className="min-h-screen bg-background relative">
       {/* Background Layers */}
@@ -114,7 +118,7 @@ export function DemoTemplate({ content, customDemoComponent }: DemoTemplateProps
                 transition={{ delay: 0.2, duration: 0.6 }}
                 className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-4"
               >
-                <BadgeIcon className="h-4 w-4 text-primary" />
+                <DynamicIcon name={content.badgeIcon} className="h-4 w-4 text-primary" />
                 <span className="text-sm font-medium text-gradient-primary font-mono">{content.badge}</span>
               </motion.div>
 
@@ -207,7 +211,7 @@ export function DemoTemplate({ content, customDemoComponent }: DemoTemplateProps
                     <div className="flex items-center justify-center gap-3">
                       {content.demoCategory === 'computer-vision' && (
                         <>
-                          <BadgeIcon className="h-5 w-5 text-primary" />
+                          <DynamicIcon name={content.badgeIcon} className="h-5 w-5 text-primary" />
                           <span className="text-lg font-semibold text-foreground">
                             Object detected with <span className="text-accent">98.5%</span> confidence
                           </span>
@@ -215,7 +219,7 @@ export function DemoTemplate({ content, customDemoComponent }: DemoTemplateProps
                       )}
                       {content.demoCategory === 'nlp' && (
                         <>
-                          <BadgeIcon className="h-5 w-5 text-accent" />
+                          <DynamicIcon name={content.badgeIcon} className="h-5 w-5 text-accent" />
                           <span className="text-lg font-semibold text-foreground">
                             Sentiment: <span className="text-accent">Positive</span> (94% confidence)
                           </span>
@@ -223,7 +227,7 @@ export function DemoTemplate({ content, customDemoComponent }: DemoTemplateProps
                       )}
                       {content.demoCategory === 'deep-learning' && (
                         <>
-                          <BadgeIcon className="h-5 w-5 text-primary" />
+                          <DynamicIcon name={content.badgeIcon} className="h-5 w-5 text-primary" />
                           <span className="text-lg font-semibold text-foreground">
                             Epoch 47/100 - Loss: <span className="text-primary">0.0234</span> - Accuracy: <span className="text-accent">96.7%</span>
                           </span>
@@ -231,7 +235,7 @@ export function DemoTemplate({ content, customDemoComponent }: DemoTemplateProps
                       )}
                       {content.demoCategory === 'predictive' && (
                         <>
-                          <BadgeIcon className="h-5 w-5 text-accent" />
+                          <DynamicIcon name={content.badgeIcon} className="h-5 w-5 text-accent" />
                           <span className="text-lg font-semibold text-foreground">
                             Equipment failure predicted in <span className="text-accent">47 hours</span> - Confidence: <span className="text-primary">94.2%</span>
                           </span>
@@ -317,14 +321,13 @@ export function DemoTemplate({ content, customDemoComponent }: DemoTemplateProps
             className="grid grid-cols-1 md:grid-cols-2 gap-8"
           >
             {content.architectureComponents.map((component, index) => {
-              const ComponentIcon = getIconComponent(component.icon);
               return (
                 <motion.div key={component.title} variants={itemVariants}>
                   <Card className="bg-surface/60 backdrop-blur-sm border-primary/10 hover:border-accent/30 transition-all duration-300 h-full">
                     <CardHeader>
                       <div className="flex items-center gap-4 mb-4">
                         <div className="p-3 bg-accent/10 rounded-xl">
-                          <ComponentIcon className="h-6 w-6 text-accent" />
+                          <DynamicIcon name={component.icon} className="h-6 w-6 text-accent" />
                         </div>
                       <div>
                         <CardTitle className="text-xl">{component.title}</CardTitle>
@@ -445,10 +448,7 @@ export function DemoTemplate({ content, customDemoComponent }: DemoTemplateProps
                       <Card className="bg-surface/60 backdrop-blur-sm border-primary/10 text-center">
                         <CardHeader>
                           <div className="p-3 bg-accent/10 rounded-xl w-fit mx-auto mb-4">
-                            {(() => {
-                              const IconComponent = getIconComponent(stage.icon);
-                              return <IconComponent className="h-6 w-6 text-accent" />;
-                            })()}
+                            <DynamicIcon name={stage.icon} className="h-6 w-6 text-accent" />
                           </div>
                           <CardTitle className="text-lg">{stage.stage}</CardTitle>
                           <CardDescription className="text-sm">
@@ -512,60 +512,60 @@ export function DemoTemplate({ content, customDemoComponent }: DemoTemplateProps
       )}
 
       {/* Call to Action */}
-      <motion.section
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ duration: 0.8 }}
-        className="py-20 bg-surface/30"
-      >
-        <div className="container mx-auto px-4 text-center">
-          <div className="max-w-4xl mx-auto">
-            <motion.div
-              initial={{ scale: 0.9 }}
-              whileInView={{ scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.2, type: "spring" }}
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-accent/10 to-primary/10 border border-accent/20 mb-8"
-            >
-              <BadgeIcon className="h-5 w-5 text-accent" />
-              <span className="text-sm font-medium text-accent font-mono">
-                Ready to {content.ctaTitle.split(' ')[1].toLowerCase().includes('build') ? 'Build' :
-                         content.ctaTitle.split(' ')[1].toLowerCase().includes('deploy') ? 'Deploy' :
-                         content.ctaTitle.split(' ')[1].toLowerCase().includes('transform') ? 'Transform' :
-                         content.ctaTitle.split(' ')[1].toLowerCase().includes('design') ? 'Design' :
-                         'Get Started'}?
-              </span>
-            </motion.div>
-
-            <h3 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
-              {content.ctaTitle}
-            </h3>
-
-            <p className="text-lg text-foreground/70 mb-8 max-w-2xl mx-auto">
-              {content.ctaSubtitle}
-            </p>
-
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                size="lg"
-                className="gradient-primary hover:shadow-xl glow-primary text-white px-8 py-4 text-lg font-semibold transition-all duration-300 transform hover:scale-105"
+        <motion.section
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="py-20 bg-surface/30"
+        >
+          <div className="container mx-auto px-4 text-center">
+            <div className="max-w-4xl mx-auto">
+              <motion.div
+                initial={{ scale: 0.9 }}
+                whileInView={{ scale: 1 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2, type: "spring" }}
+                className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-accent/10 to-primary/10 border border-accent/20 mb-8"
               >
-                {content.primaryCta}
-                <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-primary/30 hover:bg-primary/10 hover:border-primary/50 text-foreground px-8 py-4 text-lg font-semibold transition-all duration-300"
-              >
-                <SecondaryCTAIcon className="mr-2 h-5 w-5" />
-                {content.secondaryCta}
-              </Button>
+                <DynamicIcon name={content.badgeIcon} className="h-5 w-5 text-accent" />
+                <span className="text-sm font-medium text-accent font-mono">
+                  Ready to {content.ctaTitle.split(' ')[1].toLowerCase().includes('build') ? 'Build' :
+                           content.ctaTitle.split(' ')[1].toLowerCase().includes('deploy') ? 'Deploy' :
+                           content.ctaTitle.split(' ')[1].toLowerCase().includes('transform') ? 'Transform' :
+                           content.ctaTitle.split(' ')[1].toLowerCase().includes('design') ? 'Design' :
+                           'Get Started'}?
+                </span>
+              </motion.div>
+
+              <h3 className="text-3xl md:text-4xl font-bold text-foreground mb-6">
+                {content.ctaTitle}
+              </h3>
+
+              <p className="text-lg text-foreground/70 mb-8 max-w-2xl mx-auto">
+                {content.ctaSubtitle}
+              </p>
+
+              <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                <Button
+                  size="lg"
+                  className="gradient-primary hover:shadow-xl glow-primary text-white px-8 py-4 text-lg font-semibold transition-all duration-300 transform hover:scale-105"
+                >
+                  {content.primaryCta}
+                  <ArrowRight className="ml-2 h-5 w-5" />
+                </Button>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="border-primary/30 hover:bg-primary/10 hover:border-primary/50 text-foreground px-8 py-4 text-lg font-semibold transition-all duration-300"
+                >
+                  <DynamicIcon name={content.secondaryCtaIcon} className="mr-2 h-5 w-5" />
+                  {content.secondaryCta}
+                </Button>
+              </div>
             </div>
           </div>
-        </div>
-      </motion.section>
+        </motion.section>
       </div>{/* End Main Content Container */}
     </div>
   );

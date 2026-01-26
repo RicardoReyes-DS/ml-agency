@@ -1,12 +1,17 @@
 /**
  * Complex Function Definitions for Domain Coloring Visualizations
  * 
- * Each function creates unique visual patterns when rendered with domain coloring:
- * - Phase angle (argument) maps to hue
- * - Magnitude maps to brightness via tone mapping
+ * Professional color modes available:
+ * - monochrome: Elegant single-color (cyan) variations
+ * - duotone: Blend between primary and secondary brand colors
+ * - subtle: Near-grayscale with hints of brand color
+ * - brand: Sophisticated use of full brand palette
+ * - rainbow: Full spectrum (use sparingly)
  */
 
-import { ComplexFunctionType } from "./types";
+import { ComplexFunctionType } from "@/components/visuals/domain-coloring-canvas";
+
+export type ColorMode = 'monochrome' | 'duotone' | 'subtle' | 'brand' | 'rainbow';
 
 export interface ComplexFunctionConfig {
   type: ComplexFunctionType;
@@ -20,67 +25,73 @@ export interface ComplexFunctionConfig {
     colorShift: number;
     opacity: number;
     mouseInfluence: number;
+    colorMode: ColorMode;
   };
 }
 
 /**
- * Predefined configurations for each complex function type
+ * Professional configurations for each complex function type
+ * Designed for a sophisticated ML agency aesthetic
  */
 export const complexFunctions: Record<ComplexFunctionType, ComplexFunctionConfig> = {
   transfer: {
     type: "transfer",
     name: "Transfer Function",
-    description: "A rational function with poles creating swirling vortex patterns",
+    description: "A rational function with poles creating smooth flowing patterns",
     formula: "F(z) = (z+1)/(z²+0.4z+1)",
-    visualCharacter: "Swirling vortices around poles, smooth gradient flows",
+    visualCharacter: "Smooth flowing gradients, professional and elegant",
     recommendedSettings: {
-      speed: 0.8,
+      speed: 0.4,
       zoom: 1.0,
       colorShift: 0,
-      opacity: 0.25,
-      mouseInfluence: 0.5,
+      opacity: 0.35,
+      mouseInfluence: 0.25,
+      colorMode: 'monochrome',
     },
   },
   sinc: {
     type: "sinc",
     name: "Sinc Function",
-    description: "The cardinal sine function creating ripple patterns",
+    description: "Cardinal sine creating subtle wave patterns",
     formula: "F(z) = sin(z)/z",
-    visualCharacter: "Concentric ripples radiating from center, wave interference",
+    visualCharacter: "Gentle ripples, subtle and refined",
     recommendedSettings: {
-      speed: 0.6,
-      zoom: 0.8,
-      colorShift: 0.15,
-      opacity: 0.28,
-      mouseInfluence: 0.3,
+      speed: 0.35,
+      zoom: 0.9,
+      colorShift: 0.1,
+      opacity: 0.4,
+      mouseInfluence: 0.2,
+      colorMode: 'duotone',
     },
   },
   essential: {
     type: "essential",
     name: "Essential Singularity",
-    description: "Exponential of inverse z creating infinite spiraling detail",
+    description: "Exponential creating elegant spiral detail",
     formula: "F(z) = e^(1/z)",
-    visualCharacter: "Infinite spiraling detail near origin, psychedelic patterns",
+    visualCharacter: "Sophisticated spiraling patterns",
     recommendedSettings: {
-      speed: 0.4,
+      speed: 0.3,
       zoom: 1.2,
-      colorShift: 0.3,
-      opacity: 0.22,
-      mouseInfluence: 0.2,
+      colorShift: 0.2,
+      opacity: 0.35,
+      mouseInfluence: 0.15,
+      colorMode: 'subtle',
     },
   },
   mobius: {
     type: "mobius",
     name: "Möbius-like Transform",
-    description: "A rational function with smooth flowing gradients",
+    description: "Smooth flowing gradients with calming effect",
     formula: "F(z) = (z²-1)/(z²+1)",
-    visualCharacter: "Smooth flowing gradients, gentle wave patterns",
+    visualCharacter: "Calming, gentle wave patterns",
     recommendedSettings: {
-      speed: 0.5,
+      speed: 0.35,
       zoom: 1.0,
-      colorShift: 0.5,
-      opacity: 0.25,
-      mouseInfluence: 0.4,
+      colorShift: 0.15,
+      opacity: 0.38,
+      mouseInfluence: 0.2,
+      colorMode: 'monochrome',
     },
   },
 };
@@ -93,7 +104,7 @@ export function getFunctionConfig(type: ComplexFunctionType): ComplexFunctionCon
 }
 
 /**
- * Get recommended settings for a section
+ * Get recommended settings for a section with professional defaults
  */
 export function getSectionSettings(section: 'hero' | 'services' | 'about' | 'contact'): ComplexFunctionConfig {
   const sectionMap: Record<string, ComplexFunctionType> = {
@@ -107,7 +118,6 @@ export function getSectionSettings(section: 'hero' | 'services' | 'about' | 'con
 
 /**
  * Interpolate between two function configurations based on progress (0-1)
- * Useful for scroll-based transitions
  */
 export function interpolateSettings(
   from: ComplexFunctionConfig,
@@ -132,16 +142,10 @@ export function interpolateSettings(
   };
 }
 
-/**
- * Easing function for smooth transitions
- */
 function easeInOutCubic(t: number): number {
   return t < 0.5
     ? 4 * t * t * t
     : 1 - Math.pow(-2 * t + 2, 3) / 2;
 }
 
-/**
- * All available function types for iteration
- */
 export const allFunctionTypes: ComplexFunctionType[] = ['transfer', 'sinc', 'essential', 'mobius'];

@@ -6,6 +6,7 @@ WORKDIR /app
 
 # Install dependencies based on the preferred package manager
 COPY package.json package-lock.json* ./
+COPY patches ./patches
 # install python3 and build tools for native modules if prebuilds fail (common for tfjs-node)
 RUN apt-get update && apt-get install -y python3 make g++ && rm -rf /var/lib/apt/lists/*
 RUN npm ci --legacy-peer-deps

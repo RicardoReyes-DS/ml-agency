@@ -35,7 +35,7 @@ export class CocoSSDProvider implements ObjectDetectionProvider {
     });
     
     // We need to use 'sharp' to decode the image to raw pixels since tf.node is gone
-    const sharp = require('sharp');
+    const sharp = (await import('sharp')).default;
     const { data, info } = await sharp(imageBuffer)
       .removeAlpha()
       .resize(undefined, undefined, { fit: 'contain' }) // Ensure reasonable size if needed

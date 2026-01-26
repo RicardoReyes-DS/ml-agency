@@ -139,7 +139,7 @@ export function ContactSection() {
             transition={{ delay: 0.4, duration: 0.8 }}
             className="text-4xl md:text-6xl lg:text-7xl font-bold text-foreground mb-6 leading-tight"
           >
-            Let's Talk
+            Let&apos;s Talk
             <span className="block bg-gradient-to-r from-accent via-primary to-accent bg-clip-text text-transparent">
               Shop
             </span>
@@ -300,7 +300,7 @@ export function ContactSection() {
               </h3>
 
               <p className="text-foreground/70 mb-6 leading-relaxed">
-                Let's scope out a pilot project to prove the value. We start small and scale what works.
+                Let&apos;s scope out a pilot project to prove the value. We start small and scale what works.
               </p>
 
               <div className="space-y-4">
