@@ -44,6 +44,7 @@ export interface MeshGradientConfig {
   amplitude: number;
   frequency: number;
   speed: number;
+  opacity?: number;
 }
 
 // Domain Coloring Types
@@ -63,4 +64,29 @@ export interface ScrollSectionProgress {
   sectionId: string;
   progress: number;
   isInView: boolean;
+}
+
+// NLP / RAG Types
+export interface ProcessedDocument {
+  id?: string;
+  text?: string;
+  image?: string; // Base64 encoded
+  filename: string;
+  mimeType: string;
+  type: string;
+  error?: string;
+}
+
+// Mirroring Vertex AI Part for client-side safety without importing server SDK
+export interface ChatPart {
+  text?: string;
+  inlineData?: {
+    mimeType: string;
+    data: string;
+  };
+}
+
+export interface ChatMessage {
+  role: 'user' | 'model';
+  parts: ChatPart[];
 }

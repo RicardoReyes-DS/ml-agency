@@ -242,125 +242,131 @@ export const computerVisionDemo: DemoContent = {
 
 // NLP Demo Data
 export const nlpDemo: DemoContent = {
-  title: "Document Analysis System",
-  subtitle: "Interactive RAG system powered by Vertex AI & Gemini with support for 50+ languages.",
-  badge: "Natural Language Processing",
+  title: "RAG Document Analysis",
+  subtitle: "Production-grade RAG system. Upload documents to query content using Gemini 2.5 Pro. No training required.",
+  badge: "NLP Production",
   badgeIcon: "MessageSquare",
 
   metrics: [
-    { label: "Sentiment Accuracy", value: "94.2%", description: "Context-aware analysis" },
-    { label: "Language Support", value: "50+", description: "Languages covered" },
-    { label: "Context Window", value: "1M+", description: "Tokens supported" },
-    { label: "Model", value: "Gemini 1.5", description: "Pro Preview" },
+    { label: "Model", value: "Gemini 2.5 Pro", description: "Google's latest multimodal" },
+    { label: "Context Window", value: "2M Tokens", description: "Full document analysis" },
+    { label: "File Support", value: "PDF & DOCX", description: "Native parsing" },
+    { label: "Processing", value: "< 2s", description: "Average extraction time" },
   ],
 
   demoId: "nlp-analysis",
-  demoTitle: "Interactive Document Chat",
-  demoDescription: "Upload a PDF or DOCX file to instantly chat with its content using Retrieval-Augmented Generation.",
+  demoTitle: "Production RAG Interface",
+  demoDescription: "Instructions: 1. Drag & drop a PDF or DOCX file (max 10MB). 2. Wait for text extraction. 3. Ask specific questions about the content.\n\nTechnical Note: Uses Next.js Server Actions to process files securely in memory. No data is persisted. Context is injected dynamically into Gemini 2.5 Pro for grounded responses.",
   demoCategory: "nlp",
-  demoTechnologies: ["Vertex AI", "Gemini 1.5", "RAG", "Next.js"],
+  demoTechnologies: ["Gemini 2.5 Pro", "Vertex AI", "Next.js 14", "React Server Actions"],
 
-  architectureTitle: "Transformer Architecture",
-  architectureSubtitle: "The attention mechanism and transformer layers powering the NLP system",
+  architectureTitle: "RAG Pipeline Architecture",
+  architectureSubtitle: "How we process and retrieve information without vector DBs (for single doc)",
   architectureComponents: [
     {
-      title: "Tokenization",
-      description: "WordPiece tokenization (30,522 subword units)",
+      title: "Ingestion Layer",
+      description: "File parsing and normalization",
       icon: "Database",
       details: [
-        "WordPiece algorithm implementation",
-        "UNK token handling for OOV words",
-        "Special tokens: [CLS], [SEP], [MASK]",
-        "Maximum sequence length: 512 tokens"
+        "pdf-parse for PDF extraction",
+        "mammoth for DOCX conversion",
+        "In-memory buffer processing",
+        "Whitespace normalization"
       ]
     },
     {
-      title: "Embedding Layer",
-      description: "768-dimensional embeddings",
+      title: "Context Injection",
+      description: "Dynamic prompt engineering",
       icon: "Layers",
       details: [
-        "Token embeddings + position embeddings",
-        "Segment embeddings for sentence pairs",
-        "Layer normalization + dropout (0.1)",
-        "Sinusoidal positional encoding"
+        "Full-text context window insertion",
+        "System instruction priming",
+        "Role-based history management",
+        "Token usage optimization"
       ]
     },
     {
-      title: "Multi-Head Attention",
-      description: "12 attention heads",
+      title: "Gemini 2.5 Pro",
+      description: "Reasoning engine",
       icon: "Brain",
       details: [
-        "Query-Key-Value attention computation",
-        "Multi-head parallel processing",
-        "Attention dropout (0.1) for regularization",
-        "Residual connections + layer norm"
+        "2M token context window",
+        "Multimodal capabilities",
+        "Native reasoning on long text",
+        "Low-latency generation"
       ]
     },
     {
-      title: "Feed Forward Networks",
-      description: "Position-wise FFN with GELU",
+      title: "Server Actions",
+      description: "Secure transport layer",
       icon: "Cpu",
       details: [
-        "Two-layer MLP: 768 → 3072 → 768",
-        "GELU activation function",
-        "Residual connections",
-        "Stochastic depth regularization"
+        "Direct client-to-cloud communication",
+        "Type-safe interfaces",
+        "Streaming response handling",
+        "Error boundary management"
       ]
     }
   ],
 
-  challengesTitle: "Technical Challenges",
-  challengesSubtitle: "Solving challenges in understanding human language",
+  challengesTitle: "Production Challenges",
+  challengesSubtitle: "Optimizing RAG for real-world use",
   challenges: [
     {
-      challenge: "Context Understanding",
-      solution: "Bidirectional attention with masked language modeling",
-      impact: "92% improvement in context"
+      challenge: "File Format Variance",
+      solution: "Multi-library parsing strategy",
+      impact: "Reliable extraction from dirty PDFs"
     },
     {
-      challenge: "Long-range Dependencies",
-      solution: "Self-attention mechanism with global receptive field",
-      impact: "Handles sequences up to 512 tokens"
+      challenge: "Context Limits",
+      solution: "Gemini 2.5 Pro's extended window",
+      impact: "No need for chunking/vector DB for <2M tokens"
     },
     {
-      challenge: "Computational Efficiency",
-      solution: "Distillation and quantization",
-      impact: "60% smaller model"
+      challenge: "Latency",
+      solution: "Vertex AI streaming API",
+      impact: "Reduced round-trip overhead"
     },
     {
-      challenge: "Domain Adaptation",
-      solution: "Fine-tuning on domain-specific datasets",
-      impact: "Consistent performance across domains"
+      challenge: "Data Privacy",
+      solution: "Ephemeral processing",
+      impact: "Zero data retention on server"
     }
   ],
 
-  implementationTitle: "Training Methodology",
-  trainingPhases: [
+  implementationTitle: "Processing Workflow",
+  pipelineStages: [
     {
-      phase: "Masked Language Modeling",
-      duration: "80%",
-      description: "Bidirectional context prediction",
-      techniques: ["15% token masking", "Bidirectional prediction", "Next sentence prediction", "Trained on 570GB text"]
+      stage: "Upload & Validation",
+      icon: "Database",
+      description: "Client-side checks",
+      technologies: ["React Dropzone", "MIME type validation", "Size limits (10MB)"]
     },
     {
-      phase: "Task-Specific Fine-tuning",
-      duration: "15%",
-      description: "Supervised learning on labeled datasets",
-      techniques: ["SST-2 sentiment dataset", "Sequence classification", "Learning rate: 2e-5", "Early stopping patience=3"]
+      stage: "Text Extraction",
+      icon: "Code",
+      description: "Server-side parsing",
+      technologies: ["Buffer conversion", "pdf-parse", "mammoth"]
     },
     {
-      phase: "Knowledge Distillation",
-      duration: "5%",
-      description: "Model compression for production",
-      techniques: ["Teacher-student architecture", "Soft target matching", "Temperature scaling", "60% size reduction"]
+      stage: "Context Construction",
+      icon: "Layers",
+      description: "Prompt assembly",
+      technologies: ["Template interpolation", "History formatting"]
+    },
+    {
+      stage: "LLM Inference",
+      icon: "Zap",
+      description: "Answer generation",
+      technologies: ["Vertex AI SDK", "Gemini 2.5 Pro"]
     }
   ],
 
-  ctaTitle: "Start Text Analysis",
-  ctaSubtitle: "Deploy our multilingual NLP models to extract insights from customer feedback, automate content moderation, or power conversational AI.",
-  primaryCta: "Schedule NLP Consultation",
-  secondaryCta: "Explore Transformer Models",
-  secondaryCtaIcon: "Brain"
+  ctaTitle: "Deploy Your RAG System",
+  ctaSubtitle: "Stop searching, start finding. Integrate document intelligence into your workflow today.",
+  primaryCta: "Get Implementation Plan",
+  secondaryCta: "View API Docs",
+  secondaryCtaIcon: "Code"
 };
 
 // Deep Learning Demo Data

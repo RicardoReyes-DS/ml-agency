@@ -6,8 +6,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Upload, FileText, Send, Loader2, X, AlertCircle, Bot, User } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { processDocumentAction, generateRAGResponseAction, type ChatMessage } from "@/app/actions/rag";
+import { processDocumentAction, generateRAGResponseAction } from "@/app/actions/rag";
 import { cn } from "@/lib/utils";
+import type { ChatMessage, ProcessedDocument } from "@/lib/types";
 
 interface RAGInterfaceProps {
   className?: string;
@@ -15,7 +16,7 @@ interface RAGInterfaceProps {
 
 export function RAGInterface({ className }: RAGInterfaceProps) {
   const [file, setFile] = useState<File | null>(null);
-  const [extractedContext, setExtractedContext] = useState<string>("");
+  const [extractedContext, setExtractedContext] = useState<ProcessedDocument | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
   const [uploadError, setUploadError] = useState<string | null>(null);
   
@@ -44,7 +45,7 @@ export function RAGInterface({ className }: RAGInterfaceProps) {
     setFile(selectedFile);
     setIsProcessing(true);
     setUploadError(null);
-    setExtractedContext("");
+    setExtractedContext(null);
     setChatHistory([]); // Reset chat on new file
 
     const formData = new FormData();
@@ -57,7 +58,7 @@ export function RAGInterface({ className }: RAGInterfaceProps) {
         setUploadError(result.error);
         setFile(null);
       } else {
-        setExtractedContext(result.text);
+        setExtractedContext(result);
         // Add initial system greeting
         setChatHistory([
           { 
@@ -79,7 +80,9 @@ export function RAGInterface({ className }: RAGInterfaceProps) {
     onDrop,
     accept: {
       'application/pdf': ['.pdf'],
-      'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx']
+      'application/vnd.openxmlformats-officedocument.wordprocessingml.document': ['.docx'],
+      'image/*': ['.png', '.jpg', '.jpeg', '.webp'],
+      'text/plain': ['.txt']
     },
     maxFiles: 1,
     disabled: isProcessing || !!extractedContext // Disable upload if processed (user can reset)
@@ -90,18 +93,19 @@ export function RAGInterface({ className }: RAGInterfaceProps) {
     
     if (!inputMessage.trim() || isGenerating || !extractedContext) return;
 
-    const userMsg: ChatMessage = { role: 'user', parts: [{ text: inputMessage }] };
+    const userMsg: ChatMessage = { role: 'user' as const, parts: [{ text: inputMessage }] };
     setChatHistory(prev => [...prev, userMsg]);
     setInputMessage("");
     setIsGenerating(true);
 
     try {
-      // Optimistic update or wait for response
-      // We pass the HISTORY (excluding the current user message to avoid duplication if the action handles it, 
-      // but typically we pass the full history including the new message, or handle it in the action.
-      // Our action takes (history, context, userMessage).
-      
-      const response = await generateRAGResponseAction(chatHistory, extractedContext, userMsg.parts[0].text);
+      if (!extractedContext) return;
+
+      const response = await generateRAGResponseAction(
+        chatHistory, // Pass history (server validates)
+        extractedContext, // Pass context object
+        userMsg.parts[0].text! // Pass current message
+      );
       
       setChatHistory(prev => [...prev, response]);
     } catch (err) {
@@ -117,7 +121,7 @@ export function RAGInterface({ className }: RAGInterfaceProps) {
 
   const resetSession = () => {
     setFile(null);
-    setExtractedContext("");
+    setExtractedContext(null);
     setChatHistory([]);
     setUploadError(null);
     setInputMessage("");
@@ -152,7 +156,7 @@ export function RAGInterface({ className }: RAGInterfaceProps) {
                 </div>
                 <h3 className="text-xl font-semibold mb-2">Upload Knowledge Base</h3>
                 <p className="text-muted-foreground max-w-md mx-auto mb-6">
-                  Drag & drop a PDF or DOCX file here, or click to select.
+                  Drag & drop a PDF, DOCX, Image, or Text file here, or click to select.
                   <br/>
                   <span className="text-xs text-muted-foreground/70">(Max 10MB)</span>
                 </p>
@@ -181,7 +185,7 @@ export function RAGInterface({ className }: RAGInterfaceProps) {
                 <FileText className="h-5 w-5 text-primary" />
               </div>
               <div>
-                <CardTitle className="text-base">{file?.name}</CardTitle>
+                <CardTitle className="text-base">{extractedContext.filename}</CardTitle>
                 <CardDescription className="text-xs">Context loaded • Ready for questions</CardDescription>
               </div>
             </div>
@@ -220,7 +224,16 @@ export function RAGInterface({ className }: RAGInterfaceProps) {
                         ? "bg-primary text-primary-foreground rounded-tr-sm" 
                         : "bg-surface border border-primary/10 rounded-tl-sm shadow-sm"
                     )}>
-                      {msg.parts[0].text}
+                      {msg.parts[0]?.text}
+                      {msg.parts[0]?.inlineData && (
+                        <div className="mt-2">
+                          <img 
+                            src={`data:${msg.parts[0].inlineData.mimeType};base64,${msg.parts[0].inlineData.data}`} 
+                            alt="Uploaded context" 
+                            className="max-w-full h-auto rounded-lg border border-primary/20"
+                          />
+                        </div>
+                      )}
                     </div>
                   </motion.div>
                 ))}

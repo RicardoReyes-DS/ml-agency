@@ -1,133 +1,108 @@
 'use server';
 
-import { VertexAI } from '@google-cloud/vertexai';
-import pdf from 'pdf-parse';
-import mammoth from 'mammoth';
+import { VertexAI, Content } from '@google-cloud/vertexai';
+import { z } from 'zod';
+import { parseDocument } from '@/services/nlp/document-processor';
+import { ProcessedDocument, ChatMessage } from '@/lib/types';
 
-const PROJECT_ID = process.env.GOOGLE_CLOUD_PROJECT_ID || process.env.GCP_PROJECT_ID || 'ml-agency'; // Fallback or env
+const PROJECT_ID = process.env.GOOGLE_CLOUD_PROJECT_ID || process.env.GCP_PROJECT_ID || 'ml-agency';
 const LOCATION = 'us-central1';
-const MODEL_NAME = 'gemini-2.5-pro'; // Using generic alias for auto-resolution
+const MODEL_NAME = 'gemini-2.5-pro';
 
-// Initialize Vertex AI
 const vertexAI = new VertexAI({ project: PROJECT_ID, location: LOCATION });
-const model = vertexAI.getGenerativeModel({ model: MODEL_NAME });
 
-export interface ProcessedDocument {
-  text: string;
-  filename: string;
-  type: string;
-  error?: string;
-}
+// Zod Schemas
+const ContextSchema = z.object({
+  text: z.string().optional(),
+  image: z.string().optional(),
+  mimeType: z.string().optional()
+});
 
-export interface ChatMessage {
-  role: 'user' | 'model';
-  parts: [{ text: string }];
-}
+const PartSchema = z.object({
+  text: z.string().optional(),
+  inlineData: z.object({
+    mimeType: z.string(),
+    data: z.string()
+  }).optional()
+});
+
+const MessageSchema = z.object({
+  role: z.enum(['user', 'model']),
+  parts: z.array(PartSchema)
+});
+
+const HistorySchema = z.array(MessageSchema);
 
 export async function processDocumentAction(formData: FormData): Promise<ProcessedDocument> {
   const file = formData.get('file') as File;
 
   if (!file) {
-    return { text: '', filename: '', type: '', error: 'No file provided' };
+    return { filename: '', type: '', mimeType: '', error: 'No file provided' };
   }
 
-  try {
-    const arrayBuffer = await file.arrayBuffer();
-    const buffer = Buffer.from(arrayBuffer);
-    let text = '';
-
-    if (file.type === 'application/pdf') {
-      const data = await pdf(buffer);
-      text = data.text;
-    } else if (
-      file.type === 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' ||
-      file.name.endsWith('.docx')
-    ) {
-      const result = await mammoth.extractRawText({ buffer });
-      text = result.value;
-    } else {
-      return { 
-        text: '', 
-        filename: file.name, 
-        type: file.type, 
-        error: 'Unsupported file type. Please upload PDF or DOCX.' 
-      };
-    }
-
-    // Basic cleanup
-    text = text.replace(/\s+/g, ' ').trim();
-
-    return {
-      text,
-      filename: file.name,
-      type: file.type
-    };
-
-  } catch (error) {
-    console.error('Error processing document:', error);
-    return {
-      text: '',
-      filename: file.name,
-      type: file.type,
-      error: 'Failed to process document: ' + (error instanceof Error ? error.message : String(error))
-    };
-  }
+  return await parseDocument(file);
 }
 
 export async function generateRAGResponseAction(
   history: ChatMessage[], 
-  context: string,
+  context: { text?: string; image?: string; mimeType?: string },
   userMessage: string
 ): Promise<ChatMessage> {
   try {
-    // Construct the system instruction or initial context
-    // For Gemini, we can pass context in the system instruction or as part of the first message.
-    // Here we'll prepend it to the chat session or valid system instruction if supported by the SDK version.
+    // 1. Validate Inputs
+    const validatedHistory = HistorySchema.parse(history);
+    const validatedContext = ContextSchema.parse(context);
     
-    // We will use a chat session. 
-    // We need to format the history for the Vertex AI SDK.
-    // The SDK expects { role: string, parts: { text: string }[] }
+    // 2. Construct Chat History for Vertex AI
+    // We map the incoming history to the Content format expected by Vertex AI
+    const chatHistory: Content[] = validatedHistory.map(msg => ({
+      role: msg.role,
+      parts: msg.parts.map(p => {
+        if (p.text) return { text: p.text };
+        if (p.inlineData) return { inlineData: p.inlineData };
+        return { text: '' }; // Fallback
+      })
+    }));
+
+    // 3. Configure Model with System Instruction containing the Context
+    const systemParts: any[] = [{ text: "You are a helpful assistant. Use the following context to answer questions. If the answer is not in the context, say so." }];
     
+    if (validatedContext.text) {
+        systemParts.push({ text: `CONTEXT:\n${validatedContext.text}` });
+    }
+    if (validatedContext.image) {
+        systemParts.push({ 
+            inlineData: { 
+                mimeType: validatedContext.mimeType || 'image/jpeg', 
+                data: validatedContext.image 
+            } 
+        });
+    }
+
+    // Initialize model per-request to inject specific context
+    const model = vertexAI.getGenerativeModel({ 
+        model: MODEL_NAME,
+        systemInstruction: {
+            role: 'system',
+            parts: systemParts
+        }
+    });
+
     const chat = model.startChat({
-      history: [
-        {
-          role: 'user',
-          parts: [{ text: `You are a helpful assistant. Use the following document context to answer questions. If the answer is not in the context, say so.\n\nCONTEXT:\n${context}` }]
-        },
-        {
-          role: 'model',
-          parts: [{ text: 'Understood. I will answer questions based on the provided context.' }]
-        },
-        ...history.map(msg => ({
-          role: msg.role,
-          parts: msg.parts
-        }))
-      ],
+      history: chatHistory,
       generationConfig: {
         maxOutputTokens: 2048,
         temperature: 0.7,
       },
     });
 
-    const result = await chat.sendMessageStream(userMessage);
-    
-    // We need to return a streamable response or handle the stream here.
-    // Since Next.js Server Actions with streaming are a bit specific, 
-    // for simplicity in this demo, we might just await the full response 
-    // OR return a readable stream.
-    // However, to keep it simple for the "Architect" persona and robust for the demo:
-    // We will aggregate the text for now. 
-    // For true streaming in Next.js App Router, we usually use `StreamableValue` from `ai` SDK or similar,
-    // but here we are using raw Vertex SDK.
-    // Let's gather the response and return it.
-    
-    const aggregatedResponse = await result.response;
-    const text = aggregatedResponse.candidates?.[0].content.parts[0].text || '';
+    const result = await chat.sendMessage(userMessage);
+    const text = result.response.candidates?.[0].content.parts[0].text || '';
 
-    return { role: 'model' as const, parts: [{ text }] };
+    return { role: 'model', parts: [{ text }] };
 
   } catch (error) {
     console.error('Error generating response:', error);
-    throw new Error('Failed to generate response');
+    throw new Error('Failed to generate response: ' + (error instanceof Error ? error.message : String(error)));
   }
 }
