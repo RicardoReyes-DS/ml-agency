@@ -8,7 +8,7 @@ const PROJECT_ID = process.env.GOOGLE_CLOUD_PROJECT_ID || process.env.GCP_PROJEC
 const LOCATION = 'us-central1';
 const MODEL_NAME = 'gemini-1.5-pro-preview-0409'; // Deprecated preview model
 // const MODEL_NAME = 'gemini-1.5-pro-001'; // Stable version
-const MODEL_NAME_STABLE = 'gemini-1.5-pro-001'; // Using stable version
+const MODEL_NAME_STABLE = 'gemini-1.5-pro'; // Using generic alias for auto-resolution
 
 // Initialize Vertex AI
 const vertexAI = new VertexAI({ project: PROJECT_ID, location: LOCATION });
