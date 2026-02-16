@@ -153,11 +153,12 @@ export function Navbar() {
               </motion.div>
             </div>
 
-            {/* Mobile Menu Button */}
+            {/* Mobile Menu Button - min 44px tap target per WCAG 2.5.5 */}
             <motion.button
-              className="md:hidden p-2 text-foreground/80 hover:text-primary transition-colors"
+              className="md:hidden p-3 min-h-[44px] min-w-[44px] flex items-center justify-center text-foreground/80 hover:text-primary transition-colors"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               whileTap={{ scale: 0.95 }}
+              aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
             >
               <AnimatePresence mode="wait">
                 {isMobileMenuOpen ? (

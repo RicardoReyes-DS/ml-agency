@@ -45,7 +45,7 @@ export class CocoSSDProvider implements ObjectDetectionProvider {
     const inputTensor = tf.tensor3d(new Uint8Array(data), [info.height, info.width, 3], 'int32');
 
     try {
-      const predictions = await model.detect(inputTensor as any);
+      const predictions = await model.detect(inputTensor as tf.Tensor3D);
       
       return predictions.map(pred => ({
         bbox: pred.bbox,

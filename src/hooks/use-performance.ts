@@ -76,27 +76,31 @@ export function usePerformanceMonitor() {
     });
     lcpObserver.observe({ entryTypes: ['largest-contentful-paint'] });
 
-    // First Input Delay
+    // First Input Delay - PerformanceEventTiming has processingStart
     const fidObserver = new PerformanceObserver((list) => {
       const entries = list.getEntries();
       entries.forEach((entry) => {
-        setMetrics(prev => ({ ...prev, fid: (entry as any).processingStart - entry.startTime }));
+        const timing = entry as PerformanceEventTiming;
+        if ("processingStart" in timing) {
+          setMetrics((prev) => ({ ...prev, fid: timing.processingStart - entry.startTime }));
+        }
       });
     });
-    fidObserver.observe({ entryTypes: ['first-input'] });
+    fidObserver.observe({ entryTypes: ["first-input"] });
 
-    // Cumulative Layout Shift
+    // Cumulative Layout Shift - LayoutShift has hadRecentInput and value
     const clsObserver = new PerformanceObserver((list) => {
       let clsValue = 0;
       const entries = list.getEntries();
       entries.forEach((entry) => {
-        if (!(entry as any).hadRecentInput) {
-          clsValue += (entry as any).value;
+        const shift = entry as { hadRecentInput?: boolean; value?: number };
+        if (shift && "hadRecentInput" in shift && !shift.hadRecentInput && "value" in shift && typeof shift.value === "number") {
+          clsValue += shift.value;
         }
       });
-      setMetrics(prev => ({ ...prev, cls: clsValue }));
+      setMetrics((prev) => ({ ...prev, cls: clsValue }));
     });
-    clsObserver.observe({ entryTypes: ['layout-shift'] });
+    clsObserver.observe({ entryTypes: ["layout-shift"] });
 
     return () => {
       fcpObserver.disconnect();

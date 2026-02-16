@@ -106,14 +106,16 @@ export function getFunctionConfig(type: ComplexFunctionType): ComplexFunctionCon
 /**
  * Get recommended settings for a section with professional defaults
  */
-export function getSectionSettings(section: 'hero' | 'services' | 'about' | 'contact'): ComplexFunctionConfig {
+export function getSectionSettings(section: 'hero' | 'services' | 'about' | 'contact' | 'footer'): ComplexFunctionConfig {
   const sectionMap: Record<string, ComplexFunctionType> = {
     hero: 'transfer',
     services: 'sinc',
     about: 'essential',
     contact: 'mobius',
+    footer: 'mobius',
   };
-  return complexFunctions[sectionMap[section]];
+  const configKey = sectionMap[section] ?? 'mobius';
+  return complexFunctions[configKey];
 }
 
 /**

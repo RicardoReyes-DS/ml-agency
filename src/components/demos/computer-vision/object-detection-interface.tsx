@@ -75,9 +75,11 @@ export function ObjectDetectionInterface() {
       } else if (response.detections) {
         setDetections(response.detections);
       }
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("Client Error:", err);
-      setError(err?.message || "An unexpected error occurred. Please try again.");
+      setError(
+        err instanceof Error ? err.message : "An unexpected error occurred. Please try again."
+      );
     } finally {
       setIsProcessing(false);
     }

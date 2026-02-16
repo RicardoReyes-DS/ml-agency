@@ -105,9 +105,19 @@ export function PerformanceMonitor({ showDetails = false, className }: Performan
 
               <div className="pt-2 border-t border-primary/10">
                 <div className="text-xs text-foreground/60 space-y-1">
-                  <div>Reduced Motion: {typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'Enabled' : 'Disabled'}</div>
-                  <div>Device Memory: {typeof navigator !== 'undefined' && (navigator as any).deviceMemory ? `${(navigator as any).deviceMemory}GB` : 'Unknown'}</div>
-                  <div>Connection: {typeof navigator !== 'undefined' && (navigator as any).connection?.effectiveType || 'Unknown'}</div>
+                  <div>Reduced Motion: {typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "Enabled" : "Disabled"}</div>
+                  <div>
+                    Device Memory:{" "}
+                    {typeof navigator !== "undefined" && "deviceMemory" in navigator
+                      ? `${(navigator as Navigator & { deviceMemory?: number }).deviceMemory}GB`
+                      : "Unknown"}
+                  </div>
+                  <div>
+                    Connection:{" "}
+                    {typeof navigator !== "undefined" && "connection" in navigator
+                      ? (navigator as Navigator & { connection?: { effectiveType?: string } }).connection?.effectiveType ?? "Unknown"
+                      : "Unknown"}
+                  </div>
                 </div>
               </div>
             </>

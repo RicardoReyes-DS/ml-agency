@@ -1,3 +1,5 @@
+import type { LucideIcon } from "lucide-react";
+
 // Shared TypeScript interfaces for the ML Agency portfolio
 
 export interface MLDemo {
@@ -89,4 +91,22 @@ export interface ChatPart {
 export interface ChatMessage {
   role: 'user' | 'model';
   parts: ChatPart[];
+}
+
+// Footer Section Types
+export interface FooterNavLink {
+  label: string;
+  href: string;
+}
+
+export interface FooterContactInfo {
+  email: string;
+  phone: string;
+  address: string;
+}
+
+export interface FooterSocialLink {
+  name: string;
+  href: string;
+  icon: LucideIcon;
 }

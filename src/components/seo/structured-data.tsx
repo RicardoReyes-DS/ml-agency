@@ -1,8 +1,24 @@
 import { Metadata } from "next";
 
+type SchemaOrgType =
+  | "Organization"
+  | "WebSite"
+  | "Service"
+  | "BreadcrumbList"
+  | "SoftwareApplication"
+  | "TechArticle";
+
+type JsonLdValue =
+  | string
+  | number
+  | boolean
+  | null
+  | JsonLdValue[]
+  | { [key: string]: JsonLdValue };
+
 interface StructuredDataProps {
-  type: 'Organization' | 'WebSite' | 'Service' | 'BreadcrumbList';
-  data: Record<string, any>;
+  type: SchemaOrgType;
+  data: Record<string, JsonLdValue>;
 }
 
 export function StructuredData({ type, data }: StructuredDataProps) {
@@ -114,11 +130,46 @@ export function BreadcrumbStructuredData({ items }: { items: Array<{ name: strin
       type="BreadcrumbList"
       data={{
         itemListElement: items.map((item, index) => ({
-          '@type': 'ListItem',
+          "@type": "ListItem",
           position: index + 1,
           name: item.name,
           item: item.url,
         })),
+      }}
+    />
+  );
+}
+
+export interface SoftwareApplicationStructuredDataProps {
+  name: string;
+  description: string;
+  url: string;
+  applicationCategory?: string;
+  operatingSystem?: string;
+  offers?: { price: string; priceCurrency: string };
+}
+
+export function SoftwareApplicationStructuredData({
+  name,
+  description,
+  url,
+  applicationCategory = "DeveloperApplication",
+  operatingSystem = "Web",
+}: SoftwareApplicationStructuredDataProps) {
+  return (
+    <StructuredData
+      type="SoftwareApplication"
+      data={{
+        name,
+        description,
+        url,
+        applicationCategory,
+        operatingSystem,
+        author: {
+          "@type": "Organization",
+          name: "ML Agency",
+          url: "https://ml-agency.com",
+        },
       }}
     />
   );

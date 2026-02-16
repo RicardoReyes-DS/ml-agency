@@ -55,9 +55,10 @@ export function InteractiveBlob({
   // Combine scroll and mouse effects
   const y = useTransform(
     [yParallax, ySpring],
-    ([latestParallax, latestSpring]: any[]) => {
+    (latest: number[]) => {
       if (prefersReducedMotion) return 0;
-      return (latestParallax || 0) + (latestSpring || 0);
+      const [parallax = 0, spring = 0] = latest;
+      return parallax + spring;
     }
   );
 

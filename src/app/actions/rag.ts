@@ -33,6 +33,8 @@ const MessageSchema = z.object({
 
 const HistorySchema = z.array(MessageSchema);
 
+const UserMessageSchema = z.string().min(1, "Message cannot be empty").max(10000, "Message too long");
+
 export async function processDocumentAction(formData: FormData): Promise<ProcessedDocument> {
   const file = formData.get('file') as File;
 
@@ -52,6 +54,7 @@ export async function generateRAGResponseAction(
     // 1. Validate Inputs
     const validatedHistory = HistorySchema.parse(history);
     const validatedContext = ContextSchema.parse(context);
+    const validatedMessage = UserMessageSchema.parse(userMessage);
     
     // 2. Construct Chat History for Vertex AI
     // We map the incoming history to the Content format expected by Vertex AI
@@ -65,7 +68,8 @@ export async function generateRAGResponseAction(
     }));
 
     // 3. Configure Model with System Instruction containing the Context
-    const systemParts: any[] = [{ text: "You are a helpful assistant. Use the following context to answer questions. If the answer is not in the context, say so." }];
+    type SystemPart = { text: string } | { inlineData: { mimeType: string; data: string } };
+    const systemParts: SystemPart[] = [{ text: "You are a helpful assistant. Use the following context to answer questions. If the answer is not in the context, say so." }];
     
     if (validatedContext.text) {
         systemParts.push({ text: `CONTEXT:\n${validatedContext.text}` });
@@ -96,7 +100,7 @@ export async function generateRAGResponseAction(
       },
     });
 
-    const result = await chat.sendMessage(userMessage);
+    const result = await chat.sendMessage(validatedMessage);
     const text = result.response.candidates?.[0].content.parts[0].text || '';
 
     return { role: 'model', parts: [{ text }] };

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { Navbar } from "@/components/ui/navbar";
+import { FooterSection } from "@/components/sections/footer-section";
 import { PerformanceMonitor } from "@/components/ui/performance-monitor";
 import { OrganizationStructuredData, WebSiteStructuredData } from "@/components/seo/structured-data";
 import { Providers } from "@/components/providers";
@@ -100,6 +101,7 @@ export default function RootLayout({
         <Providers>
           <Navbar />
           {children}
+          <FooterSection />
           <PerformanceMonitor />
         </Providers>
       </body>

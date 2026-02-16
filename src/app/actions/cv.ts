@@ -25,15 +25,17 @@ export interface DetectionResult {
 
 export async function detectObjects(formData: FormData): Promise<DetectionResult> {
   try {
-    const file = formData.get('image');
+    const imageEntry = formData.get("image");
 
-    // Validate input using Zod
-    const validationResult = detectionSchema.safeParse({ file });
+    // Validate input using Zod - FormData returns File | string, we need File
+    const validationResult = detectionSchema.safeParse({
+      file: imageEntry instanceof File ? imageEntry : undefined,
+    });
 
     if (!validationResult.success) {
       const flattened = validationResult.error.flatten();
-      return { 
-        error: flattened.fieldErrors.file?.[0] || "Invalid input"
+      return {
+        error: flattened.fieldErrors.file?.[0] ?? (imageEntry ? "Invalid image format or size." : "No image provided."),
       };
     }
 

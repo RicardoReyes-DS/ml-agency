@@ -20,10 +20,10 @@ export function DemoWrapper({ demo, children }: DemoWrapperProps) {
     data: null,
   });
 
-  const [parameters, setParameters] = useState<Record<string, any>>({
+  const [parameters, setParameters] = useState<Record<string, number | string>>({
     confidence: 0.8,
     batchSize: 32,
-    modelVersion: "latest"
+    modelVersion: "latest",
   });
 
   const [metrics, setMetrics] = useState({
@@ -71,8 +71,8 @@ export function DemoWrapper({ demo, children }: DemoWrapperProps) {
     }
   }, [parameters]);
 
-  const handleParameterChange = (key: string, value: any) => {
-    setParameters(prev => ({ ...prev, [key]: value }));
+  const handleParameterChange = (key: string, value: number | string) => {
+    setParameters((prev) => ({ ...prev, [key]: value }));
   };
 
   const handleReset = () => {
