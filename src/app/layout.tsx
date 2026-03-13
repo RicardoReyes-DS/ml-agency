@@ -1,103 +1,73 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { Navbar } from "@/components/ui/navbar";
 import { FooterSection } from "@/components/sections/footer-section";
 import { PerformanceMonitor } from "@/components/ui/performance-monitor";
 import { OrganizationStructuredData, WebSiteStructuredData } from "@/components/seo/structured-data";
 import { Providers } from "@/components/providers";
+import { defaultLocale, getDictionary, isLocale } from "@/lib/i18n";
 import "./globals.css";
 
 const inter = Inter({
   variable: "--font-inter",
   subsets: ["latin"],
-  display: 'swap',
+  display: "swap",
 });
 
 const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains-mono",
   subsets: ["latin"],
-  display: 'swap',
+  display: "swap",
 });
 
+const baseCopy = getDictionary(defaultLocale);
+
 export const metadata: Metadata = {
-  metadataBase: new URL('https://ml-agency.com'),
+  metadataBase: new URL("https://ml-agency.com"),
   title: {
-    default: "ML Agency | Enterprise AI Solutions & Machine Learning",
-    template: "%s | ML Agency"
+    default: baseCopy.home.metadata.title,
+    template: "%s | ML Agency",
   },
-  description: "Leading machine learning agency delivering production-ready AI solutions for Fortune 500 companies. Expert computer vision, NLP, and deep learning services.",
-  keywords: [
-    "machine learning",
-    "artificial intelligence",
-    "AI solutions",
-    "computer vision",
-    "natural language processing",
-    "deep learning",
-    "neural networks",
-    "predictive analytics",
-    "enterprise AI",
-    "data science"
-  ],
-  authors: [{ name: "ML Agency Team" }],
-  creator: "ML Agency",
-  publisher: "ML Agency",
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
+  description: baseCopy.metadata.description,
   openGraph: {
     type: "website",
-    locale: "en_US",
+    locale: baseCopy.metadata.ogLocale,
     url: "https://ml-agency.com",
-    title: "ML Agency | Enterprise AI Solutions & Machine Learning",
-    description: "Leading machine learning agency delivering production-ready AI solutions for Fortune 500 companies. Expert computer vision, NLP, and deep learning services.",
+    title: baseCopy.home.metadata.title,
+    description: baseCopy.metadata.description,
     siteName: "ML Agency",
-    images: [
-      {
-        url: "/og-image.svg",
-        width: 1200,
-        height: 630,
-        alt: "ML Agency - Enterprise AI Solutions",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "ML Agency | Enterprise AI Solutions & Machine Learning",
-    description: "Leading machine learning agency delivering production-ready AI solutions for Fortune 500 companies.",
+    title: baseCopy.home.metadata.title,
+    description: baseCopy.metadata.description,
     images: ["/og-image.svg"],
   },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
+  alternates: {
+    languages: {
+      es: "/es",
+      en: "/en",
     },
-  },
-  verification: {
-    google: 'your-google-verification-code',
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const requestHeaders = await headers();
+  const localeHeader = requestHeaders.get("x-locale");
+  const locale = localeHeader && isLocale(localeHeader) ? localeHeader : defaultLocale;
+
   return (
-    <html lang="en">
+    <html lang={locale}>
       <head>
-        <OrganizationStructuredData />
-        <WebSiteStructuredData />
+        <OrganizationStructuredData locale={locale} />
+        <WebSiteStructuredData locale={locale} />
       </head>
-      <body
-        className={`${inter.variable} ${jetbrainsMono.variable} antialiased`}
-      >
+      <body className={`${inter.variable} ${jetbrainsMono.variable} antialiased`}>
         <Providers>
           <Navbar />
           {children}

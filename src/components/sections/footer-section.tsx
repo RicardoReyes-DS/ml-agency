@@ -1,65 +1,45 @@
 "use client";
 
 import { motion } from "framer-motion";
+import dynamic from "next/dynamic";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { ArrowRight, Cpu, Mail, MessageCircle, Workflow } from "lucide-react";
 import { InteractiveBlob } from "@/components/visuals/interactive-blob";
 import { usePrefersReducedMotion } from "@/hooks/use-performance";
 import { getSectionSettings } from "@/lib/complex-functions";
 import { cn } from "@/lib/utils";
-import type { FooterNavLink, FooterContactInfo, FooterSocialLink } from "@/lib/types";
-import {
-  Cpu,
-  ArrowRight,
-  Mail,
-  Phone,
-  MapPin,
-  Github,
-  Linkedin,
-  Twitter,
-} from "lucide-react";
-import dynamic from "next/dynamic";
+import { getDictionary, getLocaleFromPathname, localizeHref } from "@/lib/i18n";
 
 const DomainColoringCanvas = dynamic(
-  () =>
-    import("@/components/visuals/domain-coloring-canvas").then((mod) => mod.DomainColoringCanvas),
+  () => import("@/components/visuals/domain-coloring-canvas").then((mod) => mod.DomainColoringCanvas),
   { ssr: false }
 );
 
-const footerLinks: FooterNavLink[] = [
-  { label: "Home", href: "/#home" },
-  { label: "Services", href: "/#services" },
-  { label: "About", href: "/#about" },
-  { label: "Contact", href: "/#contact" },
-];
-
-const demoLinks: FooterNavLink[] = [
-  { label: "NLP & RAG", href: "/demos/nlp" },
-  { label: "Computer Vision", href: "/demos/computer-vision" },
-  { label: "Predictive Analytics", href: "/demos/predictive-analytics" },
-  { label: "Deep Learning", href: "/demos/deep-learning" },
-];
-
-const contactInfo: FooterContactInfo = {
-  email: "hello@ml-agency.com",
-  phone: "+1-555-0123",
-  address: "123 Innovation Drive, San Francisco, CA 94105",
-};
-
-const socialLinks: FooterSocialLink[] = [
-  { name: "Twitter", href: "https://twitter.com/mlagency", icon: Twitter },
-  { name: "LinkedIn", href: "https://linkedin.com/company/ml-agency", icon: Linkedin },
-  { name: "GitHub", href: "https://github.com/ml-agency", icon: Github },
-];
-
-/** Shared styles for interactive links - WCAG 44px tap target, focus ring for a11y */
 const linkFocusStyles =
   "focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded";
 
 export function FooterSection() {
   const prefersReducedMotion = usePrefersReducedMotion();
   const footerSettings = getSectionSettings("footer");
+  const pathname = usePathname();
+  const locale = getLocaleFromPathname(pathname);
+  const copy = getDictionary(locale).footer;
 
-  // Respect prefers-reduced-motion: users with vestibular disorders need static layouts
+  const footerLinks = [
+    { label: getDictionary(locale).navbar.links[0].label, href: "/#home" },
+    { label: getDictionary(locale).navbar.links[1].label, href: "/#services" },
+    { label: getDictionary(locale).navbar.links[2].label, href: "/#about" },
+    { label: getDictionary(locale).navbar.links[3].label, href: "/#contact" },
+  ];
+
+  const demoLinks = [
+    { label: locale === "es" ? "PLN e inteligencia documental" : "NLP & RAG", href: "/demos/nlp" },
+    { label: locale === "es" ? "Vision por computadora" : "Computer Vision", href: "/demos/computer-vision" },
+    { label: locale === "es" ? "Analitica predictiva" : "Predictive Analytics", href: "/demos/predictive-analytics" },
+    { label: locale === "es" ? "Deep learning" : "Deep Learning", href: "/demos/deep-learning" },
+  ];
+
   const motionProps = prefersReducedMotion
     ? {}
     : {
@@ -71,28 +51,25 @@ export function FooterSection() {
 
   return (
     <footer className="relative w-full min-h-[60vh] overflow-hidden">
-      {/* Enhanced Fallback Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-surface via-background to-surface" />
 
-      {/* Ambient Glow - Hero-style blobs */}
       <InteractiveBlob
-        className="top-[-10%] left-[-5%] w-[45%] h-[45%] rounded-full bg-primary/10 blur-[150px]"
+        className="top-[-10%] left-[-5%] w-[45%] h-[45%] rounded-full bg-primary/8 blur-[150px]"
         parallaxStrength={0.1}
         mouseStrength={0.2}
       />
       <InteractiveBlob
-        className="bottom-[-10%] right-[-5%] w-[45%] h-[45%] rounded-full bg-accent/10 blur-[150px]"
+        className="bottom-[-10%] right-[-5%] w-[45%] h-[45%] rounded-full bg-accent/8 blur-[150px]"
         parallaxStrength={-0.08}
         mouseStrength={0.25}
       />
 
-      {/* Domain Coloring Background - Low opacity for subtle effect */}
       {!prefersReducedMotion && (
         <DomainColoringCanvas
           functionType={footerSettings.type}
           colorMode={footerSettings.recommendedSettings.colorMode}
           speed={footerSettings.recommendedSettings.speed}
-          opacity={0.25}
+          opacity={0.14}
           mouseInfluence={footerSettings.recommendedSettings.mouseInfluence}
           colorShift={footerSettings.recommendedSettings.colorShift}
           zoom={footerSettings.recommendedSettings.zoom}
@@ -100,7 +77,6 @@ export function FooterSection() {
         />
       )}
 
-      {/* Subtle Grid Pattern */}
       <div
         className="absolute inset-0 opacity-[0.02] pointer-events-none"
         style={{
@@ -113,12 +89,10 @@ export function FooterSection() {
       />
 
       <div className="container mx-auto px-4 py-16 md:py-24 relative z-10">
-        {/* Main Content Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8">
-          {/* Brand Column */}
           <motion.div {...motionProps} className="lg:col-span-1">
             <Link
-              href="/"
+              href={`/${locale}`}
               className={cn(
                 "inline-flex items-center gap-2 mb-6 min-h-[44px] min-w-[44px] rounded-lg",
                 linkFocusStyles
@@ -131,20 +105,19 @@ export function FooterSection() {
               </span>
             </Link>
             <p className="text-sm md:text-base text-foreground-muted max-w-xs">
-              Custom machine learning solutions. No hype, just measurable results.
+              {copy.tagline}
             </p>
           </motion.div>
 
-          {/* Navigation Links */}
           <motion.nav {...motionProps} aria-label="Footer navigation">
             <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-6">
-              Navigate
+              {copy.navigateTitle}
             </h3>
             <ul className="space-y-3">
               {footerLinks.map((link) => (
                 <li key={link.label}>
                   <Link
-                    href={link.href}
+                    href={localizeHref(locale, link.href)}
                     className={cn(
                       "text-sm md:text-base text-foreground-muted hover:text-primary transition-colors duration-200 py-2 block min-h-[44px] flex items-center",
                       linkFocusStyles
@@ -155,12 +128,12 @@ export function FooterSection() {
                 </li>
               ))}
               <li className="pt-2">
-                <span className="text-sm text-foreground-subtle block mb-2">Demos</span>
+                <span className="text-sm text-foreground-subtle block mb-2">{copy.demosLabel}</span>
                 <ul className="space-y-2">
                   {demoLinks.map((link) => (
                     <li key={link.label}>
                       <Link
-                        href={link.href}
+                        href={localizeHref(locale, link.href)}
                         className={cn(
                           "text-sm md:text-base text-foreground-muted hover:text-primary transition-colors duration-200 py-1 block min-h-[44px] flex items-center",
                           linkFocusStyles
@@ -175,105 +148,68 @@ export function FooterSection() {
             </ul>
           </motion.nav>
 
-          {/* Contact Info */}
-          <motion.address
-            {...motionProps}
-            className="not-italic"
-          >
+          <motion.address {...motionProps} className="not-italic">
             <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-6">
-              Contact
+              {copy.contactTitle}
             </h3>
             <div className="space-y-4">
               <a
-                href={`mailto:${contactInfo.email}`}
+                href="mailto:hello@ml-agency.com?subject=Technical%20Review"
                 className={cn(
                   "flex items-center gap-3 text-sm md:text-base text-foreground-muted hover:text-primary transition-colors min-h-[44px]",
                   linkFocusStyles
                 )}
               >
                 <Mail className="h-5 w-5 text-primary flex-shrink-0" />
-                {contactInfo.email}
-              </a>
-              <a
-                href={`tel:${contactInfo.phone.replace(/\D/g, "")}`}
-                className={cn(
-                  "flex items-center gap-3 text-sm md:text-base text-foreground-muted hover:text-primary transition-colors min-h-[44px]",
-                  linkFocusStyles
-                )}
-              >
-                <Phone className="h-5 w-5 text-primary flex-shrink-0" />
-                {contactInfo.phone}
+                hello@ml-agency.com
               </a>
               <div className="flex items-start gap-3 text-sm md:text-base text-foreground-muted min-h-[44px]">
-                <MapPin className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
-                <span className="whitespace-pre-line">{contactInfo.address}</span>
+                <Workflow className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                <span>{copy.contactIntro}</span>
+              </div>
+              <div className="flex items-start gap-3 text-sm md:text-base text-foreground-muted min-h-[44px]">
+                <MessageCircle className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                <span>{copy.contactSupport}</span>
               </div>
             </div>
           </motion.address>
 
-          {/* CTA Column */}
           <motion.div {...motionProps}>
             <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-foreground mb-6">
-              Start Your Pilot
+              {copy.pilotTitle}
             </h3>
             <p className="text-sm md:text-base text-foreground-muted mb-6">
-              Book a 30-min call to clarify your next steps. Zero obligations.
+              {copy.pilotSummary}
             </p>
             <Link
-              href="/#contact"
+              href={localizeHref(locale, "/#contact")}
               className={cn(
                 "inline-flex items-center justify-center w-full min-h-[44px] gradient-primary hover:shadow-xl glow-primary text-white px-6 py-4 font-semibold transition-all duration-300 rounded-md",
                 linkFocusStyles
               )}
             >
-              Book Technical Review
+              {copy.cta}
               <ArrowRight className="ml-2 h-5 w-5" />
             </Link>
           </motion.div>
         </div>
 
-        {/* Bottom Bar: Legal + Social */}
         <motion.div
           {...motionProps}
           className="mt-16 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-6"
         >
-          <div className="flex flex-wrap justify-center md:justify-start gap-6">
-            <Link
-              href="/privacy"
-              className={cn(
-                "text-sm text-foreground-muted hover:text-primary transition-colors min-h-[44px] flex items-center",
-                linkFocusStyles
-              )}
-            >
-              Privacy
-            </Link>
-            <Link
-              href="/terms"
-              className={cn(
-                "text-sm text-foreground-muted hover:text-primary transition-colors min-h-[44px] flex items-center",
-                linkFocusStyles
-              )}
-            >
-              Terms
-            </Link>
-          </div>
-          <div className="flex items-center gap-4">
-            {socialLinks.map((social) => (
-              <a
-                key={social.name}
-                href={social.href}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label={social.name}
-                className={cn(
-                  "flex items-center justify-center min-w-[44px] min-h-[44px] rounded-lg bg-surface/60 hover:bg-primary/10 text-foreground-muted hover:text-primary transition-all duration-300",
-                  linkFocusStyles
-                )}
-              >
-                <social.icon className="h-5 w-5" />
-              </a>
-            ))}
-          </div>
+          <p className="text-sm text-foreground-muted text-center md:text-left">
+            {copy.bottomLine}
+          </p>
+          <Link
+            href={localizeHref(locale, "/demos/computer-vision")}
+            className={cn(
+              "text-sm text-foreground-muted hover:text-primary transition-colors min-h-[44px] flex items-center",
+              linkFocusStyles
+            )}
+          >
+            {copy.demoCta}
+          </Link>
         </motion.div>
       </div>
     </footer>

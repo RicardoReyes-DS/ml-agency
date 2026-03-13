@@ -1,8 +1,8 @@
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "ML Demos | ML Agency",
-  description: "Explore our machine learning model demonstrations with detailed technical explanations and interactive experiences.",
+  title: "Workflow-Led ML Demos | ML Agency",
+  description: "Explore machine learning demos framed around real workflows, operational constraints, and pilot-friendly use cases.",
 };
 
 export default function DemosLayout({

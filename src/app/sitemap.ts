@@ -1,46 +1,23 @@
 import { MetadataRoute } from "next";
 
 const BASE_URL = "https://ml-agency.com";
+const LOCALES = ["es", "en"] as const;
+const ROUTES = [
+  "",
+  "/demos",
+  "/demos/computer-vision",
+  "/demos/nlp",
+  "/demos/predictive-analytics",
+  "/demos/deep-learning",
+] as const;
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const routes: MetadataRoute.Sitemap = [
-    {
-      url: BASE_URL,
+  return LOCALES.flatMap((locale) =>
+    ROUTES.map((route) => ({
+      url: `${BASE_URL}/${locale}${route}`,
       lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 1,
-    },
-    {
-      url: `${BASE_URL}/demos`,
-      lastModified: new Date(),
-      changeFrequency: "weekly",
-      priority: 0.9,
-    },
-    {
-      url: `${BASE_URL}/demos/computer-vision`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${BASE_URL}/demos/nlp`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${BASE_URL}/demos/predictive-analytics`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-    {
-      url: `${BASE_URL}/demos/deep-learning`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-      priority: 0.8,
-    },
-  ];
-
-  return routes;
+      changeFrequency: route === "" ? "weekly" : "monthly",
+      priority: route === "" ? 1 : route === "/demos" ? 0.9 : 0.8,
+    }))
+  );
 }

@@ -1,5 +1,3 @@
-import { Metadata } from "next";
-
 type SchemaOrgType =
   | "Organization"
   | "WebSite"
@@ -21,6 +19,8 @@ interface StructuredDataProps {
   data: Record<string, JsonLdValue>;
 }
 
+type SupportedLocale = "es" | "en";
+
 export function StructuredData({ type, data }: StructuredDataProps) {
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -39,7 +39,7 @@ export function StructuredData({ type, data }: StructuredDataProps) {
 }
 
 // Predefined structured data components
-export function OrganizationStructuredData() {
+export function OrganizationStructuredData({ locale = "es" }: { locale?: SupportedLocale }) {
   return (
     <StructuredData
       type="Organization"
@@ -47,53 +47,46 @@ export function OrganizationStructuredData() {
         name: "ML Agency",
         url: "https://ml-agency.com",
         logo: "https://ml-agency.com/logo.png",
-        description: "Leading machine learning agency delivering production-ready AI solutions for Fortune 500 companies.",
-        foundingDate: "2020",
+        description: locale === "es"
+          ? "Sistemas de machine learning orientados a produccion para pilotos viables y automatizacion operativa."
+          : "Production-minded machine learning systems for pragmatic pilots and workflow automation.",
         contactPoint: {
           '@type': 'ContactPoint',
-          telephone: '+1-555-0123',
-          contactType: 'customer service',
+          contactType: 'sales',
           email: 'hello@ml-agency.com',
-        },
-        sameAs: [
-          'https://twitter.com/mlagency',
-          'https://linkedin.com/company/ml-agency',
-          'https://github.com/ml-agency',
-        ],
-        address: {
-          '@type': 'PostalAddress',
-          streetAddress: '123 Innovation Drive',
-          addressLocality: 'San Francisco',
-          addressRegion: 'CA',
-          postalCode: '94105',
-          addressCountry: 'US',
         },
         hasOfferCatalog: {
           '@type': 'OfferCatalog',
-          name: 'AI Solutions',
+          name: locale === "es" ? "Soluciones de IA" : "AI Solutions",
           itemListElement: [
             {
               '@type': 'Offer',
               itemOffered: {
                 '@type': 'Service',
-                name: 'Computer Vision Solutions',
-                description: 'Advanced neural networks for real-time image recognition and object detection.',
+                name: locale === "es" ? "Soluciones de vision por computadora" : "Computer Vision Solutions",
+                description: locale === "es"
+                  ? "Sistemas de vision por computadora para inspeccion, captura documental y manejo de excepciones visuales."
+                  : "Computer vision systems for inspection, document capture, and visual exception handling.",
               },
             },
             {
               '@type': 'Offer',
               itemOffered: {
                 '@type': 'Service',
-                name: 'Natural Language Processing',
-                description: 'Transformer-based architectures for sentiment analysis and conversational AI.',
+                name: locale === "es" ? "Procesamiento de lenguaje natural" : "Natural Language Processing",
+                description: locale === "es"
+                  ? "Sistemas de busqueda, triage y soporte al operador construidos sobre documentos y texto."
+                  : "Search, triage, and operator workflow systems built on document and text understanding.",
               },
             },
             {
               '@type': 'Offer',
               itemOffered: {
                 '@type': 'Service',
-                name: 'Deep Learning',
-                description: 'Custom neural network design and distributed training pipelines.',
+                name: locale === "es" ? "Analitica predictiva y modelos a medida" : "Predictive Analytics and Custom Models",
+                description: locale === "es"
+                  ? "Pronostico, deteccion de anomalias y modelos a medida pensados para restricciones de produccion."
+                  : "Forecasting, anomaly detection, and custom model delivery designed for production constraints.",
               },
             },
           ],
@@ -103,22 +96,16 @@ export function OrganizationStructuredData() {
   );
 }
 
-export function WebSiteStructuredData() {
+export function WebSiteStructuredData({ locale = "es" }: { locale?: SupportedLocale }) {
   return (
     <StructuredData
       type="WebSite"
       data={{
         name: "ML Agency",
         url: "https://ml-agency.com",
-        description: "Leading machine learning agency delivering production-ready AI solutions.",
-        potentialAction: {
-          '@type': 'SearchAction',
-          target: {
-            '@type': 'EntryPoint',
-            urlTemplate: 'https://ml-agency.com/search?q={search_term_string}',
-          },
-          'query-input': 'required name=search_term_string',
-        },
+        description: locale === "es"
+          ? "Sistemas de machine learning para automatizacion operativa, pronostico y pilotos viables."
+          : "Production-minded machine learning systems for workflow automation, forecasting, and pragmatic pilots.",
       }}
     />
   );

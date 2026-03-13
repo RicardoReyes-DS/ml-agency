@@ -1,19 +1,21 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useCallback } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Loader2, AlertCircle, Play, Settings, RotateCcw, Download, Share2, ExternalLink } from "lucide-react";
+import { Loader2, AlertCircle, Play, Settings, RotateCcw, Share2, ExternalLink } from "lucide-react";
 import { MLDemo, DemoConfig } from "@/lib/types";
 import { usePrefersReducedMotion } from "@/hooks/use-performance";
 import Link from "next/link";
+import { formatLocalizedCopy, getDictionary, localizeHref, type Locale } from "@/lib/i18n";
 
 interface DemoWrapperProps {
   demo: MLDemo;
   children: React.ReactNode;
+  locale?: Locale;
 }
 
-export function DemoWrapper({ demo, children }: DemoWrapperProps) {
+export function DemoWrapper({ demo, children, locale = "en" }: DemoWrapperProps) {
   const [config, setConfig] = useState<DemoConfig>({
     loading: false,
     error: null,
@@ -34,6 +36,7 @@ export function DemoWrapper({ demo, children }: DemoWrapperProps) {
 
   const [isAdvancedMode, setIsAdvancedMode] = useState(false);
   const prefersReducedMotion = usePrefersReducedMotion();
+  const copy = getDictionary(locale).demoWrapper;
 
   const handleDemoRun = useCallback(async () => {
     setConfig(prev => ({ ...prev, loading: true, error: null }));
@@ -57,7 +60,7 @@ export function DemoWrapper({ demo, children }: DemoWrapperProps) {
         ...prev,
         loading: false,
         data: {
-          result: `Demo completed with ${Math.round(accuracy * 100)}% accuracy`,
+          result: formatLocalizedCopy(copy.result, { accuracy: Math.round(accuracy * 100) }),
           parameters,
           metrics: { responseTime, accuracy, memoryUsage }
         }
@@ -66,10 +69,10 @@ export function DemoWrapper({ demo, children }: DemoWrapperProps) {
       setConfig(prev => ({
         ...prev,
         loading: false,
-        error: error instanceof Error ? error.message : "An error occurred"
+        error: error instanceof Error ? error.message : copy.errorFallback
       }));
     }
-  }, [parameters]);
+  }, [copy.errorFallback, copy.result, parameters]);
 
   const handleParameterChange = (key: string, value: number | string) => {
     setParameters((prev) => ({ ...prev, [key]: value }));
@@ -97,12 +100,12 @@ export function DemoWrapper({ demo, children }: DemoWrapperProps) {
               <CardDescription className="mt-2">{demo.description}</CardDescription>
             </div>
             <div className="flex gap-2 ml-4">
-              <Link href={`/demos/${demo.category === 'computer-vision' ? 'computer-vision' : demo.category === 'nlp' ? 'nlp' : demo.category === 'deep-learning' ? 'deep-learning' : 'predictive-analytics'}`}>
+              <Link href={localizeHref(locale, `/demos/${demo.category === 'computer-vision' ? 'computer-vision' : demo.category === 'nlp' ? 'nlp' : demo.category === 'deep-learning' ? 'deep-learning' : 'predictive-analytics'}`)}>
                 <Button
                   variant="ghost"
                   size="sm"
                   className="p-2"
-                  title="View detailed explanation"
+                  title={copy.detailTitle}
                 >
                   <ExternalLink className="h-4 w-4" />
                 </Button>
@@ -134,10 +137,10 @@ export function DemoWrapper({ demo, children }: DemoWrapperProps) {
         {/* Advanced Parameters */}
         {isAdvancedMode && (
           <div className="p-4 bg-surface/50 rounded-lg border border-primary/10 space-y-3">
-            <h4 className="text-sm font-semibold text-foreground">Model Parameters</h4>
+            <h4 className="text-sm font-semibold text-foreground">{copy.parameters}</h4>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-3">
               <div>
-                <label className="text-xs font-medium text-foreground/70">Confidence Threshold</label>
+                <label className="text-xs font-medium text-foreground/70">{copy.confidence}</label>
                 <input
                   type="range"
                   min="0.1"
@@ -150,7 +153,7 @@ export function DemoWrapper({ demo, children }: DemoWrapperProps) {
                 <span className="text-xs text-accent font-mono">{parameters.confidence}</span>
               </div>
               <div>
-                <label className="text-xs font-medium text-foreground/70">Batch Size</label>
+                <label className="text-xs font-medium text-foreground/70">{copy.batchSize}</label>
                 <select
                   value={parameters.batchSize}
                   onChange={(e) => handleParameterChange('batchSize', parseInt(e.target.value))}
@@ -163,7 +166,7 @@ export function DemoWrapper({ demo, children }: DemoWrapperProps) {
                 </select>
               </div>
               <div>
-                <label className="text-xs font-medium text-foreground/70">Model Version</label>
+                <label className="text-xs font-medium text-foreground/70">{copy.modelVersion}</label>
                 <select
                   value={parameters.modelVersion}
                   onChange={(e) => handleParameterChange('modelVersion', e.target.value)}
@@ -188,12 +191,12 @@ export function DemoWrapper({ demo, children }: DemoWrapperProps) {
             {config.loading ? (
               <>
                 <Loader2 className={`mr-2 h-4 w-4 ${prefersReducedMotion ? '' : 'animate-spin'}`} />
-                Computing...
+                {copy.computing}
               </>
             ) : (
               <>
                 <Play className="mr-2 h-4 w-4" />
-                Run Demo
+                {copy.runDemo}
               </>
             )}
           </Button>
@@ -217,6 +220,7 @@ export function DemoWrapper({ demo, children }: DemoWrapperProps) {
                 text: demo.description,
                 url: window.location.href,
               })}
+              title={copy.shareTitle}
             >
               <Share2 className="h-4 w-4" />
             </Button>

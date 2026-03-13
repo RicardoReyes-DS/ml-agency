@@ -6,15 +6,26 @@ test.describe("Home page", () => {
     await expect(page).toHaveTitle(/ML Agency/);
   });
 
-  test("has hero section", async ({ page }) => {
+  test("has a stable value-focused hero heading", async ({ page }) => {
     await page.goto("/");
-    await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+    await expect(
+      page.getByRole("heading", {
+        level: 1,
+        name: /machine learning systems that cut manual work/i,
+      })
+    ).toBeVisible();
   });
 
-  test("navigates to demos", async ({ page }) => {
+  test("routes the primary homepage CTA to contact", async ({ page }) => {
     await page.goto("/");
-    await page.getByRole("link", { name: /demos?/i }).first().click();
-    await expect(page).toHaveURL(/\/demos/);
-    await expect(page).toHaveTitle(/Demos/);
+    await page.getByRole("link", { name: /book technical review/i }).first().click();
+    await expect(page).toHaveURL(/#contact$/);
+    await expect(page.locator("#contact")).toBeInViewport();
+  });
+
+  test("keeps demos accessible as a secondary path", async ({ page }) => {
+    await page.goto("/");
+    await page.getByRole("link", { name: /see live demos/i }).first().click();
+    await expect(page).toHaveURL(/\/demos\/computer-vision/);
   });
 });
