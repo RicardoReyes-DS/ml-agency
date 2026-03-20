@@ -3,6 +3,7 @@ import { ArrowRight, Brain, Eye, MessageSquare, Sparkles, TrendingUp } from "luc
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { getDictionary, localizeHref, type Locale } from "@/lib/i18n";
+import { CONTACT_SUBJECTS, createMailto } from "@/lib/site";
 
 const demoIcons = [Eye, MessageSquare, Brain, TrendingUp];
 
@@ -26,7 +27,7 @@ export function DemosPage({ locale }: { locale: Locale }) {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="gradient-primary hover:shadow-xl glow-primary text-white px-8 py-4 text-lg font-semibold transition-all duration-300">
-                <a href="mailto:hello@ml-agency.com?subject=Technical%20Review">
+                <a href={createMailto(locale === "es" ? CONTACT_SUBJECTS.revisionDeFlujo : CONTACT_SUBJECTS.workflowReview)}>
                   {copy.primaryCta}
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </a>

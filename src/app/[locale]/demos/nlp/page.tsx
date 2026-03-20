@@ -5,6 +5,7 @@ import { RAGInterface } from "@/components/demos/nlp/rag-interface";
 import { BreadcrumbStructuredData, SoftwareApplicationStructuredData } from "@/components/seo/structured-data";
 import { getLocalizedDemoContent } from "@/lib/demo-data";
 import { isLocale, localizeHref, type Locale } from "@/lib/i18n";
+import { SITE_URL } from "@/lib/site";
 
 export async function generateMetadata({
   params,
@@ -37,14 +38,14 @@ export default async function LocalizedNlpPage({
   const { locale } = await params;
   if (!isLocale(locale)) notFound();
   const content = getLocalizedDemoContent(locale, "nlp");
-  const baseUrl = `https://ml-agency.com${localizeHref(locale as Locale, "/demos/nlp")}`;
+  const baseUrl = `${SITE_URL}${localizeHref(locale as Locale, "/demos/nlp")}`;
 
   return (
     <>
       <BreadcrumbStructuredData
         items={[
-          { name: locale === "es" ? "Inicio" : "Home", url: `https://ml-agency.com/${locale}` },
-          { name: locale === "es" ? "Demos" : "Demos", url: `https://ml-agency.com/${locale}/demos` },
+          { name: locale === "es" ? "Inicio" : "Home", url: `${SITE_URL}/${locale}` },
+          { name: locale === "es" ? "Demos" : "Demos", url: `${SITE_URL}/${locale}/demos` },
           { name: content.title, url: baseUrl },
         ]}
       />

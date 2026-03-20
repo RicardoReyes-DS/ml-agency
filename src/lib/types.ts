@@ -1,6 +1,6 @@
 import type { LucideIcon } from "lucide-react";
 
-// Shared TypeScript interfaces for the ML Agency portfolio
+// Shared TypeScript interfaces for the Enkisys site and demo portfolio
 
 export interface MLDemo {
   id: string;

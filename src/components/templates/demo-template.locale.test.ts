@@ -18,7 +18,7 @@ describe("DemoTemplate locale", () => {
     expect(html).toContain("Buen ajuste");
     expect(html).toContain("Arquitectura del sistema");
     expect(html).toContain("Latencia de inference");
-    expect(html).toContain("Agendar revision tecnica");
+    expect(html).toContain("Hablar sobre tu flujo");
   });
 
   test("renders english demo framing without spanish leakage", () => {
@@ -34,8 +34,8 @@ describe("DemoTemplate locale", () => {
     expect(html).toContain("Best fit");
     expect(html).toContain("System Architecture");
     expect(html).toContain("Engineering Challenges");
-    expect(html).toContain("Book Technical Review");
+    expect(html).toContain("Talk Through Your Workflow");
     expect(html).not.toContain("Volver a servicios");
-    expect(html).not.toContain("Agendar revision tecnica");
+    expect(html).not.toContain("Hablar sobre tu flujo");
   });
 });

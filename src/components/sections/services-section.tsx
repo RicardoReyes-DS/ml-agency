@@ -12,6 +12,7 @@ import { useMagneticField } from "@/hooks/use-magnetic";
 import { usePrefersReducedMotion } from "@/hooks/use-performance";
 import { getSectionSettings } from "@/lib/complex-functions";
 import { getDictionary, localizeHref, type Locale } from "@/lib/i18n";
+import { CONTACT_SUBJECTS, createMailto } from "@/lib/site";
 
 function useIsTouchDevice() {
   const [isTouchDevice, setIsTouchDevice] = useState(false);
@@ -178,10 +179,10 @@ export function ServicesSection({ locale }: { locale: Locale }) {
               transition={{ delay: 0.8, duration: 0.6 }}
             >
               <Button asChild size="lg" className="gradient-accent hover:shadow-xl glow-accent text-white px-8 py-4 text-lg font-semibold transition-all duration-300">
-                <Link href={localizeHref(locale, "/#contact")}>
+                <a href={createMailto(locale === "es" ? CONTACT_SUBJECTS.revisionDeFlujo : CONTACT_SUBJECTS.workflowReview)}>
                   {copy.cta}
                   <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
+                </a>
               </Button>
             </motion.div>
           </div>
@@ -338,10 +339,10 @@ export function ServicesSection({ locale }: { locale: Locale }) {
 
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <Button asChild size="lg" className="gradient-accent hover:shadow-xl glow-accent text-white px-8 py-4 text-lg font-semibold transition-all duration-300">
-                <Link href={localizeHref(locale, "/#contact")}>
+                <a href={createMailto(locale === "es" ? CONTACT_SUBJECTS.revisionDeFlujo : CONTACT_SUBJECTS.workflowReview)}>
                   {copy.cta}
                   <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
+                </a>
               </Button>
               <Button asChild size="lg" variant="outline" className="border-2 border-primary/30 hover:bg-primary/10 hover:border-primary/50 text-foreground px-8 py-4 text-lg font-semibold transition-all duration-300">
                 <Link href={localizeHref(locale, "/demos/computer-vision")}>

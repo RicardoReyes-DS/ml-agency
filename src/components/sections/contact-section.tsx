@@ -18,6 +18,7 @@ import { InteractiveBlob } from "@/components/visuals/interactive-blob";
 import { usePrefersReducedMotion } from "@/hooks/use-performance";
 import { getSectionSettings } from "@/lib/complex-functions";
 import { getDictionary, localizeHref, type Locale } from "@/lib/i18n";
+import { CONTACT_SUBJECTS, createMailto } from "@/lib/site";
 
 const methodIcons = [Mail, MessageCircle, Calendar];
 const methodColors = [
@@ -251,7 +252,7 @@ export function ContactSection({ locale }: { locale: Locale }) {
 
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button asChild size="lg" className="flex-1 gradient-primary hover:shadow-xl glow-primary text-white">
-                  <a href="mailto:hello@ml-agency.com?subject=Technical%20Review">
+                  <a href={createMailto(locale === "es" ? CONTACT_SUBJECTS.revisionDeFlujo : CONTACT_SUBJECTS.workflowReview)}>
                     {copy.ctaPrimary}
                     <ArrowRight className="ml-2 h-5 w-5" />
                   </a>

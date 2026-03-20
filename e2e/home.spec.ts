@@ -1,9 +1,10 @@
 import { test, expect } from "@playwright/test";
+import { CONTACT_EMAIL, SITE_NAME } from "@/lib/site";
 
 test.describe("Home page", () => {
   test("loads successfully", async ({ page }) => {
     await page.goto("/");
-    await expect(page).toHaveTitle(/ML Agency/);
+    await expect(page).toHaveTitle(new RegExp(SITE_NAME, "i"));
   });
 
   test("has a stable value-focused hero heading", async ({ page }) => {
@@ -16,11 +17,12 @@ test.describe("Home page", () => {
     ).toBeVisible();
   });
 
-  test("routes the primary homepage CTA to contact", async ({ page }) => {
+  test("routes the primary homepage CTA to email", async ({ page }) => {
     await page.goto("/");
-    await page.getByRole("link", { name: /book technical review/i }).first().click();
-    await expect(page).toHaveURL(/#contact$/);
-    await expect(page.locator("#contact")).toBeInViewport();
+    await expect(page.getByRole("link", { name: /talk through your workflow/i }).first()).toHaveAttribute(
+      "href",
+      new RegExp(`^mailto:${CONTACT_EMAIL}`)
+    );
   });
 
   test("keeps demos accessible as a secondary path", async ({ page }) => {

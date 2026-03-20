@@ -1,6 +1,7 @@
 import { MetadataRoute } from "next";
+import { SITE_URL } from "@/lib/site";
 
-const BASE_URL = "https://ml-agency.com";
+const BASE_URL = SITE_URL;
 const LOCALES = ["es", "en"] as const;
 const ROUTES = [
   "",

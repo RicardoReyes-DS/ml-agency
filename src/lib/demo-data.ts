@@ -15,6 +15,7 @@ import {
   CheckCircle,
   Clock
 } from "lucide-react";
+import { CONTACT_SUBJECTS, createMailto } from "@/lib/site";
 
 export interface DemoMetric {
   label: string;
@@ -149,7 +150,7 @@ export const computerVisionDemo: DemoContent = {
     "Current review rules or escalation logic",
     "Tolerance for false positives and false negatives",
   ],
-  primaryCtaHref: "mailto:hello@ml-agency.com?subject=Technical%20Review%20-%20Computer%20Vision",
+  primaryCtaHref: createMailto(CONTACT_SUBJECTS.computerVision),
   secondaryCtaHref: "/demos",
 
   metrics: [
@@ -269,7 +270,7 @@ export const computerVisionDemo: DemoContent = {
 
   ctaTitle: "Integrate Vision Capabilities",
   ctaSubtitle: "Add powerful object detection to your applications. From automated tagging to visual search, we build scalable computer vision solutions.",
-  primaryCta: "Book Technical Review",
+  primaryCta: "Talk Through Your Workflow",
   secondaryCta: "See All Demos",
   secondaryCtaIcon: "Code"
 };
@@ -303,7 +304,7 @@ export const nlpDemo: DemoContent = {
     "The questions teams ask most often",
     "Rules for citation, escalation, or human approval",
   ],
-  primaryCtaHref: "mailto:hello@ml-agency.com?subject=Technical%20Review%20-%20Document%20Intelligence",
+  primaryCtaHref: createMailto(CONTACT_SUBJECTS.documentIntelligence),
   secondaryCtaHref: "/demos",
 
   metrics: [
@@ -423,7 +424,7 @@ export const nlpDemo: DemoContent = {
 
   ctaTitle: "Deploy Your RAG System",
   ctaSubtitle: "Stop searching, start finding. Integrate document intelligence into your workflow today.",
-  primaryCta: "Book Technical Review",
+  primaryCta: "Talk Through Your Workflow",
   secondaryCta: "See All Demos",
   secondaryCtaIcon: "Code"
 };
@@ -457,7 +458,7 @@ export const deepLearningDemo: DemoContent = {
     "What quality threshold would justify a pilot",
     "What inference, latency, or governance constraints matter",
   ],
-  primaryCtaHref: "mailto:hello@ml-agency.com?subject=Technical%20Review%20-%20Custom%20Modeling",
+  primaryCtaHref: createMailto(CONTACT_SUBJECTS.customModeling),
   secondaryCtaHref: "/demos",
 
   metrics: [
@@ -577,7 +578,7 @@ export const deepLearningDemo: DemoContent = {
 
   ctaTitle: "Build Custom Models",
   ctaSubtitle: "Design, train, and deploy custom deep learning models that solve your unique business challenges.",
-  primaryCta: "Book Technical Review",
+  primaryCta: "Talk Through Your Workflow",
   secondaryCta: "See All Demos",
   secondaryCtaIcon: "Layers"
 };
@@ -611,7 +612,7 @@ export const predictiveAnalyticsDemo: DemoContent = {
     "The decision window that matters most",
     "What operators do today when they spot an issue",
   ],
-  primaryCtaHref: "mailto:hello@ml-agency.com?subject=Technical%20Review%20-%20Predictive%20Analytics",
+  primaryCtaHref: createMailto(CONTACT_SUBJECTS.predictiveAnalytics),
   secondaryCtaHref: "/demos",
 
   metrics: [
@@ -731,7 +732,7 @@ export const predictiveAnalyticsDemo: DemoContent = {
 
   ctaTitle: "Start Forecasting",
   ctaSubtitle: "Anticipate trends and prevent failures with predictive models.",
-  primaryCta: "Book Technical Review",
+  primaryCta: "Talk Through Your Workflow",
   secondaryCta: "See All Demos",
   secondaryCtaIcon: "Clock"
 };
@@ -873,7 +874,7 @@ const localizedDemoOverrides: Record<"es" | "en", Partial<Record<DemoKey, DemoCo
       implementationTitle: "Pipeline operativo",
       ctaTitle: "Empieza una revision para vision por computadora",
       ctaSubtitle: "Revisa datos, tolerancias y handoffs antes de escalar un build.",
-      primaryCta: "Agendar revision tecnica",
+      primaryCta: "Hablar sobre tu flujo",
       secondaryCta: "Ver todos los demos",
     },
     nlp: {
@@ -991,7 +992,7 @@ const localizedDemoOverrides: Record<"es" | "en", Partial<Record<DemoKey, DemoCo
       demoTitle: "Interfaz RAG orientada a produccion",
       ctaTitle: "Evalua un piloto de inteligencia documental",
       ctaSubtitle: "Empieza con un corpus claro, preguntas repetitivas y criterios de confianza.",
-      primaryCta: "Agendar revision tecnica",
+      primaryCta: "Hablar sobre tu flujo",
       secondaryCta: "Ver todos los demos",
     },
     deepLearning: {
@@ -1106,7 +1107,7 @@ const localizedDemoOverrides: Record<"es" | "en", Partial<Record<DemoKey, DemoCo
       ],
       ctaTitle: "Determina si un modelo a medida esta justificado",
       ctaSubtitle: "Antes de entrenar, valida datos, criterio de exito y costo operacional.",
-      primaryCta: "Agendar revision tecnica",
+      primaryCta: "Hablar sobre tu flujo",
       secondaryCta: "Ver todos los demos",
     },
     predictiveAnalytics: {
@@ -1220,7 +1221,7 @@ const localizedDemoOverrides: Record<"es" | "en", Partial<Record<DemoKey, DemoCo
       ],
       ctaTitle: "Valida un piloto de Predictive Analytics",
       ctaSubtitle: "Define horizonte, accion operativa y tolerancia al error antes de construir.",
-      primaryCta: "Agendar revision tecnica",
+      primaryCta: "Hablar sobre tu flujo",
       secondaryCta: "Ver todos los demos",
     },
   },

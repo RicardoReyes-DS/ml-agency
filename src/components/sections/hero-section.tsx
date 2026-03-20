@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { usePrefersReducedMotion } from "@/hooks/use-performance";
 import { getSectionSettings } from "@/lib/complex-functions";
 import { getDictionary, localizeHref, type Locale } from "@/lib/i18n";
+import { CONTACT_SUBJECTS, createMailto } from "@/lib/site";
 
 const DomainColoringCanvas = dynamic(
   () => import("@/components/visuals/domain-coloring-canvas").then((mod) => mod.DomainColoringCanvas),
@@ -108,10 +109,10 @@ export function HeroSection({ locale }: { locale: Locale }) {
             className="flex flex-col sm:flex-row gap-4 justify-center mb-16"
           >
             <Button asChild size="lg" className="gradient-primary hover:shadow-xl glow-primary text-white px-8 py-4 text-lg font-semibold transition-all duration-300">
-              <Link href={localizeHref(locale, "/#contact")}>
+              <a href={createMailto(locale === "es" ? CONTACT_SUBJECTS.revisionDeFlujo : CONTACT_SUBJECTS.workflowReview)}>
                 {copy.primaryCta}
                 <ArrowRight className="ml-2 h-5 w-5" />
-              </Link>
+              </a>
             </Button>
             <Button
               asChild

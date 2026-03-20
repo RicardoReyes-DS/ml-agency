@@ -8,6 +8,7 @@ import { MLDemo, DemoConfig } from "@/lib/types";
 import { usePrefersReducedMotion } from "@/hooks/use-performance";
 import Link from "next/link";
 import { formatLocalizedCopy, getDictionary, localizeHref, type Locale } from "@/lib/i18n";
+import { SITE_NAME } from "@/lib/site";
 
 interface DemoWrapperProps {
   demo: MLDemo;
@@ -216,7 +217,7 @@ export function DemoWrapper({ demo, children, locale = "en" }: DemoWrapperProps)
               size="sm"
               className="px-3"
               onClick={() => navigator.share?.({
-                title: `${demo.title} - ML Agency Demo`,
+                title: `${demo.title} - ${SITE_NAME} Demo`,
                 text: demo.description,
                 url: window.location.href,
               })}

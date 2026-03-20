@@ -14,6 +14,7 @@ import {
   switchLocaleInPathname,
   type Locale,
 } from "@/lib/i18n";
+import { CONTACT_SUBJECTS, SITE_NAME, createMailto } from "@/lib/site";
 
 export function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -104,7 +105,7 @@ export function Navbar() {
                   />
                 </div>
                 <span className="text-xl font-bold font-mono text-foreground">
-                  <span className="text-gradient-primary">ML</span><span className="text-accent">Agency</span>
+                  <span className="text-gradient-primary">{SITE_NAME}</span>
                 </span>
               </Link>
             </motion.div>
@@ -149,9 +150,9 @@ export function Navbar() {
                 transition={{ delay: 0.8 }}
               >
                 <Button asChild variant="outline" size="sm" className="gradient-secondary hover:shadow-lg glow-secondary text-white border-0">
-                  <Link href={getNavHref("contact")} onClick={() => handleNavClick("contact")}>
+                  <a href={createMailto(locale === "es" ? CONTACT_SUBJECTS.revisionDeFlujo : CONTACT_SUBJECTS.workflowReview)}>
                     {copy.cta}
-                  </Link>
+                  </a>
                 </Button>
               </motion.div>
             </div>
@@ -240,9 +241,9 @@ export function Navbar() {
                   transition={{ delay: 0.5 }}
                 >
                   <Button asChild className="w-full gradient-secondary hover:shadow-lg glow-secondary text-white" size="lg">
-                    <Link href={getNavHref("contact")} onClick={() => handleNavClick("contact")}>
+                    <a href={createMailto(locale === "es" ? CONTACT_SUBJECTS.revisionDeFlujo : CONTACT_SUBJECTS.workflowReview)}>
                       {copy.cta}
-                    </Link>
+                    </a>
                   </Button>
                 </motion.div>
               </div>

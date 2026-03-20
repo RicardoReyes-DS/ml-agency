@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Setup CI/CD for ML Agency - GitHub Actions to Cloud Run
+# Setup CI/CD for Enkisys - GitHub Actions to Cloud Run
 # This script configures Workload Identity Federation for secure GitHub Actions deployment
 
 set -e
@@ -23,7 +23,7 @@ WORKLOAD_IDENTITY_PROVIDER="github-provider"
 GITHUB_REPO="RicardoReyes-DS/ml-agency"
 
 echo -e "${BLUE}========================================${NC}"
-echo -e "${BLUE}  ML Agency CI/CD Setup${NC}"
+echo -e "${BLUE}  Enkisys CI/CD Setup${NC}"
 echo -e "${BLUE}========================================${NC}"
 echo ""
 

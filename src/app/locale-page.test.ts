@@ -9,7 +9,7 @@ describe("localized home page", () => {
     const html = renderToStaticMarkup(element);
 
     expect(html).toContain("Sistemas de machine learning");
-    expect(html).toContain("Agendar revision tecnica");
+    expect(html).toContain("Hablar sobre tu flujo");
   });
 
   test("renders english content for en locale", async () => {
@@ -17,6 +17,6 @@ describe("localized home page", () => {
     const html = renderToStaticMarkup(element);
 
     expect(html).toContain("Machine learning systems");
-    expect(html).toContain("Book Technical Review");
+    expect(html).toContain("Talk Through Your Workflow");
   });
 });

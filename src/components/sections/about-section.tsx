@@ -20,6 +20,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { usePrefersReducedMotion } from "@/hooks/use-performance";
 import { getSectionSettings } from "@/lib/complex-functions";
 import { getDictionary, localizeHref, type Locale } from "@/lib/i18n";
+import { CONTACT_SUBJECTS, createMailto } from "@/lib/site";
 
 const achievementIcons = [Users, Award, TrendingUp, Target];
 const principleIcons = [Lightbulb, Code, GraduationCap, Building];
@@ -179,10 +180,10 @@ export function AboutSection({ locale }: { locale: Locale }) {
               transition={{ delay: 1.6, duration: 0.8 }}
             >
               <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-4 text-lg font-semibold shadow-lg hover:shadow-xl transition-all duration-300">
-                <Link href={localizeHref(locale, "/#contact")}>
+                <a href={createMailto(locale === "es" ? CONTACT_SUBJECTS.revisionDeFlujo : CONTACT_SUBJECTS.workflowReview)}>
                   {copy.cta}
                   <ArrowRight className="ml-2 h-5 w-5" />
-                </Link>
+                </a>
               </Button>
             </motion.div>
           </div>

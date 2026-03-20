@@ -1,3 +1,5 @@
+import { CONTACT_EMAIL, SITE_NAME, SITE_URL } from "@/lib/site";
+
 type SchemaOrgType =
   | "Organization"
   | "WebSite"
@@ -44,16 +46,16 @@ export function OrganizationStructuredData({ locale = "es" }: { locale?: Support
     <StructuredData
       type="Organization"
       data={{
-        name: "ML Agency",
-        url: "https://ml-agency.com",
-        logo: "https://ml-agency.com/logo.png",
+        name: SITE_NAME,
+        url: SITE_URL,
+        logo: `${SITE_URL}/logo.png`,
         description: locale === "es"
           ? "Sistemas de machine learning orientados a produccion para pilotos viables y automatizacion operativa."
           : "Production-minded machine learning systems for pragmatic pilots and workflow automation.",
         contactPoint: {
           '@type': 'ContactPoint',
           contactType: 'sales',
-          email: 'hello@ml-agency.com',
+          email: CONTACT_EMAIL,
         },
         hasOfferCatalog: {
           '@type': 'OfferCatalog',
@@ -101,8 +103,8 @@ export function WebSiteStructuredData({ locale = "es" }: { locale?: SupportedLoc
     <StructuredData
       type="WebSite"
       data={{
-        name: "ML Agency",
-        url: "https://ml-agency.com",
+        name: SITE_NAME,
+        url: SITE_URL,
         description: locale === "es"
           ? "Sistemas de machine learning para automatizacion operativa, pronostico y pilotos viables."
           : "Production-minded machine learning systems for workflow automation, forecasting, and pragmatic pilots.",
@@ -154,8 +156,8 @@ export function SoftwareApplicationStructuredData({
         operatingSystem,
         author: {
           "@type": "Organization",
-          name: "ML Agency",
-          url: "https://ml-agency.com",
+          name: SITE_NAME,
+          url: SITE_URL,
         },
       }}
     />

@@ -1,6 +1,6 @@
-# ML Agency
+# Enkisys
 
-ML Agency is a bilingual marketing site and demo hub for a machine learning agency serving Mexico, Latin America, and English-speaking markets. The project is designed as both a production-facing website and a reference implementation for future web design and interactive demo work.
+Enkisys is a bilingual marketing site and demo hub for an applied AI agency serving Mexico, Latin America, and English-speaking markets. The project is designed as both a production-facing website and a reference implementation for future web design and interactive demo work.
 
 The site combines a high-end visual system, workflow-led positioning, and interactive machine learning demos. It is intentionally built to show how technical credibility, strong UI direction, and commercial clarity can live in the same product.
 

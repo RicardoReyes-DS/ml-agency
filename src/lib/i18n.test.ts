@@ -5,6 +5,7 @@ import {
   getLocaleFromPathname,
   localizeHref,
 } from "./i18n";
+import { CONTACT_EMAIL } from "./site";
 
 describe("i18n", () => {
   test("defaults to spanish and resolves locale from pathname", () => {
@@ -17,7 +18,7 @@ describe("i18n", () => {
   test("localizes internal hrefs", () => {
     expect(localizeHref("es", "/demos")).toBe("/es/demos");
     expect(localizeHref("en", "/#contact")).toBe("/en/#contact");
-    expect(localizeHref("en", "mailto:hello@ml-agency.com")).toBe("mailto:hello@ml-agency.com");
+    expect(localizeHref("en", `mailto:${CONTACT_EMAIL}`)).toBe(`mailto:${CONTACT_EMAIL}`);
   });
 
   test("provides spanish and english marketing copy", () => {

@@ -7,6 +7,7 @@ import { PerformanceMonitor } from "@/components/ui/performance-monitor";
 import { OrganizationStructuredData, WebSiteStructuredData } from "@/components/seo/structured-data";
 import { Providers } from "@/components/providers";
 import { defaultLocale, getDictionary, isLocale } from "@/lib/i18n";
+import { SITE_NAME, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 const inter = Inter({
@@ -24,19 +25,19 @@ const jetbrainsMono = JetBrains_Mono({
 const baseCopy = getDictionary(defaultLocale);
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://ml-agency.com"),
+  metadataBase: new URL(SITE_URL),
   title: {
     default: baseCopy.home.metadata.title,
-    template: "%s | ML Agency",
+    template: `%s | ${SITE_NAME}`,
   },
   description: baseCopy.metadata.description,
   openGraph: {
     type: "website",
     locale: baseCopy.metadata.ogLocale,
-    url: "https://ml-agency.com",
+    url: SITE_URL,
     title: baseCopy.home.metadata.title,
     description: baseCopy.metadata.description,
-    siteName: "ML Agency",
+    siteName: SITE_NAME,
   },
   twitter: {
     card: "summary_large_image",

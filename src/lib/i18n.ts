@@ -1,3 +1,5 @@
+import { CONTACT_EMAIL, CONTACT_SUBJECTS, SITE_NAME, createMailto } from "@/lib/site";
+
 export type Locale = "es" | "en";
 
 export const locales: Locale[] = ["es", "en"];
@@ -21,10 +23,10 @@ const dictionary = {
         { label: "Proceso", key: "about" },
         { label: "Contacto", key: "contact" },
       ],
-      cta: "Agendar revision tecnica",
+      cta: "Hablar sobre tu flujo",
       closeMenu: "Cerrar menu",
       openMenu: "Abrir menu",
-      brandAriaLabel: "Ir al inicio de ML Agency",
+      brandAriaLabel: `Ir al inicio de ${SITE_NAME}`,
     },
     footer: {
       tagline:
@@ -38,8 +40,8 @@ const dictionary = {
         "Te ayudamos a aclarar viabilidad, alcance del piloto y ajuste a produccion.",
       pilotTitle: "Inicia tu piloto",
       pilotSummary:
-        "Empieza con una revision tecnica antes de comprometerte con una implementacion mayor.",
-      cta: "Agendar revision tecnica",
+        "Empieza con una revision de flujo antes de comprometerte con una implementacion mayor.",
+      cta: "Hablar sobre tu flujo",
       bottomLine:
         "Enfoca la primera conversacion en un flujo, una metrica de exito y una decision de piloto.",
       demoCta: "Ver demo en vivo",
@@ -58,7 +60,7 @@ const dictionary = {
         ],
         body:
           "Ayudamos a equipos de Mexico y Latinoamerica a convertir cuellos de botella operativos y datos reales en sistemas productivos con alcance viable y una ruta de piloto que el equipo puede sostener.",
-        primaryCta: "Agendar revision tecnica",
+        primaryCta: "Hablar sobre tu flujo",
         secondaryCta: "Ver demos en vivo",
         secondaryHref: demoSlugs.computerVision,
         outcomes: [
@@ -73,7 +75,7 @@ const dictionary = {
         titleAccent: "apalancamiento operativo",
         body:
           "Nos enfocamos en flujos donde la revision manual, las decisiones inconsistentes y las senales tardias estan frenando al equipo.",
-        cta: "Agendar revision tecnica",
+        cta: "Hablar sobre tu flujo",
         cards: [
           {
             slug: "computerVision",
@@ -182,28 +184,28 @@ const dictionary = {
               "Diseñamos para las personas dentro del ciclo, no solo para el modelo aislado.",
           },
         ],
-        cta: "Agendar revision tecnica",
+        cta: "Hablar sobre tu flujo",
       },
       contact: {
-        badge: "Revision tecnica",
+        badge: "Revision de flujo",
         title: "Empieza con una",
-        titleAccent: "revision tecnica clara",
+        titleAccent: "revision de flujo clara",
         body:
-          "La meta es decidir si un piloto se justifica, cual debe ser el primer flujo y que podria bloquear el uso en produccion.",
+          "La meta es decidir si un piloto se justifica, cual debe ser el primer flujo y que podria bloquear su adopcion en produccion.",
         methods: [
           {
             title: "Envia tu flujo por correo",
             description: "Comparte el proceso, los bloqueos y los sistemas involucrados.",
-            contact: "hello@ml-agency.com",
+            contact: CONTACT_EMAIL,
             action: "Enviar correo",
-            href: "mailto:hello@ml-agency.com?subject=Revision%20tecnica",
+            href: createMailto(CONTACT_SUBJECTS.revisionDeFlujo),
           },
           {
-            title: "Agenda una llamada tecnica",
+            title: "Abre la conversacion",
             description:
-              "Usa el CTA de contacto si quieres una conversacion enfocada en alcance.",
+              "Usa el CTA principal si quieres empezar por el flujo, el alcance y las restricciones.",
             contact: "Empieza por el flujo con mas friccion",
-            action: "Ir al CTA",
+            action: "Ir al correo",
             href: "#contact-cta",
           },
           {
@@ -215,21 +217,21 @@ const dictionary = {
             href: demoSlugs.computerVision,
           },
         ],
-        checklistTitle: "Que traer a la revision",
+        checklistTitle: "Que traer a la conversacion",
         checklist: [
           "El flujo que quieres mejorar",
           "Los sistemas o documentos involucrados",
           "Donde hoy siguen interviniendo personas",
           "Como evaluarias un piloto exitoso",
         ],
-        ctaCardTitle: "Agenda una revision tecnica",
+        ctaCardTitle: "Abre una revision de flujo",
         ctaCardBody:
           "Comparte un flujo, una restriccion y la definicion de exito del piloto. La primera conversacion debe dejar claro si vale la pena avanzar.",
-        ctaPrimary: "Enviar correo a ML Agency",
+        ctaPrimary: `Enviar correo a ${SITE_NAME}`,
         ctaSecondary: "Ver hub de demos",
       },
       metadata: {
-        title: "ML Agency | Sistemas de machine learning para operaciones",
+        title: `${SITE_NAME} | Sistemas de machine learning para operaciones`,
         description:
           "Sistemas de machine learning orientados a produccion para automatizar revisiones, mejorar pronosticos y lanzar pilotos viables en Mexico y Latinoamerica.",
       },
@@ -239,8 +241,8 @@ const dictionary = {
       title:
         "Demos de machine learning para flujos operativos reales",
       body:
-        "Primero explora el flujo, despues prueba el patron de interaccion y usa la revision tecnica cuando el piloto empiece a verse viable.",
-      primaryCta: "Agendar revision tecnica",
+        "Primero explora el flujo, despues prueba el patron de interaccion y usa la revision de flujo cuando el piloto empiece a verse viable.",
+      primaryCta: "Hablar sobre tu flujo",
       secondaryCta: "Volver a servicios",
       cards: [
         {
@@ -276,7 +278,7 @@ const dictionary = {
       helpsTitle: "Donde ayuda este demo",
       helpsBody:
         "Usa el encuadre del flujo para decidir si vale la pena acotar un piloto.",
-      reviewTitle: "Que traer a la revision",
+      reviewTitle: "Que traer a la conversacion",
       reviewBody:
         "La primera conversacion util habla del flujo, no de la marca del modelo.",
       liveDemoBadge: "Demo en vivo",
@@ -289,7 +291,7 @@ const dictionary = {
       fitBody: "Escenarios donde este enfoque suele tener mejor probabilidad de exito.",
       notFitTitle: "Mal ajuste",
       notFitBody: "Casos donde conviene redefinir el problema antes de construir.",
-      ctaTitle: "Lleva un flujo concreto a la revision tecnica",
+      ctaTitle: "Lleva un flujo concreto a la conversacion inicial",
       ctaBody:
         "Si el demo se parece a una operacion real de tu equipo, la siguiente conversacion debe enfocarse en alcance, evaluacion y restricciones de implementacion.",
     },
@@ -306,7 +308,7 @@ const dictionary = {
       errorFallback: "Ocurrio un error",
     },
     metadata: {
-      siteName: "ML Agency",
+      siteName: SITE_NAME,
       description:
         "Sistemas de machine learning orientados a produccion para automatizacion operativa y pilotos viables.",
       ogLocale: "es_MX",
@@ -322,10 +324,10 @@ const dictionary = {
         { label: "Process", key: "about" },
         { label: "Contact", key: "contact" },
       ],
-      cta: "Book Technical Review",
+      cta: "Talk Through Your Workflow",
       closeMenu: "Close menu",
       openMenu: "Open menu",
-      brandAriaLabel: "Go to ML Agency homepage",
+      brandAriaLabel: `Go to ${SITE_NAME} homepage`,
     },
     footer: {
       tagline:
@@ -339,8 +341,8 @@ const dictionary = {
         "We help clarify feasibility, pilot scope, and production fit.",
       pilotTitle: "Start Your Pilot",
       pilotSummary:
-        "Start with a technical review before committing to a larger implementation.",
-      cta: "Book Technical Review",
+        "Start with a workflow review before committing to a larger implementation.",
+      cta: "Talk Through Your Workflow",
       bottomLine:
         "Focus the first conversation on one workflow, one success metric, and one pilot decision.",
       demoCta: "See Live Demo",
@@ -358,7 +360,7 @@ const dictionary = {
         ],
         body:
           "We help teams across North America and Latin America turn workflow bottlenecks and operational data into production systems with realistic scope and a pilot path the team can actually support.",
-        primaryCta: "Book Technical Review",
+        primaryCta: "Talk Through Your Workflow",
         secondaryCta: "See Live Demos",
         secondaryHref: demoSlugs.computerVision,
         outcomes: [
@@ -373,7 +375,7 @@ const dictionary = {
         titleAccent: "operational leverage",
         body:
           "We focus on workflows where manual review, inconsistent decisions, and delayed signals are slowing the team down.",
-        cta: "Book Technical Review",
+        cta: "Talk Through Your Workflow",
         cards: [
           {
             slug: "computerVision",
@@ -482,27 +484,27 @@ const dictionary = {
               "We design for the humans in the loop, not just the model in isolation.",
           },
         ],
-        cta: "Book Technical Review",
+        cta: "Talk Through Your Workflow",
       },
       contact: {
-        badge: "Technical review",
+        badge: "Workflow review",
         title: "Start with a",
-        titleAccent: "clear technical review",
+        titleAccent: "clear workflow review",
         body:
           "The goal is to decide whether a pilot is justified, what the first workflow should be, and what could block production use.",
         methods: [
           {
             title: "Email Your Workflow",
             description: "Share the process, blockers, and systems involved.",
-            contact: "hello@ml-agency.com",
+            contact: CONTACT_EMAIL,
             action: "Send Email",
-            href: "mailto:hello@ml-agency.com?subject=Technical%20Review",
+            href: createMailto(CONTACT_SUBJECTS.workflowReview),
           },
           {
-            title: "Book a Technical Call",
-            description: "Use the contact CTA if you want a scoped review conversation.",
+            title: "Start the Conversation",
+            description: "Use the primary CTA if you want to start with scope, workflow friction, and delivery constraints.",
             contact: "Start with your highest-friction workflow",
-            action: "Jump to CTA",
+            action: "Jump to email",
             href: "#contact-cta",
           },
           {
@@ -513,21 +515,21 @@ const dictionary = {
             href: demoSlugs.computerVision,
           },
         ],
-        checklistTitle: "What to bring to the review",
+        checklistTitle: "What to bring to the conversation",
         checklist: [
           "The workflow you want to improve",
           "The systems or documents involved",
           "Where humans still intervene today",
           "How you would judge a pilot as successful",
         ],
-        ctaCardTitle: "Book a technical review",
+        ctaCardTitle: "Start a workflow review",
         ctaCardBody:
           "Share one workflow, one constraint, and what success would look like. The first conversation should make the next decision obvious.",
-        ctaPrimary: "Email ML Agency",
+        ctaPrimary: `Email ${SITE_NAME}`,
         ctaSecondary: "View demos hub",
       },
       metadata: {
-        title: "ML Agency | Production-minded machine learning systems",
+        title: `${SITE_NAME} | Production-minded machine learning systems`,
         description:
           "Production-minded machine learning systems for workflow automation, forecasting, and credible pilots across North America and Latin America.",
       },
@@ -536,8 +538,8 @@ const dictionary = {
       badge: "Live workflows, not generic AI demos",
       title: "Machine learning demos for real operational workflows",
       body:
-        "Explore the workflow first, test the interaction pattern second, and use the technical review CTA when a pilot starts to look justified.",
-      primaryCta: "Book Technical Review",
+        "Explore the workflow first, test the interaction pattern second, and use the workflow review CTA when a pilot starts to look justified.",
+      primaryCta: "Talk Through Your Workflow",
       secondaryCta: "Back to Services",
       cards: [
         {
@@ -572,7 +574,7 @@ const dictionary = {
       backToServices: "Back to Services",
       helpsTitle: "Where this demo helps",
       helpsBody: "Use the workflow framing to decide if a pilot is worth scoping.",
-      reviewTitle: "What to bring to a review",
+      reviewTitle: "What to bring to the conversation",
       reviewBody:
         "A useful first conversation is about the workflow, not the model brand.",
       liveDemoBadge: "Live demo",
@@ -584,7 +586,7 @@ const dictionary = {
       fitBody: "Scenarios where this approach usually has the highest chance of success.",
       notFitTitle: "Not a fit",
       notFitBody: "Cases where the problem should be reframed before building.",
-      ctaTitle: "Bring one concrete workflow to the technical review",
+      ctaTitle: "Bring one concrete workflow to the first conversation",
       ctaBody:
         "If the demo resembles a real operation inside your team, the next conversation should focus on scope, evaluation, and implementation constraints.",
     },
@@ -601,7 +603,7 @@ const dictionary = {
       errorFallback: "An error occurred",
     },
     metadata: {
-      siteName: "ML Agency",
+      siteName: SITE_NAME,
       description:
         "Production-minded machine learning systems for workflow automation and credible pilots.",
       ogLocale: "en_US",

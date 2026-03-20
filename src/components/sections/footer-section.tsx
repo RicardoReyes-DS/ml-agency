@@ -8,6 +8,7 @@ import { ArrowRight, Cpu, Mail, MessageCircle, Workflow } from "lucide-react";
 import { InteractiveBlob } from "@/components/visuals/interactive-blob";
 import { usePrefersReducedMotion } from "@/hooks/use-performance";
 import { getSectionSettings } from "@/lib/complex-functions";
+import { CONTACT_EMAIL, CONTACT_SUBJECTS, SITE_NAME, createMailto } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import { getDictionary, getLocaleFromPathname, localizeHref } from "@/lib/i18n";
 
@@ -99,10 +100,7 @@ export function FooterSection() {
               )}
             >
               <Cpu className="h-8 w-8 text-primary" />
-              <span className="text-2xl font-bold font-mono">
-                <span className="text-gradient-primary">ML</span>
-                <span className="text-accent">Agency</span>
-              </span>
+              <span className="text-2xl font-bold font-mono text-gradient-primary">{SITE_NAME}</span>
             </Link>
             <p className="text-sm md:text-base text-foreground-muted max-w-xs">
               {copy.tagline}
@@ -154,14 +152,14 @@ export function FooterSection() {
             </h3>
             <div className="space-y-4">
               <a
-                href="mailto:hello@ml-agency.com?subject=Technical%20Review"
+                href={createMailto(locale === "es" ? CONTACT_SUBJECTS.revisionDeFlujo : CONTACT_SUBJECTS.workflowReview)}
                 className={cn(
                   "flex items-center gap-3 text-sm md:text-base text-foreground-muted hover:text-primary transition-colors min-h-[44px]",
                   linkFocusStyles
                 )}
               >
                 <Mail className="h-5 w-5 text-primary flex-shrink-0" />
-                hello@ml-agency.com
+                {CONTACT_EMAIL}
               </a>
               <div className="flex items-start gap-3 text-sm md:text-base text-foreground-muted min-h-[44px]">
                 <Workflow className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
@@ -182,7 +180,7 @@ export function FooterSection() {
               {copy.pilotSummary}
             </p>
             <Link
-              href={localizeHref(locale, "/#contact")}
+              href={createMailto(locale === "es" ? CONTACT_SUBJECTS.revisionDeFlujo : CONTACT_SUBJECTS.workflowReview)}
               className={cn(
                 "inline-flex items-center justify-center w-full min-h-[44px] gradient-primary hover:shadow-xl glow-primary text-white px-6 py-4 font-semibold transition-all duration-300 rounded-md",
                 linkFocusStyles

@@ -5,7 +5,7 @@ import { z } from 'zod';
 import { parseDocument } from '@/services/nlp/document-processor';
 import { ProcessedDocument, ChatMessage } from '@/lib/types';
 
-const PROJECT_ID = process.env.GOOGLE_CLOUD_PROJECT_ID || process.env.GCP_PROJECT_ID || 'ml-agency';
+const PROJECT_ID = process.env.GOOGLE_CLOUD_PROJECT_ID || process.env.GCP_PROJECT_ID || 'enkisys-agency';
 const LOCATION = 'us-central1';
 const MODEL_NAME = 'gemini-2.5-pro';
 
