@@ -1,4 +1,4 @@
-import { CONTACT_EMAIL, SITE_NAME, SITE_URL } from "@/lib/site";
+import { CONTACT_EMAIL, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
 
 type SchemaOrgType =
   | "Organization"
@@ -49,9 +49,7 @@ export function OrganizationStructuredData({ locale = "es" }: { locale?: Support
         name: SITE_NAME,
         url: SITE_URL,
         logo: `${SITE_URL}/logo.png`,
-        description: locale === "es"
-          ? "Sistemas de machine learning orientados a produccion para pilotos viables y automatizacion operativa."
-          : "Production-minded machine learning systems for pragmatic pilots and workflow automation.",
+        description: SITE_DESCRIPTION,
         contactPoint: {
           '@type': 'ContactPoint',
           contactType: 'sales',
@@ -59,36 +57,33 @@ export function OrganizationStructuredData({ locale = "es" }: { locale?: Support
         },
         hasOfferCatalog: {
           '@type': 'OfferCatalog',
-          name: locale === "es" ? "Soluciones de IA" : "AI Solutions",
+          name: "AI Solutions",
           itemListElement: [
             {
               '@type': 'Offer',
               itemOffered: {
                 '@type': 'Service',
-                name: locale === "es" ? "Soluciones de vision por computadora" : "Computer Vision Solutions",
-                description: locale === "es"
-                  ? "Sistemas de vision por computadora para inspeccion, captura documental y manejo de excepciones visuales."
-                  : "Computer vision systems for inspection, document capture, and visual exception handling.",
+                name: "Computer Vision Solutions",
+                description:
+                  "Computer vision systems for inspection, document capture, and visual exception handling.",
               },
             },
             {
               '@type': 'Offer',
               itemOffered: {
                 '@type': 'Service',
-                name: locale === "es" ? "Procesamiento de lenguaje natural" : "Natural Language Processing",
-                description: locale === "es"
-                  ? "Sistemas de busqueda, triage y soporte al operador construidos sobre documentos y texto."
-                  : "Search, triage, and operator workflow systems built on document and text understanding.",
+                name: "Natural Language Processing",
+                description:
+                  "Search, triage, and operator workflow systems built on document and text understanding.",
               },
             },
             {
               '@type': 'Offer',
               itemOffered: {
                 '@type': 'Service',
-                name: locale === "es" ? "Analitica predictiva y modelos a medida" : "Predictive Analytics and Custom Models",
-                description: locale === "es"
-                  ? "Pronostico, deteccion de anomalias y modelos a medida pensados para restricciones de produccion."
-                  : "Forecasting, anomaly detection, and custom model delivery designed for production constraints.",
+                name: "Predictive Analytics and Custom Models",
+                description:
+                  "Forecasting, anomaly detection, and custom model delivery designed for production constraints.",
               },
             },
           ],
@@ -105,9 +100,7 @@ export function WebSiteStructuredData({ locale = "es" }: { locale?: SupportedLoc
       data={{
         name: SITE_NAME,
         url: SITE_URL,
-        description: locale === "es"
-          ? "Sistemas de machine learning para automatizacion operativa, pronostico y pilotos viables."
-          : "Production-minded machine learning systems for workflow automation, forecasting, and pragmatic pilots.",
+        description: SITE_DESCRIPTION,
       }}
     />
   );

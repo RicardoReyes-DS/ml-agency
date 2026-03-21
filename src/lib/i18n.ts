@@ -205,7 +205,7 @@ const dictionary = {
             description:
               "Usa el CTA principal si quieres empezar por el flujo, el alcance y las restricciones.",
             contact: "Empieza por el flujo con mas friccion",
-            action: "Ir al correo",
+            action: "Ir al CTA",
             href: "#contact-cta",
           },
           {
@@ -231,7 +231,7 @@ const dictionary = {
         ctaSecondary: "Ver hub de demos",
       },
       metadata: {
-        title: `${SITE_NAME} | Sistemas de machine learning para operaciones`,
+        title: "Sistemas de machine learning para operaciones",
         description:
           "Sistemas de machine learning orientados a produccion para automatizar revisiones, mejorar pronosticos y lanzar pilotos viables en Mexico y Latinoamerica.",
       },
@@ -504,7 +504,7 @@ const dictionary = {
             title: "Start the Conversation",
             description: "Use the primary CTA if you want to start with scope, workflow friction, and delivery constraints.",
             contact: "Start with your highest-friction workflow",
-            action: "Jump to email",
+            action: "Jump to CTA",
             href: "#contact-cta",
           },
           {
@@ -529,7 +529,7 @@ const dictionary = {
         ctaSecondary: "View demos hub",
       },
       metadata: {
-        title: `${SITE_NAME} | Production-minded machine learning systems`,
+        title: "Production-minded machine learning systems",
         description:
           "Production-minded machine learning systems for workflow automation, forecasting, and credible pilots across North America and Latin America.",
       },

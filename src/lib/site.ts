@@ -1,6 +1,8 @@
 export const SITE_NAME = "Enkisys";
 export const SITE_URL = "https://enkisys.agency";
 export const CONTACT_EMAIL = "ricardo@enkisys.net";
+export const SITE_DESCRIPTION =
+  "Applied AI systems for workflow automation, forecasting, and pragmatic pilots.";
 
 export const CONTACT_SUBJECTS = {
   workflowReview: "Workflow Review",
