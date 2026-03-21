@@ -82,7 +82,7 @@ Implemented in the current version:
 For local review, start the development server:
 
 ```bash
-npm install
+npm ci --legacy-peer-deps
 npm run dev
 ```
 
@@ -94,6 +94,31 @@ Primary local routes:
 - `http://localhost:3000/en/demos`
 
 The root route `/` redirects to the default locale, which is currently Spanish.
+
+### Visual Audit Workflow
+
+For browser-based visual audits, use the local app together with Playwright.
+
+Recommended setup:
+
+```bash
+npm ci --legacy-peer-deps
+npx playwright install chromium
+npm run dev -- --hostname 127.0.0.1 --port 3100
+```
+
+Then audit against routes such as:
+
+- `http://127.0.0.1:3100/es`
+- `http://127.0.0.1:3100/en`
+- `http://127.0.0.1:3100/es/demos`
+- `http://127.0.0.1:3100/en/demos`
+
+Notes:
+
+- System libraries required by Playwright Chromium were installed with `npx playwright install-deps chromium`
+- If Playwright reports that the browser executable is missing, rerun `npx playwright install chromium`
+- For locale QA, verify both static HTML metadata and runtime browser state
 
 ## Why This Matters as a Reference Project
 
@@ -145,6 +170,7 @@ npm run test:e2e
 Recommended validation sequence before handoff or deployment:
 
 ```bash
+npm ci --legacy-peer-deps
 npm run type-check
 npm run test:run
 npm run build

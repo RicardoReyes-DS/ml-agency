@@ -36,6 +36,14 @@ This repository is tied to GitHub account `RicardoReyes-DS`.
 - Do not change the GitHub repo reference `RicardoReyes-DS/ml-agency` in WIF-related docs/scripts unless the repo itself is being migrated
 - Branding/content updates for the public site are safe; infrastructure identity updates require explicit confirmation
 
+## Visual audit workflow
+
+- This environment can support browser-based visual audits with Playwright
+- Preferred audit flow: start the local app, then inspect localized routes with Playwright against the local server
+- System dependencies for Playwright Chromium were installed via `npx playwright install-deps chromium`
+- If the browser binary is missing in a future session, reinstall it with `npx playwright install chromium`
+- When auditing locale/metadata issues, verify both rendered HTML and runtime browser state (for example, document title and `document.documentElement.lang`)
+
 ## Quick checks
 
 - `git config user.email`
