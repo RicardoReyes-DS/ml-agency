@@ -20,12 +20,37 @@ export async function generateMetadata({
   return {
     title: content.workflowTitle,
     description: content.workflowSummary,
+    keywords:
+      locale === "es"
+        ? [
+            "inteligencia documental para empresas en México",
+            "RAG para empresas",
+            "búsqueda documental con IA",
+            "procesamiento de lenguaje natural para operaciones",
+          ]
+        : [
+            "document intelligence services",
+            "rag workflow demo",
+            "enterprise search ai",
+            "natural language processing operations",
+          ],
     alternates: {
       canonical: href,
       languages: {
         es: "/es/demos/nlp",
         en: "/en/demos/nlp",
       },
+    },
+    openGraph: {
+      title: content.workflowTitle,
+      description: content.workflowSummary,
+      url: href,
+      locale: locale === "es" ? "es_MX" : "en_US",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: content.workflowTitle,
+      description: content.workflowSummary,
     },
   };
 }
@@ -46,7 +71,7 @@ export default async function LocalizedNlpPage({
         items={[
           { name: locale === "es" ? "Inicio" : "Home", url: `${SITE_URL}/${locale}` },
           { name: locale === "es" ? "Demos" : "Demos", url: `${SITE_URL}/${locale}/demos` },
-          { name: content.title, url: baseUrl },
+          { name: content.workflowTitle, url: baseUrl },
         ]}
       />
       <SoftwareApplicationStructuredData

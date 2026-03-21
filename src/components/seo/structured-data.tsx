@@ -1,4 +1,4 @@
-import { CONTACT_EMAIL, SITE_DESCRIPTION, SITE_NAME, SITE_URL } from "@/lib/site";
+import { CONTACT_EMAIL, SITE_DESCRIPTION_EN, SITE_DESCRIPTION_ES, SITE_NAME, SITE_URL } from "@/lib/site";
 
 type SchemaOrgType =
   | "Organization"
@@ -23,6 +23,57 @@ interface StructuredDataProps {
 
 type SupportedLocale = "es" | "en";
 
+const localizedSchemaCopy = {
+  es: {
+    siteDescription: SITE_DESCRIPTION_ES,
+    websiteName: `${SITE_NAME} | Servicios de machine learning para empresas en México`,
+    inLanguage: "es-MX",
+    offerCatalogName: "Servicios de IA para empresas",
+    services: [
+      {
+        name: "Soluciones de visión por computadora",
+        description:
+          "Servicios de visión por computadora para inspección, captura documental y manejo de excepciones visuales.",
+      },
+      {
+        name: "Inteligencia documental y NLP",
+        description:
+          "Servicios de inteligencia documental, búsqueda, triage y soporte operativo basados en documentos, correos y texto.",
+      },
+      {
+        name: "Analítica predictiva y modelos a medida",
+        description:
+          "Servicios de analítica predictiva, detección de anomalías y modelos a medida diseñados para restricciones reales de operación.",
+      },
+    ],
+    areaServed: ["México", "Latinoamérica"],
+  },
+  en: {
+    siteDescription: SITE_DESCRIPTION_EN,
+    websiteName: SITE_NAME,
+    inLanguage: "en-US",
+    offerCatalogName: "AI Solutions",
+    services: [
+      {
+        name: "Computer Vision Solutions",
+        description:
+          "Computer vision systems for inspection, document capture, and visual exception handling.",
+      },
+      {
+        name: "Natural Language Processing",
+        description:
+          "Search, triage, and operator workflow systems built on document and text understanding.",
+      },
+      {
+        name: "Predictive Analytics and Custom Models",
+        description:
+          "Forecasting, anomaly detection, and custom model delivery designed for production constraints.",
+      },
+    ],
+    areaServed: ["Mexico", "Latin America"],
+  },
+} as const;
+
 export function StructuredData({ type, data }: StructuredDataProps) {
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -42,6 +93,8 @@ export function StructuredData({ type, data }: StructuredDataProps) {
 
 // Predefined structured data components
 export function OrganizationStructuredData({ locale = "es" }: { locale?: SupportedLocale }) {
+  const copy = localizedSchemaCopy[locale];
+
   return (
     <StructuredData
       type="Organization"
@@ -49,7 +102,8 @@ export function OrganizationStructuredData({ locale = "es" }: { locale?: Support
         name: SITE_NAME,
         url: SITE_URL,
         logo: `${SITE_URL}/logo.png`,
-        description: SITE_DESCRIPTION,
+        description: copy.siteDescription,
+        areaServed: [...copy.areaServed],
         contactPoint: {
           '@type': 'ContactPoint',
           contactType: 'sales',
@@ -57,36 +111,15 @@ export function OrganizationStructuredData({ locale = "es" }: { locale?: Support
         },
         hasOfferCatalog: {
           '@type': 'OfferCatalog',
-          name: "AI Solutions",
-          itemListElement: [
-            {
-              '@type': 'Offer',
-              itemOffered: {
-                '@type': 'Service',
-                name: "Computer Vision Solutions",
-                description:
-                  "Computer vision systems for inspection, document capture, and visual exception handling.",
-              },
+          name: copy.offerCatalogName,
+          itemListElement: copy.services.map((service) => ({
+            '@type': 'Offer',
+            itemOffered: {
+              '@type': 'Service',
+              name: service.name,
+              description: service.description,
             },
-            {
-              '@type': 'Offer',
-              itemOffered: {
-                '@type': 'Service',
-                name: "Natural Language Processing",
-                description:
-                  "Search, triage, and operator workflow systems built on document and text understanding.",
-              },
-            },
-            {
-              '@type': 'Offer',
-              itemOffered: {
-                '@type': 'Service',
-                name: "Predictive Analytics and Custom Models",
-                description:
-                  "Forecasting, anomaly detection, and custom model delivery designed for production constraints.",
-              },
-            },
-          ],
+          })),
         },
       }}
     />
@@ -94,13 +127,16 @@ export function OrganizationStructuredData({ locale = "es" }: { locale?: Support
 }
 
 export function WebSiteStructuredData({ locale = "es" }: { locale?: SupportedLocale }) {
+  const copy = localizedSchemaCopy[locale];
+
   return (
     <StructuredData
       type="WebSite"
       data={{
-        name: SITE_NAME,
+        name: copy.websiteName,
         url: SITE_URL,
-        description: SITE_DESCRIPTION,
+        description: copy.siteDescription,
+        inLanguage: copy.inLanguage,
       }}
     />
   );

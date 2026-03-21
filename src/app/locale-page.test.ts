@@ -8,7 +8,8 @@ describe("localized home page", () => {
     const element = await LocaleHomePage({ params: Promise.resolve({ locale: "es" }) });
     const html = renderToStaticMarkup(element);
 
-    expect(html).toContain("Sistemas de machine learning");
+    expect(html).not.toContain("BAILOUT_TO_CLIENT_SIDE_RENDERING");
+    expect(html).toContain("Servicios de machine learning para empresas");
     expect(html).toContain("Hablar sobre tu flujo");
   });
 

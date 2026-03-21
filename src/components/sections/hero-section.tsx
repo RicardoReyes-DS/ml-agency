@@ -2,20 +2,15 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import dynamic from "next/dynamic";
 import { ArrowRight, Sparkles } from "lucide-react";
 import { TypewriterText } from "@/components/visuals/typewriter-text";
 import { InteractiveBlob } from "@/components/visuals/interactive-blob";
+import { DomainColoringCanvas } from "@/components/visuals/domain-coloring-canvas";
 import { Button } from "@/components/ui/button";
 import { usePrefersReducedMotion } from "@/hooks/use-performance";
 import { getSectionSettings } from "@/lib/complex-functions";
 import { getDictionary, localizeHref, type Locale } from "@/lib/i18n";
 import { CONTACT_SUBJECTS, createMailto } from "@/lib/site";
-
-const DomainColoringCanvas = dynamic(
-  () => import("@/components/visuals/domain-coloring-canvas").then((mod) => mod.DomainColoringCanvas),
-  { ssr: false }
-);
 
 export function HeroSection({ locale }: { locale: Locale }) {
   const prefersReducedMotion = usePrefersReducedMotion();

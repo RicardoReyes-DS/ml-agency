@@ -20,12 +20,37 @@ export async function generateMetadata({
   return {
     title: content.workflowTitle,
     description: content.workflowSummary,
+    keywords:
+      locale === "es"
+        ? [
+            "visión por computadora para empresas en México",
+            "inspección visual con IA",
+            "captura documental con machine learning",
+            "detección de objetos para operaciones",
+          ]
+        : [
+            "computer vision services",
+            "visual inspection ai",
+            "document capture machine learning",
+            "object detection workflow demo",
+          ],
     alternates: {
       canonical: href,
       languages: {
         es: "/es/demos/computer-vision",
         en: "/en/demos/computer-vision",
       },
+    },
+    openGraph: {
+      title: content.workflowTitle,
+      description: content.workflowSummary,
+      url: href,
+      locale: locale === "es" ? "es_MX" : "en_US",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: content.workflowTitle,
+      description: content.workflowSummary,
     },
   };
 }
@@ -46,7 +71,7 @@ export default async function LocalizedComputerVisionPage({
         items={[
           { name: locale === "es" ? "Inicio" : "Home", url: `${SITE_URL}/${locale}` },
           { name: locale === "es" ? "Demos" : "Demos", url: `${SITE_URL}/${locale}/demos` },
-          { name: content.title, url: baseUrl },
+          { name: content.workflowTitle, url: baseUrl },
         ]}
       />
       <SoftwareApplicationStructuredData

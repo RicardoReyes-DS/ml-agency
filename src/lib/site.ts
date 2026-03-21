@@ -3,6 +3,10 @@ export const SITE_URL = "https://enkisys.agency";
 export const CONTACT_EMAIL = "ricardo@enkisys.net";
 export const SITE_DESCRIPTION =
   "Applied AI systems for workflow automation, forecasting, and pragmatic pilots.";
+export const SITE_DESCRIPTION_ES =
+  "Servicios de machine learning para empresas en México y Latinoamérica, enfocados en automatización operativa, visión por computadora, inteligencia documental y pilotos viables.";
+export const SITE_DESCRIPTION_EN =
+  "Applied AI systems for workflow automation, forecasting, and pragmatic pilots.";
 
 export const CONTACT_SUBJECTS = {
   workflowReview: "Workflow Review",

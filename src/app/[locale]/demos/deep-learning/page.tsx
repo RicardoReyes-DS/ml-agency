@@ -19,12 +19,37 @@ export async function generateMetadata({
   return {
     title: content.workflowTitle,
     description: content.workflowSummary,
+    keywords:
+      locale === "es"
+        ? [
+            "modelos de IA a medida en México",
+            "modelos de deep learning a medida",
+            "arquitecturas neuronales para empresas",
+            "modelado personalizado con IA",
+          ]
+        : [
+            "custom deep learning models",
+            "neural architecture design",
+            "enterprise model training",
+            "custom ai modeling",
+          ],
     alternates: {
       canonical: href,
       languages: {
         es: "/es/demos/deep-learning",
         en: "/en/demos/deep-learning",
       },
+    },
+    openGraph: {
+      title: content.workflowTitle,
+      description: content.workflowSummary,
+      url: href,
+      locale: locale === "es" ? "es_MX" : "en_US",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: content.workflowTitle,
+      description: content.workflowSummary,
     },
   };
 }
@@ -45,7 +70,7 @@ export default async function LocalizedDeepLearningPage({
         items={[
           { name: locale === "es" ? "Inicio" : "Home", url: `${SITE_URL}/${locale}` },
           { name: locale === "es" ? "Demos" : "Demos", url: `${SITE_URL}/${locale}/demos` },
-          { name: content.title, url: baseUrl },
+          { name: content.workflowTitle, url: baseUrl },
         ]}
       />
       <SoftwareApplicationStructuredData

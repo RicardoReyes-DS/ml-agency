@@ -24,48 +24,48 @@ const dictionary = {
         { label: "Contacto", key: "contact" },
       ],
       cta: "Hablar sobre tu flujo",
-      closeMenu: "Cerrar menu",
-      openMenu: "Abrir menu",
+      closeMenu: "Cerrar menú",
+      openMenu: "Abrir menú",
       brandAriaLabel: `Ir al inicio de ${SITE_NAME}`,
     },
     footer: {
       tagline:
-        "Sistemas de machine learning orientados a produccion para equipos que necesitan una ruta creible hacia la automatizacion.",
+        "Sistemas de machine learning orientados a producción para equipos que necesitan una ruta creíble hacia la automatización.",
       navigateTitle: "Navegar",
       demosLabel: "Demos",
       contactTitle: "Contacto",
       contactIntro:
-        "Trae un flujo de trabajo, el cuello de botella actual y como evaluarias un piloto.",
+        "Trae un flujo de trabajo, el cuello de botella actual y cómo evaluarías un piloto.",
       contactSupport:
-        "Te ayudamos a aclarar viabilidad, alcance del piloto y ajuste a produccion.",
+        "Te ayudamos a aclarar viabilidad, alcance del piloto y ajuste a producción.",
       pilotTitle: "Inicia tu piloto",
       pilotSummary:
-        "Empieza con una revision de flujo antes de comprometerte con una implementacion mayor.",
+        "Empieza con una revisión de flujo antes de comprometerte con una implementación mayor.",
       cta: "Hablar sobre tu flujo",
       bottomLine:
-        "Enfoca la primera conversacion en un flujo, una metrica de exito y una decision de piloto.",
+        "Enfoca la primera conversación en un flujo, una métrica de éxito y una decisión de piloto.",
       demoCta: "Ver demo en vivo",
     },
     home: {
       hero: {
         badge: "Entrega de ML orientada al operador",
         title:
-          "Sistemas de machine learning que reducen trabajo manual,",
-        titleAccent: "disminuyen riesgo y salen rapido a produccion.",
+          "Servicios de machine learning para empresas que reducen trabajo manual,",
+        titleAccent: "disminuyen riesgo y salen rápido a producción.",
         typewriter: [
-          "Automatizacion de captura y revision documental",
-          "Pronostico y deteccion de anomalias",
-          "Control de calidad con vision por computadora",
-          "Busqueda interna y copilotos para operadores",
+          "Automatización de captura y revisión documental",
+          "Pronóstico y detección de anomalías",
+          "Control de calidad con visión por computadora",
+          "Búsqueda interna y copilotos para operadores",
         ],
         body:
-          "Ayudamos a equipos de Mexico y Latinoamerica a convertir cuellos de botella operativos y datos reales en sistemas productivos con alcance viable y una ruta de piloto que el equipo puede sostener.",
+          "Ayudamos a equipos de México y Latinoamérica a convertir cuellos de botella operativos y datos reales en sistemas productivos, con alcance viable y una ruta de piloto que el equipo pueda sostener.",
         primaryCta: "Hablar sobre tu flujo",
         secondaryCta: "Ver demos en vivo",
         secondaryHref: demoSlugs.computerVision,
         outcomes: [
           "Automatiza revisiones repetitivas y tareas de enrutamiento",
-          "Detecta anomalias, riesgos y cambios de demanda antes",
+          "Detecta anomalías, riesgos y cambios de demanda antes",
           "Lanza un piloto con enfoque operativo, no un experimento eterno",
         ],
       },
@@ -74,18 +74,18 @@ const dictionary = {
         title: "Casos de uso creados para",
         titleAccent: "apalancamiento operativo",
         body:
-          "Nos enfocamos en flujos donde la revision manual, las decisiones inconsistentes y las senales tardias estan frenando al equipo.",
+          "Nos enfocamos en flujos donde la revisión manual, las decisiones inconsistentes y las señales tardías están frenando al equipo.",
         cta: "Hablar sobre tu flujo",
         cards: [
           {
             slug: "computerVision",
-            title: "Vision por computadora",
+            title: "Visión por computadora",
             description:
-              "Automatiza inspeccion, captura documental y QA visual sin aumentar revision manual.",
+              "Automatiza inspección, captura documental y QA visual sin aumentar la revisión manual.",
             features: [
               "Controles de calidad",
               "Manejo de excepciones visuales",
-              "Extraccion documental",
+              "Extracción documental",
             ],
             metric: "Ideal para revisiones operativas",
           },
@@ -93,10 +93,10 @@ const dictionary = {
             slug: "nlp",
             title: "Procesamiento de lenguaje natural",
             description:
-              "Convierte inboxes, documentos y conocimiento interno en flujos de busqueda, triage y accion.",
+              "Convierte bandejas de entrada, documentos y conocimiento interno en flujos de búsqueda, triage y acción.",
             features: [
-              "Triage de intake",
-              "Busqueda y retrieval",
+              "Triage de entrada",
+              "Búsqueda y recuperación",
               "Copilotos para operadores",
             ],
             metric: "Ideal para equipos intensivos en texto",
@@ -105,35 +105,35 @@ const dictionary = {
             slug: "deepLearning",
             title: "Deep learning",
             description:
-              "Construye modelos especificos cuando las herramientas genericas no alcanzan el flujo o la precision requerida.",
+              "Construye modelos específicos cuando las herramientas genéricas no alcanzan el flujo o la precisión requerida.",
             features: [
               "Modelado a medida",
-              "Diseno de evaluacion",
+              "Diseño de evaluación",
               "Restricciones de despliegue desde el inicio",
             ],
-            metric: "Ideal para casos limite",
+            metric: "Ideal para casos límite",
           },
           {
             slug: "predictiveAnalytics",
-            title: "Analitica predictiva",
+            title: "Analítica predictiva",
             description:
-              "Pronostica demanda, detecta anomalias y entrega senales tempranas antes de que los problemas cuesten.",
+              "Pronostica demanda, detecta anomalías y entrega señales tempranas antes de que los problemas cuesten.",
             features: [
-              "Pronostico",
-              "Deteccion de anomalias",
+              "Pronóstico",
+              "Detección de anomalías",
               "Soporte a decisiones",
             ],
-            metric: "Ideal para equipos de planeacion",
+            metric: "Ideal para equipos de planeación",
           },
         ],
         exploreCta: "Explorar demo",
       },
       about: {
-        badge: "Como ejecutamos proyectos",
-        title: "Profundidad tecnica con un",
+        badge: "Cómo ejecutamos proyectos",
+        title: "Profundidad técnica con un",
         titleAccent: "modelo de entrega confiable para operaciones",
         body:
-          "No tratamos proyectos de IA como I+D abierto. El trabajo es identificar un flujo que valga la pena, definir el piloto y hacer explicitas las decisiones operativas.",
+          "No tratamos proyectos de IA como I+D abierto. El trabajo es identificar un flujo que valga la pena, definir el piloto y hacer explícitas las decisiones operativas.",
         achievements: [
           {
             value: "1",
@@ -148,38 +148,38 @@ const dictionary = {
           {
             value: "3",
             label: "Restricciones reales",
-            description: "Seguridad, latencia, handoffs y soporte se consideran desde el inicio.",
+            description: "Seguridad, latencia, transferencias entre etapas y soporte se consideran desde el inicio.",
           },
           {
             value: "4",
-            label: "Adopcion del operador",
-            description: "Diseñamos salidas alrededor de como decide y trabaja el equipo.",
+            label: "Adopción del operador",
+            description: "Diseñamos salidas alrededor de cómo decide y trabaja el equipo.",
           },
         ],
-        practiceTitle: "Lo que eso significa en la practica",
+        practiceTitle: "Lo que eso significa en la práctica",
         practiceBody: [
-          "Acotamos alrededor de una decision de negocio o un flujo manual, no de la novedad del modelo. Eso mantiene el trabajo medible y evita que la adopcion se estanque.",
-          "Tambien diseñamos handoffs, manejo de excepciones y propiedad del equipo para que el sistema sobreviva despues del piloto.",
+          "Acotamos alrededor de una decisión de negocio o un flujo manual, no de la novedad del modelo. Eso mantiene el trabajo medible y evita que la adopción se estanque.",
+          "También diseñamos transferencias entre etapas, manejo de excepciones y propiedad del equipo para que el sistema sobreviva después del piloto.",
         ],
         principlesTitle: "Principios de entrega",
         principles: [
           {
-            title: "Economia del flujo",
+            title: "Economía del flujo",
             description:
-              "Priorizamos cuellos de botella con suficiente volumen, costo o riesgo para justificar automatizacion.",
+              "Priorizamos cuellos de botella con suficiente volumen, costo o riesgo para justificar automatización.",
           },
           {
-            title: "Produccion por defecto",
+            title: "Producción por defecto",
             description:
-              "La ruta de integracion, los fallback y el modelo operativo forman parte de la primera conversacion.",
+              "La ruta de integración, los respaldos operativos y el modelo operativo forman parte de la primera conversación.",
           },
           {
             title: "Evidencia sobre hype",
             description:
-              "Definimos criterios de evaluacion temprano para juzgar el piloto con resultados reales.",
+              "Definimos criterios de evaluación desde temprano para juzgar el piloto con resultados reales.",
           },
           {
-            title: "Gestion del cambio",
+            title: "Gestión del cambio",
             description:
               "Diseñamos para las personas dentro del ciclo, no solo para el modelo aislado.",
           },
@@ -187,130 +187,145 @@ const dictionary = {
         cta: "Hablar sobre tu flujo",
       },
       contact: {
-        badge: "Revision de flujo",
+        badge: "Revisión de flujo",
         title: "Empieza con una",
-        titleAccent: "revision de flujo clara",
+        titleAccent: "revisión de flujo clara",
         body:
-          "La meta es decidir si un piloto se justifica, cual debe ser el primer flujo y que podria bloquear su adopcion en produccion.",
+          "La meta es decidir si un piloto se justifica, cuál debe ser el primer flujo y qué podría bloquear su adopción en producción.",
         methods: [
           {
-            title: "Envia tu flujo por correo",
+            title: "Envía tu flujo por correo",
             description: "Comparte el proceso, los bloqueos y los sistemas involucrados.",
             contact: CONTACT_EMAIL,
             action: "Enviar correo",
             href: createMailto(CONTACT_SUBJECTS.revisionDeFlujo),
           },
           {
-            title: "Abre la conversacion",
+            title: "Abre la conversación",
             description:
               "Usa el CTA principal si quieres empezar por el flujo, el alcance y las restricciones.",
-            contact: "Empieza por el flujo con mas friccion",
+            contact: "Empieza por el flujo con más fricción",
             action: "Ir al CTA",
             href: "#contact-cta",
           },
           {
             title: "Revisa un demo funcional",
             description:
-              "Ve los patrones de interaccion antes de planear el piloto.",
+              "Ve los patrones de interacción antes de planear el piloto.",
             contact: "Explora un caso de uso en vivo",
             action: "Ver demo",
             href: demoSlugs.computerVision,
           },
         ],
-        checklistTitle: "Que traer a la conversacion",
+        checklistTitle: "Qué traer a la conversación",
         checklist: [
           "El flujo que quieres mejorar",
           "Los sistemas o documentos involucrados",
-          "Donde hoy siguen interviniendo personas",
-          "Como evaluarias un piloto exitoso",
+          "Dónde hoy siguen interviniendo personas",
+          "Cómo evaluarías un piloto exitoso",
         ],
-        ctaCardTitle: "Abre una revision de flujo",
+        ctaCardTitle: "Abre una revisión de flujo",
         ctaCardBody:
-          "Comparte un flujo, una restriccion y la definicion de exito del piloto. La primera conversacion debe dejar claro si vale la pena avanzar.",
+          "Comparte un flujo, una restricción y la definición de éxito del piloto. La primera conversación debe dejar claro si vale la pena avanzar.",
         ctaPrimary: `Enviar correo a ${SITE_NAME}`,
         ctaSecondary: "Ver hub de demos",
       },
       metadata: {
-        title: "Sistemas de machine learning para operaciones",
+        title: "Servicios de machine learning para empresas en México",
         description:
-          "Sistemas de machine learning orientados a produccion para automatizar revisiones, mejorar pronosticos y lanzar pilotos viables en Mexico y Latinoamerica.",
+          "Servicios de machine learning para empresas en México y Latinoamérica, enfocados en automatización operativa, visión por computadora, inteligencia documental y pilotos viables.",
+        keywords: [
+          "servicios de machine learning en México",
+          "agencia de machine learning en México",
+          "automatización con IA para operaciones",
+          "visión por computadora para empresas",
+          "inteligencia documental con IA",
+        ],
       },
     },
     demos: {
-      badge: "Flujos en vivo, no demos genericos de IA",
+      badge: "Flujos en vivo, no demos genéricos de IA",
       title:
-        "Demos de machine learning para flujos operativos reales",
+        "Demos de IA aplicada para casos de uso operativos reales",
       body:
-        "Primero explora el flujo, despues prueba el patron de interaccion y usa la revision de flujo cuando el piloto empiece a verse viable.",
+        "Explora casos de uso de IA aplicada antes de definir un piloto: aquí puedes revisar patrones de interacción para visión por computadora, inteligencia documental, modelado a medida y analítica predictiva.",
       primaryCta: "Hablar sobre tu flujo",
       secondaryCta: "Volver a servicios",
       cards: [
         {
-          title: "Vision por computadora",
+          title: "Visión por computadora",
           href: demoSlugs.computerVision,
-          description: "Inspeccion, captura documental y manejo de excepciones visuales.",
+          description: "Inspección, captura documental y manejo de excepciones visuales.",
         },
         {
           title: "Inteligencia documental",
           href: demoSlugs.nlp,
-          description: "Busqueda, triage y soporte fundamentado para equipos intensivos en documentos.",
+          description: "Búsqueda, triage y soporte fundamentado para equipos intensivos en documentos.",
         },
         {
           title: "Modelado a medida",
           href: demoSlugs.deepLearning,
-          description: "Cuando el flujo es demasiado especifico para herramientas genericas.",
+          description: "Cuando el flujo es demasiado específico para herramientas genéricas.",
         },
         {
-          title: "Analitica predictiva",
+          title: "Analítica predictiva",
           href: demoSlugs.predictiveAnalytics,
-          description: "Pronostico y deteccion de anomalias para planeacion y respuesta al riesgo.",
+          description: "Pronóstico y detección de anomalías para planeación y respuesta al riesgo.",
         },
       ],
       exploreCta: "Explorar demo",
       metadata: {
-        title: "Demos de machine learning | Casos de uso operativos",
+        title: "Demos de IA aplicada para operaciones en México",
         description:
-          "Explora demos de machine learning orientados a inspeccion, inteligencia documental, pronostico y modelado especifico.",
+          "Explora casos de uso y demos de IA aplicada para operaciones en México: visión por computadora, inteligencia documental, pronóstico y modelado a medida.",
+        keywords: [
+          "demos de IA aplicada",
+          "demos de inteligencia artificial en México",
+          "casos de uso de IA para operaciones",
+          "visión por computadora para operaciones",
+          "inteligencia documental para empresas",
+          "analítica predictiva para operaciones",
+        ],
       },
     },
     demoTemplate: {
       backToServices: "Volver a servicios",
-      helpsTitle: "Donde ayuda este demo",
+      helpsTitle: "Dónde ayuda este demo",
       helpsBody:
         "Usa el encuadre del flujo para decidir si vale la pena acotar un piloto.",
-      reviewTitle: "Que traer a la conversacion",
+      reviewTitle: "Qué traer a la conversación",
       reviewBody:
-        "La primera conversacion util habla del flujo, no de la marca del modelo.",
+        "La primera conversación útil habla del flujo, no de la marca del modelo.",
       liveDemoBadge: "Demo en vivo",
       liveDemoTitle:
-        "Prueba el patron de interaccion antes de planear el piloto",
-      architectureTitle: "Como esta estructurado el sistema",
-      architectureAccent: "detras del demo",
-      challengesTitle: "Riesgos, limites y decisiones tecnicas",
+        "Prueba el patrón de interacción antes de planear el piloto",
+      architectureTitle: "Cómo está estructurado el sistema",
+      architectureAccent: "detrás del demo",
+      challengesTitle: "Riesgos, límites y decisiones técnicas",
       fitTitle: "Buen ajuste",
-      fitBody: "Escenarios donde este enfoque suele tener mejor probabilidad de exito.",
+      fitBody: "Escenarios donde este enfoque suele tener mejor probabilidad de éxito.",
       notFitTitle: "Mal ajuste",
       notFitBody: "Casos donde conviene redefinir el problema antes de construir.",
-      ctaTitle: "Lleva un flujo concreto a la conversacion inicial",
+      ctaTitle: "Lleva un flujo concreto a la conversación inicial",
       ctaBody:
-        "Si el demo se parece a una operacion real de tu equipo, la siguiente conversacion debe enfocarse en alcance, evaluacion y restricciones de implementacion.",
+        "Si el demo se parece a una operación real de tu equipo, la siguiente conversación debe enfocarse en alcance, evaluación y restricciones de implementación.",
     },
     demoWrapper: {
-      parameters: "Parametros del modelo",
+      parameters: "Parámetros del modelo",
       confidence: "Umbral de confianza",
-      batchSize: "Tamano de lote",
-      modelVersion: "Version del modelo",
+      batchSize: "Tamaño de lote",
+      modelVersion: "Versión del modelo",
       computing: "Calculando...",
       runDemo: "Ejecutar demo",
-      detailTitle: "Ver explicacion detallada",
+      detailTitle: "Ver explicación detallada",
       shareTitle: "Compartir demo",
-      result: "Demo completado con {accuracy}% de precision",
-      errorFallback: "Ocurrio un error",
+      result: "Demo completado con {accuracy}% de precisión",
+      errorFallback: "Ocurrió un error",
     },
     metadata: {
       siteName: SITE_NAME,
       description:
-        "Sistemas de machine learning orientados a produccion para automatizacion operativa y pilotos viables.",
+        "Sistemas de machine learning orientados a producción para automatización operativa y pilotos viables en México.",
       ogLocale: "es_MX",
     },
   },
@@ -532,6 +547,13 @@ const dictionary = {
         title: "Production-minded machine learning systems",
         description:
           "Production-minded machine learning systems for workflow automation, forecasting, and credible pilots across North America and Latin America.",
+        keywords: [
+          "machine learning services",
+          "workflow automation ai",
+          "computer vision services",
+          "document intelligence solutions",
+          "predictive analytics consulting",
+        ],
       },
     },
     demos: {
@@ -568,6 +590,13 @@ const dictionary = {
         title: "Machine learning demos | Workflow-led use cases",
         description:
           "Explore machine learning demos framed around inspection, document intelligence, forecasting, and custom-model workflows.",
+        keywords: [
+          "machine learning demos",
+          "computer vision demo",
+          "document intelligence demo",
+          "predictive analytics demo",
+          "custom ai model demo",
+        ],
       },
     },
     demoTemplate: {

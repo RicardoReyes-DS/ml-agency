@@ -20,6 +20,8 @@ export async function generateMetadata({
   return {
     title: copy.home.metadata.title,
     description: copy.home.metadata.description,
+    keywords: [...copy.home.metadata.keywords],
+    category: locale === "es" ? "servicios de machine learning" : "machine learning services",
     alternates: {
       canonical: href,
       languages: {
@@ -32,6 +34,11 @@ export async function generateMetadata({
       description: copy.home.metadata.description,
       url: href,
       locale: copy.metadata.ogLocale,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: copy.home.metadata.title,
+      description: copy.home.metadata.description,
     },
   };
 }

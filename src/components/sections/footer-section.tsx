@@ -1,21 +1,16 @@
 "use client";
 
 import { motion } from "framer-motion";
-import dynamic from "next/dynamic";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { ArrowRight, Cpu, Mail, MessageCircle, Workflow } from "lucide-react";
+import { DomainColoringCanvas } from "@/components/visuals/domain-coloring-canvas";
 import { InteractiveBlob } from "@/components/visuals/interactive-blob";
 import { usePrefersReducedMotion } from "@/hooks/use-performance";
 import { getSectionSettings } from "@/lib/complex-functions";
 import { CONTACT_EMAIL, CONTACT_SUBJECTS, SITE_NAME, createMailto } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import { getDictionary, getLocaleFromPathname, localizeHref } from "@/lib/i18n";
-
-const DomainColoringCanvas = dynamic(
-  () => import("@/components/visuals/domain-coloring-canvas").then((mod) => mod.DomainColoringCanvas),
-  { ssr: false }
-);
 
 const linkFocusStyles =
   "focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded";

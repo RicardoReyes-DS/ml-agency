@@ -19,12 +19,37 @@ export async function generateMetadata({
   return {
     title: content.workflowTitle,
     description: content.workflowSummary,
+    keywords:
+      locale === "es"
+        ? [
+            "analítica predictiva para empresas en México",
+            "pronóstico de demanda con IA",
+            "detección de anomalías para operaciones",
+            "machine learning para planeación",
+          ]
+        : [
+            "predictive analytics services",
+            "demand forecasting ai",
+            "anomaly detection operations",
+            "machine learning planning workflows",
+          ],
     alternates: {
       canonical: href,
       languages: {
         es: "/es/demos/predictive-analytics",
         en: "/en/demos/predictive-analytics",
       },
+    },
+    openGraph: {
+      title: content.workflowTitle,
+      description: content.workflowSummary,
+      url: href,
+      locale: locale === "es" ? "es_MX" : "en_US",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: content.workflowTitle,
+      description: content.workflowSummary,
     },
   };
 }
@@ -45,7 +70,7 @@ export default async function LocalizedPredictiveAnalyticsPage({
         items={[
           { name: locale === "es" ? "Inicio" : "Home", url: `${SITE_URL}/${locale}` },
           { name: locale === "es" ? "Demos" : "Demos", url: `${SITE_URL}/${locale}/demos` },
-          { name: content.title, url: baseUrl },
+          { name: content.workflowTitle, url: baseUrl },
         ]}
       />
       <SoftwareApplicationStructuredData

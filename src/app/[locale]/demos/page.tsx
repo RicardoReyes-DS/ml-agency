@@ -20,6 +20,8 @@ export async function generateMetadata({
   return {
     title: copy.demos.metadata.title,
     description: copy.demos.metadata.description,
+    keywords: [...copy.demos.metadata.keywords],
+    category: locale === "es" ? "demos de IA aplicada" : "machine learning demos",
     alternates: {
       canonical: href,
       languages: {
@@ -32,6 +34,11 @@ export async function generateMetadata({
       description: copy.demos.metadata.description,
       url: href,
       locale: copy.metadata.ogLocale,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: copy.demos.metadata.title,
+      description: copy.demos.metadata.description,
     },
   };
 }
