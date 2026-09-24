@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef } from "react";
 import Link from "next/link";
 import { ArrowRight, Brain, Eye, MessageSquare, Microscope, Target, TrendingUp, Zap } from "lucide-react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -9,24 +9,10 @@ import { Button } from "@/components/ui/button";
 import { DomainColoringCanvas } from "@/components/visuals/domain-coloring-canvas";
 import { InteractiveBlob } from "@/components/visuals/interactive-blob";
 import { useMagneticField } from "@/hooks/use-magnetic";
-import { usePrefersReducedMotion } from "@/hooks/use-performance";
+import { useDecorativeMotionAllowed } from "@/hooks/use-performance";
 import { getSectionSettings } from "@/lib/complex-functions";
 import { getDictionary, localizeHref, type Locale } from "@/lib/i18n";
 import { CONTACT_SUBJECTS, createMailto } from "@/lib/site";
-
-function useIsTouchDevice() {
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
-
-  useEffect(() => {
-    const checkTouch = () => {
-      setIsTouchDevice("ontouchstart" in window || navigator.maxTouchPoints > 0);
-    };
-
-    checkTouch();
-  }, []);
-
-  return isTouchDevice;
-}
 
 const serviceIcons = [Eye, MessageSquare, Brain, TrendingUp];
 const serviceColors = [
@@ -48,7 +34,6 @@ const getDemoUrl = (serviceKey: string) => {
 };
 
 const containerVariants = {
-  hidden: { opacity: 0 },
   visible: {
     opacity: 1,
     transition: {
@@ -59,7 +44,6 @@ const containerVariants = {
 };
 
 const itemVariants = {
-  hidden: { opacity: 0, y: 50 },
   visible: {
     opacity: 1,
     y: 0,
@@ -72,8 +56,7 @@ const itemVariants = {
 };
 
 export function ServicesSection({ locale }: { locale: Locale }) {
-  const isTouchDevice = useIsTouchDevice();
-  const prefersReducedMotion = usePrefersReducedMotion();
+  const enableComplexAnimations = useDecorativeMotionAllowed();
   const servicesSettings = getSectionSettings("services");
   const copy = getDictionary(locale).home.services;
 
@@ -83,13 +66,12 @@ export function ServicesSection({ locale }: { locale: Locale }) {
   const ref3 = useRef<HTMLDivElement>(null);
   const cardRefs = useMemo(() => [ref0, ref1, ref2, ref3], []);
 
-  const magneticStates = useMagneticField(isTouchDevice ? [] : cardRefs, {
+  const magneticStates = useMagneticField(cardRefs, {
+    enabled: enableComplexAnimations,
     strength: 0.14,
     range: 90,
     ease: 0.12,
   });
-
-  const enableComplexAnimations = !isTouchDevice && !prefersReducedMotion;
 
   return (
     <section id="services" className="relative py-32 overflow-hidden">
@@ -106,17 +88,15 @@ export function ServicesSection({ locale }: { locale: Locale }) {
         mouseStrength={0.24}
       />
 
-      {!prefersReducedMotion && (
-        <DomainColoringCanvas
-          functionType={servicesSettings.type}
-          speed={servicesSettings.recommendedSettings.speed}
-          opacity={0.22}
-          mouseInfluence={servicesSettings.recommendedSettings.mouseInfluence}
-          colorShift={servicesSettings.recommendedSettings.colorShift}
-          zoom={servicesSettings.recommendedSettings.zoom}
-          className="z-0 mix-blend-screen"
-        />
-      )}
+      <DomainColoringCanvas
+        functionType={servicesSettings.type}
+        speed={servicesSettings.recommendedSettings.speed}
+        opacity={0.22}
+        mouseInfluence={servicesSettings.recommendedSettings.mouseInfluence}
+        colorShift={servicesSettings.recommendedSettings.colorShift}
+        zoom={servicesSettings.recommendedSettings.zoom}
+        className="z-0 mix-blend-screen"
+      />
 
       <div
         className="absolute inset-0 opacity-[0.012]"
@@ -131,7 +111,7 @@ export function ServicesSection({ locale }: { locale: Locale }) {
 
       <div className="container mx-auto px-4 relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={false}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
@@ -139,7 +119,7 @@ export function ServicesSection({ locale }: { locale: Locale }) {
         >
           <div className="space-y-8">
             <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
+              initial={false}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2, duration: 0.6 }}
@@ -150,7 +130,7 @@ export function ServicesSection({ locale }: { locale: Locale }) {
             </motion.div>
 
             <motion.h2
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.4, duration: 0.8 }}
@@ -163,7 +143,7 @@ export function ServicesSection({ locale }: { locale: Locale }) {
             </motion.h2>
 
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.6, duration: 0.8 }}
@@ -173,7 +153,7 @@ export function ServicesSection({ locale }: { locale: Locale }) {
             </motion.p>
 
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={false}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.8, duration: 0.6 }}
@@ -190,7 +170,7 @@ export function ServicesSection({ locale }: { locale: Locale }) {
 
         <motion.div
           variants={containerVariants}
-          initial="hidden"
+          initial={false}
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
           className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20"
@@ -210,7 +190,7 @@ export function ServicesSection({ locale }: { locale: Locale }) {
                   scale: magneticStates[index]?.isActive ? 1.02 : 1,
                   rotateX: magneticStates[index]?.isActive ? 2 : 0,
                   rotateY: magneticStates[index]?.isActive ? 2 : 0,
-                } : undefined}
+                } : { x: 0, y: 0, scale: 1, rotateX: 0, rotateY: 0 }}
                 whileHover={enableComplexAnimations ? {
                   scale: 1.015,
                   rotateX: 1.5,
@@ -220,8 +200,8 @@ export function ServicesSection({ locale }: { locale: Locale }) {
                     stiffness: 240,
                     damping: 28,
                   },
-                } : { scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+                } : undefined}
+                whileTap={enableComplexAnimations ? { scale: 0.98 } : undefined}
                 transition={{
                   type: "spring",
                   stiffness: 200,
@@ -234,13 +214,13 @@ export function ServicesSection({ locale }: { locale: Locale }) {
                   <CardHeader className="relative z-10 pb-4">
                     <div className="flex items-start justify-between mb-4">
                       <motion.div
-                        whileHover={{ scale: 1.1, rotate: 5 }}
+                        whileHover={enableComplexAnimations ? { scale: 1.1, rotate: 5 } : undefined}
                         transition={{ type: "spring", stiffness: 400, damping: 10 }}
                       >
                         <Icon className="h-12 w-12 text-primary group-hover:text-accent transition-all duration-300" />
                       </motion.div>
                       <motion.div
-                        initial={{ scale: 0 }}
+                        initial={false}
                         whileInView={{ scale: 1 }}
                         viewport={{ once: true }}
                         transition={{ delay: 0.5 + index * 0.1, type: "spring" }}
@@ -266,7 +246,7 @@ export function ServicesSection({ locale }: { locale: Locale }) {
                       {service.features.map((feature, featureIndex) => (
                         <motion.div
                           key={feature}
-                          initial={{ opacity: 0, x: -20 }}
+                          initial={false}
                           whileInView={{ opacity: 1, x: 0 }}
                           viewport={{ once: true }}
                           transition={{ delay: 0.8 + index * 0.1 + featureIndex * 0.1 }}
@@ -281,7 +261,7 @@ export function ServicesSection({ locale }: { locale: Locale }) {
                     </div>
 
                     <motion.div
-                      initial={{ opacity: 0 }}
+                      initial={false}
                       whileInView={{ opacity: 1 }}
                       viewport={{ once: true }}
                       transition={{ delay: 1.2 + index * 0.1 }}
@@ -304,7 +284,7 @@ export function ServicesSection({ locale }: { locale: Locale }) {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 40 }}
+          initial={false}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
@@ -312,7 +292,7 @@ export function ServicesSection({ locale }: { locale: Locale }) {
         >
           <div className="max-w-4xl mx-auto">
             <motion.div
-              initial={{ scale: 0.9 }}
+              initial={false}
               whileInView={{ scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.2, type: "spring" }}

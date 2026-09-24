@@ -14,10 +14,10 @@ describe("DemoTemplate locale", () => {
     );
 
     expect(html).toContain("Volver a servicios");
-    expect(html).toContain("Donde ayuda este demo");
+    expect(html).toContain("Dónde ayuda este demo");
     expect(html).toContain("Buen ajuste");
     expect(html).toContain("Arquitectura del sistema");
-    expect(html).toContain("Latencia de inference");
+    expect(html).toContain("Latencia de inferencia");
     expect(html).toContain("Hablar sobre tu flujo");
   });
 

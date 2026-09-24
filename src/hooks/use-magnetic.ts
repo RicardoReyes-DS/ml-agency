@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState, useRef, RefObject } from "react";
-import { usePrefersReducedMotion } from "./use-performance";
+import { useDecorativeMotionAllowed, usePrefersReducedMotion } from "./use-performance";
 
 export interface MagneticOptions {
   strength?: number;
@@ -121,87 +121,68 @@ export function useMagneticInteraction(
   };
 }
 
-// Hook for multiple magnetic elements
+// One RAF chain per mounted field. Pointer movement updates a ref, not the effect.
 export function useMagneticField(
   elements: RefObject<HTMLDivElement | null>[],
-  options: MagneticOptions = {}
+  options: MagneticOptions & { enabled?: boolean } = {}
 ) {
-  const prefersReducedMotion = usePrefersReducedMotion();
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const { strength = 0.25, range = 120, ease = 0.12 } = options;
+  const motionAllowed = useDecorativeMotionAllowed();
+  const { strength = 0.25, range = 120, ease = 0.12, enabled = true } = options;
+  const active = enabled && motionAllowed && elements.length > 0;
+  const mouse = useRef<{ x: number; y: number } | null>(null);
+  const [states, setStates] = useState(() => elements.map(zeroMagneticState));
 
-  const [magneticStates, setMagneticStates] = useState(
-    elements.map(() => ({ x: 0, y: 0, distance: 0, angle: 0, isActive: false }))
-  );
-
-  // Track mouse position
   useEffect(() => {
-    if (prefersReducedMotion) return;
-
-    const handleMouseMove = (e: MouseEvent) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
+    if (!active) return;
+    let frame = 0;
+    let disposed = false;
+    const onMove = (event: MouseEvent) => {
+      mouse.current = { x: event.clientX, y: event.clientY };
     };
-
-    window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [prefersReducedMotion]);
-
-  // Update magnetic states for all elements
-  useEffect(() => {
-    if (prefersReducedMotion) return;
-
-    const updateMagneticStates = () => {
-      setMagneticStates(prevStates =>
-        prevStates.map((_, index) => {
-          const element = elements[index]?.current;
-          if (!element) return { x: 0, y: 0, distance: 0, angle: 0, isActive: false };
-
-          const rect = element.getBoundingClientRect();
-          const elementCenter = {
-            x: rect.left + rect.width / 2,
-            y: rect.top + rect.height / 2,
+    const update = () => {
+      if (disposed) return;
+      setStates((previous) => {
+        const next = elements.map((ref, index) => {
+          const previousState = previous[index] ?? zeroMagneticState();
+          if (!ref.current || !mouse.current) return zeroMagneticState();
+          const rect = ref.current.getBoundingClientRect();
+          const dx = mouse.current.x - (rect.left + rect.width / 2);
+          const dy = mouse.current.y - (rect.top + rect.height / 2);
+          const distance = Math.hypot(dx, dy);
+          const angle = Math.atan2(dy, dx);
+          const isActive = distance < range;
+          const force = isActive ? (range - distance) / range * strength * 15 : 0;
+          const smooth = (from: number, to: number) => {
+            const value = from + (to - from) * ease;
+            return Math.abs(value - to) < 0.01 ? to : value;
           };
-
-          const distance = Math.sqrt(
-            Math.pow(mousePosition.x - elementCenter.x, 2) +
-            Math.pow(mousePosition.y - elementCenter.y, 2)
-          );
-
-          if (distance < range) {
-            const angle = Math.atan2(
-              mousePosition.y - elementCenter.y,
-              mousePosition.x - elementCenter.x
-            );
-
-            const force = (range - distance) / range;
-            const targetX = Math.cos(angle) * force * strength * 15;
-            const targetY = Math.sin(angle) * force * strength * 15;
-
-            return {
-              x: targetX,
-              y: targetY,
-              distance,
-              angle,
-              isActive: true,
-            };
-          } else {
-            // Return to center gradually
-            return {
-              x: prevStates[index].x * 0.9,
-              y: prevStates[index].y * 0.9,
-              distance,
-              angle: prevStates[index].angle,
-              isActive: false,
-            };
-          }
-        })
-      );
-
-      requestAnimationFrame(updateMagneticStates);
+          return {
+            x: smooth(previousState.x, Math.cos(angle) * force),
+            y: smooth(previousState.y, Math.sin(angle) * force),
+            distance, angle, isActive,
+          };
+        });
+        return next.length === previous.length && next.every((value, index) => {
+          const old = previous[index];
+          return value.x === old.x && value.y === old.y && value.distance === old.distance
+            && value.angle === old.angle && value.isActive === old.isActive;
+        }) ? previous : next;
+      });
+      frame = requestAnimationFrame(update);
     };
+    window.addEventListener("mousemove", onMove);
+    frame = requestAnimationFrame(update);
+    return () => {
+      disposed = true;
+      cancelAnimationFrame(frame);
+      mouse.current = null;
+      window.removeEventListener("mousemove", onMove);
+    };
+  }, [active, elements, strength, range, ease]);
 
-    updateMagneticStates();
-  }, [mousePosition, elements, strength, range, ease, prefersReducedMotion]);
+  return active ? states : elements.map(zeroMagneticState);
+}
 
-  return magneticStates;
+function zeroMagneticState() {
+  return { x: 0, y: 0, distance: 0, angle: 0, isActive: false };
 }

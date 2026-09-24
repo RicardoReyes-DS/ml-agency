@@ -10,7 +10,7 @@ This repository is tied to GitHub account `RicardoReyes-DS`.
 
 ## Git identity and remote
 
-- Git author email for this repo: `ricardo@enkisys.com`
+- Git author email for this repo: `ricardo@enkisys.net`
 - Origin remote must remain `git@github-ricardoreyes-ds:RicardoReyes-DS/ml-agency.git`
 - Use SSH, not HTTPS with tokens
 

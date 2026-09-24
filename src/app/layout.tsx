@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import { Navbar } from "@/components/ui/navbar";
 import { FooterSection } from "@/components/sections/footer-section";
@@ -49,15 +50,11 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const requestLocale = (await headers()).get("x-locale");
+  const locale = requestLocale === "en" || requestLocale === "es" ? requestLocale : defaultLocale;
   return (
-    <html lang={defaultLocale} suppressHydrationWarning>
+    <html lang={locale}>
       <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html:
-              "document.documentElement.lang = location.pathname.split('/')[1] === 'en' ? 'en' : 'es';",
-          }}
-        />
         <OrganizationStructuredData />
         <WebSiteStructuredData />
       </head>

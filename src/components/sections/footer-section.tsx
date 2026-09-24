@@ -39,7 +39,7 @@ export function FooterSection() {
   const motionProps = prefersReducedMotion
     ? {}
     : {
-        initial: { opacity: 0, y: 20 },
+        initial: false as const,
         whileInView: { opacity: 1, y: 0 },
         viewport: { once: true },
         transition: { duration: 0.6 },
@@ -60,18 +60,16 @@ export function FooterSection() {
         mouseStrength={0.25}
       />
 
-      {!prefersReducedMotion && (
-        <DomainColoringCanvas
-          functionType={footerSettings.type}
-          colorMode={footerSettings.recommendedSettings.colorMode}
-          speed={footerSettings.recommendedSettings.speed}
-          opacity={0.14}
-          mouseInfluence={footerSettings.recommendedSettings.mouseInfluence}
-          colorShift={footerSettings.recommendedSettings.colorShift}
-          zoom={footerSettings.recommendedSettings.zoom}
-          className="z-0 mix-blend-screen"
-        />
-      )}
+      <DomainColoringCanvas
+        functionType={footerSettings.type}
+        colorMode={footerSettings.recommendedSettings.colorMode}
+        speed={footerSettings.recommendedSettings.speed}
+        opacity={0.14}
+        mouseInfluence={footerSettings.recommendedSettings.mouseInfluence}
+        colorShift={footerSettings.recommendedSettings.colorShift}
+        zoom={footerSettings.recommendedSettings.zoom}
+        className="z-0 mix-blend-screen"
+      />
 
       <div
         className="absolute inset-0 opacity-[0.02] pointer-events-none"

@@ -16,7 +16,7 @@ export function usePrefersReducedMotion() {
       if (typeof window === "undefined") return false;
       return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     },
-    () => false // server snapshot
+    () => true // Keep SSR and the first hydration render static.
   );
 
   return matches;
@@ -111,4 +111,32 @@ export function usePerformanceMonitor() {
   }, []);
 
   return metrics;
+}
+
+const desktopMotionQuery = "(min-width: 768px) and (hover: hover) and (pointer: fine)";
+const coarsePointerQuery = "(any-pointer: coarse)";
+const reducedMotionQuery = "(prefers-reduced-motion: reduce)";
+
+function subscribeToDecorationPolicy(callback: () => void) {
+  const queries = [desktopMotionQuery, coarsePointerQuery, reducedMotionQuery].map(
+    (query) => window.matchMedia(query)
+  );
+  queries.forEach((query) => query.addEventListener("change", callback));
+  document.addEventListener("visibilitychange", callback);
+  return () => {
+    queries.forEach((query) => query.removeEventListener("change", callback));
+    document.removeEventListener("visibilitychange", callback);
+  };
+}
+
+function decorationAllowed() {
+  return document.visibilityState === "visible"
+    && window.matchMedia(desktopMotionQuery).matches
+    && !window.matchMedia(coarsePointerQuery).matches
+    && !window.matchMedia(reducedMotionQuery).matches;
+}
+
+// Fail closed until hydration reads the actual device, motion and tab preferences.
+export function useDecorativeMotionAllowed() {
+  return useSyncExternalStore(subscribeToDecorationPolicy, decorationAllowed, () => false);
 }

@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { motion } from "framer-motion";
+import { usePrefersReducedMotion } from "@/hooks/use-performance";
 import { cn } from "@/lib/utils";
 
 interface TypewriterTextProps {
@@ -12,89 +12,44 @@ interface TypewriterTextProps {
   delayBetweenTexts?: number;
 }
 
-export function TypewriterText({
-  texts,
-  className,
-  typingSpeed = 100,
-  deletingSpeed = 50,
-  delayBetweenTexts = 2000,
-}: TypewriterTextProps) {
-  const [displayText, setDisplayText] = useState(texts[0] || "");
-  const [currentTextIndex, setCurrentTextIndex] = useState(0);
-  const [isDeleting, setIsDeleting] = useState(false);
-  const [showCursor, setShowCursor] = useState(true);
-  const [isStarted, setIsStarted] = useState(false);
-
-  useEffect(() => {
-    // Initial delay before starting the animation cycle
-    if (!isStarted) {
-      const startTimeout = setTimeout(() => {
-        setIsStarted(true);
-        setIsDeleting(true);
-      }, delayBetweenTexts);
-      return () => clearTimeout(startTimeout);
-    }
-
-    const currentText = texts[currentTextIndex];
-
-    const timeout = setTimeout(() => {
-      if (!isDeleting) {
-        // Typing
-        if (displayText.length < currentText.length) {
-          setDisplayText(currentText.slice(0, displayText.length + 1));
-        } else {
-          // Finished typing, wait before deleting
-          setTimeout(() => setIsDeleting(true), delayBetweenTexts);
-        }
-      } else {
-        // Deleting
-        if (displayText.length > 0) {
-          setDisplayText(displayText.slice(0, -1));
-        } else {
-          // Finished deleting, move to next text
-          setIsDeleting(false);
-          setCurrentTextIndex((prev) => (prev + 1) % texts.length);
-        }
-      }
-    }, isDeleting ? deletingSpeed : typingSpeed);
-
-    return () => clearTimeout(timeout);
-  }, [
-    displayText,
-    currentTextIndex,
-    isDeleting,
-    texts,
-    typingSpeed,
-    deletingSpeed,
-    delayBetweenTexts,
-    isStarted,
-  ]);
-
-  // Cursor blinking effect
-  useEffect(() => {
-    const cursorInterval = setInterval(() => {
-      setShowCursor((prev) => !prev);
-    }, 500);
-
-    return () => clearInterval(cursorInterval);
-  }, []);
-
+export function TypewriterText(props: TypewriterTextProps) {
+  const reduced = usePrefersReducedMotion();
   return (
-    <div className={cn("font-mono", className)}>
-      <motion.span
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.5 }}
-      >
-        {displayText}
-      </motion.span>
-      <motion.span
-        animate={{ opacity: showCursor ? 1 : 0 }}
-        className="text-accent"
-        transition={{ duration: 0.1 }}
-      >
-        |
-      </motion.span>
+    <div className={cn("font-mono", props.className)} data-typewriter="">
+      {reduced || props.texts.length === 0
+        ? <span>{props.texts[0] ?? ""}</span>
+        : <AnimatedText {...props} />}
     </div>
   );
+}
+
+function AnimatedText({
+  texts, typingSpeed = 100, deletingSpeed = 50, delayBetweenTexts = 2000,
+}: TypewriterTextProps) {
+  const [state, setState] = useState({ index: 0, length: texts[0]?.length ?? 0, deleting: false });
+  const [showCursor, setShowCursor] = useState(true);
+  const current = texts[state.index % texts.length] ?? "";
+  useEffect(() => {
+    const complete = !state.deleting && state.length >= current.length;
+    const timeout = setTimeout(() => {
+      if (complete) {
+        setState((old) => ({ ...old, deleting: true }));
+      } else if (state.deleting && state.length === 0) {
+        setState({ index: (state.index + 1) % texts.length, length: 0, deleting: false });
+      } else {
+        setState((old) => ({ ...old, length: old.length + (old.deleting ? -1 : 1) }));
+      }
+    }, complete ? delayBetweenTexts : state.deleting ? deletingSpeed : typingSpeed);
+    return () => clearTimeout(timeout);
+  }, [state, current, texts.length, typingSpeed, deletingSpeed, delayBetweenTexts]);
+
+  useEffect(() => {
+    const interval = setInterval(() => setShowCursor((old) => !old), 500);
+    return () => clearInterval(interval);
+  }, []);
+
+  return <>
+    <span>{current.slice(0, state.length)}</span>
+    <span aria-hidden="true" data-typewriter-cursor="" className="text-accent" style={{ opacity: showCursor ? 1 : 0 }}>|</span>
+  </>;
 }

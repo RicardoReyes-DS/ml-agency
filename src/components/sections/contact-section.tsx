@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useDecorativeMotionAllowed } from "@/hooks/use-performance";
 import Link from "next/link";
 import {
   ArrowRight,
@@ -15,7 +16,6 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { DomainColoringCanvas } from "@/components/visuals/domain-coloring-canvas";
 import { InteractiveBlob } from "@/components/visuals/interactive-blob";
-import { usePrefersReducedMotion } from "@/hooks/use-performance";
 import { getSectionSettings } from "@/lib/complex-functions";
 import { getDictionary, localizeHref, type Locale } from "@/lib/i18n";
 import { CONTACT_SUBJECTS, createMailto } from "@/lib/site";
@@ -28,7 +28,7 @@ const methodColors = [
 ];
 
 export function ContactSection({ locale }: { locale: Locale }) {
-  const prefersReducedMotion = usePrefersReducedMotion();
+  const motionAllowed = useDecorativeMotionAllowed();
   const contactSettings = getSectionSettings("contact");
   const copy = getDictionary(locale).home.contact;
 
@@ -47,17 +47,15 @@ export function ContactSection({ locale }: { locale: Locale }) {
         mouseStrength={0.22}
       />
 
-      {!prefersReducedMotion && (
-        <DomainColoringCanvas
-          functionType={contactSettings.type}
-          speed={contactSettings.recommendedSettings.speed}
-          opacity={0.18}
-          mouseInfluence={contactSettings.recommendedSettings.mouseInfluence}
-          colorShift={contactSettings.recommendedSettings.colorShift}
-          zoom={contactSettings.recommendedSettings.zoom}
-          className="z-0 mix-blend-screen"
-        />
-      )}
+      <DomainColoringCanvas
+        functionType={contactSettings.type}
+        speed={contactSettings.recommendedSettings.speed}
+        opacity={0.18}
+        mouseInfluence={contactSettings.recommendedSettings.mouseInfluence}
+        colorShift={contactSettings.recommendedSettings.colorShift}
+        zoom={contactSettings.recommendedSettings.zoom}
+        className="z-0 mix-blend-screen"
+      />
 
       <div
         className="absolute inset-0 opacity-[0.012]"
@@ -72,14 +70,14 @@ export function ContactSection({ locale }: { locale: Locale }) {
 
       <div className="container mx-auto px-4 relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={false}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
           className="text-center mb-20"
         >
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
+            initial={false}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2, duration: 0.6 }}
@@ -90,7 +88,7 @@ export function ContactSection({ locale }: { locale: Locale }) {
           </motion.div>
 
           <motion.h2
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.4, duration: 0.8 }}
@@ -103,7 +101,7 @@ export function ContactSection({ locale }: { locale: Locale }) {
           </motion.h2>
 
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.6, duration: 0.8 }}
@@ -114,7 +112,7 @@ export function ContactSection({ locale }: { locale: Locale }) {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={false}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.8, duration: 0.8 }}
@@ -127,7 +125,7 @@ export function ContactSection({ locale }: { locale: Locale }) {
             return (
               <motion.div
                 key={method.title}
-                initial={{ opacity: 0, y: 20 }}
+                initial={false}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: 1 + index * 0.1, duration: 0.6 }}
@@ -138,7 +136,7 @@ export function ContactSection({ locale }: { locale: Locale }) {
                   <CardContent className="relative z-10 p-8 flex flex-col h-full">
                     <div className="flex-1 text-center">
                       <motion.div
-                        whileHover={{ scale: 1.06, rotate: 3 }}
+                        whileHover={motionAllowed ? { scale: 1.06, rotate: 3 } : undefined}
                         transition={{ type: "spring", stiffness: 400, damping: 10 }}
                         className="inline-flex items-center justify-center w-16 h-16 bg-accent/10 rounded-2xl mb-6 group-hover:bg-accent/20 transition-colors duration-300"
                       >
@@ -164,8 +162,8 @@ export function ContactSection({ locale }: { locale: Locale }) {
                           {method.action}
                           <motion.div
                             className="ml-2"
-                            initial={{ x: 0 }}
-                            whileHover={{ x: 4 }}
+                            initial={false}
+                            whileHover={motionAllowed ? { x: 4 } : undefined}
                             transition={{ type: "spring", stiffness: 400 }}
                           >
                             →
@@ -183,7 +181,7 @@ export function ContactSection({ locale }: { locale: Locale }) {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={false}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 1.2, duration: 0.8 }}
@@ -191,7 +189,7 @@ export function ContactSection({ locale }: { locale: Locale }) {
         >
           <div className="space-y-8">
             <motion.h3
-              initial={{ opacity: 0, x: -30 }}
+              initial={false}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 1.4, duration: 0.8 }}
@@ -204,7 +202,7 @@ export function ContactSection({ locale }: { locale: Locale }) {
               {copy.checklist.map((item, index) => (
                 <motion.div
                   key={item}
-                  initial={{ opacity: 0, x: -30 }}
+                  initial={false}
                   whileInView={{ opacity: 1, x: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 1.6 + index * 0.1, duration: 0.8 }}
@@ -225,14 +223,14 @@ export function ContactSection({ locale }: { locale: Locale }) {
 
           <div id="contact-cta" className="space-y-8">
             <motion.div
-              initial={{ opacity: 0, x: 30 }}
+              initial={false}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 1.4, duration: 0.8 }}
               className="bg-surface/60 backdrop-blur-sm border border-primary/10 rounded-2xl p-8"
             >
               <motion.div
-                initial={{ scale: 0.9 }}
+                initial={false}
                 whileInView={{ scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: 1.6, type: "spring" }}

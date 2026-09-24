@@ -17,7 +17,6 @@ import { Button } from "@/components/ui/button";
 import { DomainColoringCanvas } from "@/components/visuals/domain-coloring-canvas";
 import { InteractiveBlob } from "@/components/visuals/interactive-blob";
 import { Card, CardContent } from "@/components/ui/card";
-import { usePrefersReducedMotion } from "@/hooks/use-performance";
 import { getSectionSettings } from "@/lib/complex-functions";
 import { getDictionary, localizeHref, type Locale } from "@/lib/i18n";
 import { CONTACT_SUBJECTS, createMailto } from "@/lib/site";
@@ -26,7 +25,6 @@ const achievementIcons = [Users, Award, TrendingUp, Target];
 const principleIcons = [Lightbulb, Code, GraduationCap, Building];
 
 export function AboutSection({ locale }: { locale: Locale }) {
-  const prefersReducedMotion = usePrefersReducedMotion();
   const aboutSettings = getSectionSettings("about");
   const copy = getDictionary(locale).home.about;
 
@@ -45,17 +43,15 @@ export function AboutSection({ locale }: { locale: Locale }) {
         mouseStrength={0.2}
       />
 
-      {!prefersReducedMotion && (
-        <DomainColoringCanvas
-          functionType={aboutSettings.type}
-          speed={aboutSettings.recommendedSettings.speed}
-          opacity={0.18}
-          mouseInfluence={aboutSettings.recommendedSettings.mouseInfluence}
-          colorShift={aboutSettings.recommendedSettings.colorShift}
-          zoom={aboutSettings.recommendedSettings.zoom}
-          className="z-0 mix-blend-screen"
-        />
-      )}
+      <DomainColoringCanvas
+        functionType={aboutSettings.type}
+        speed={aboutSettings.recommendedSettings.speed}
+        opacity={0.18}
+        mouseInfluence={aboutSettings.recommendedSettings.mouseInfluence}
+        colorShift={aboutSettings.recommendedSettings.colorShift}
+        zoom={aboutSettings.recommendedSettings.zoom}
+        className="z-0 mix-blend-screen"
+      />
 
       <div
         className="absolute inset-0 opacity-[0.012]"
@@ -70,14 +66,14 @@ export function AboutSection({ locale }: { locale: Locale }) {
 
       <div className="container mx-auto px-4 relative z-10">
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={false}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8 }}
           className="text-center mb-20"
         >
           <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
+            initial={false}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2, duration: 0.6 }}
@@ -88,7 +84,7 @@ export function AboutSection({ locale }: { locale: Locale }) {
           </motion.div>
 
           <motion.h2
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.4, duration: 0.8 }}
@@ -101,7 +97,7 @@ export function AboutSection({ locale }: { locale: Locale }) {
           </motion.h2>
 
           <motion.p
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.6, duration: 0.8 }}
@@ -112,7 +108,7 @@ export function AboutSection({ locale }: { locale: Locale }) {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={false}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.8, duration: 0.8 }}
@@ -124,7 +120,7 @@ export function AboutSection({ locale }: { locale: Locale }) {
             return (
               <motion.div
                 key={achievement.label}
-                initial={{ opacity: 0, scale: 0.8 }}
+                initial={false}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
                 transition={{ delay: 1 + index * 0.1, duration: 0.6 }}
@@ -150,7 +146,7 @@ export function AboutSection({ locale }: { locale: Locale }) {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={false}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 1.2, duration: 0.8 }}
@@ -158,7 +154,7 @@ export function AboutSection({ locale }: { locale: Locale }) {
         >
           <div className="space-y-8">
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
+              initial={false}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 1.4, duration: 0.8 }}
@@ -174,7 +170,7 @@ export function AboutSection({ locale }: { locale: Locale }) {
             </motion.div>
 
             <motion.div
-              initial={{ opacity: 0, x: -30 }}
+              initial={false}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 1.6, duration: 0.8 }}
@@ -190,7 +186,7 @@ export function AboutSection({ locale }: { locale: Locale }) {
 
           <div className="space-y-6">
             <motion.h3
-              initial={{ opacity: 0, x: 30 }}
+              initial={false}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 1.4, duration: 0.8 }}
@@ -206,7 +202,7 @@ export function AboutSection({ locale }: { locale: Locale }) {
                 return (
                   <motion.div
                     key={value.title}
-                    initial={{ opacity: 0, x: 30 }}
+                    initial={false}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ delay: 1.6 + index * 0.1, duration: 0.8 }}

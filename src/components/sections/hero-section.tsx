@@ -7,13 +7,11 @@ import { TypewriterText } from "@/components/visuals/typewriter-text";
 import { InteractiveBlob } from "@/components/visuals/interactive-blob";
 import { DomainColoringCanvas } from "@/components/visuals/domain-coloring-canvas";
 import { Button } from "@/components/ui/button";
-import { usePrefersReducedMotion } from "@/hooks/use-performance";
 import { getSectionSettings } from "@/lib/complex-functions";
 import { getDictionary, localizeHref, type Locale } from "@/lib/i18n";
 import { CONTACT_SUBJECTS, createMailto } from "@/lib/site";
 
 export function HeroSection({ locale }: { locale: Locale }) {
-  const prefersReducedMotion = usePrefersReducedMotion();
   const heroSettings = getSectionSettings("hero");
   const copy = getDictionary(locale).home.hero;
 
@@ -32,18 +30,16 @@ export function HeroSection({ locale }: { locale: Locale }) {
         mouseStrength={0.2}
       />
 
-      {!prefersReducedMotion && (
-        <DomainColoringCanvas
-          functionType={heroSettings.type}
-          colorMode={heroSettings.recommendedSettings.colorMode}
-          speed={heroSettings.recommendedSettings.speed}
-          opacity={0.22}
-          mouseInfluence={heroSettings.recommendedSettings.mouseInfluence}
-          colorShift={heroSettings.recommendedSettings.colorShift}
-          zoom={heroSettings.recommendedSettings.zoom}
-          className="z-0"
-        />
-      )}
+      <DomainColoringCanvas
+        functionType={heroSettings.type}
+        colorMode={heroSettings.recommendedSettings.colorMode}
+        speed={heroSettings.recommendedSettings.speed}
+        opacity={0.22}
+        mouseInfluence={heroSettings.recommendedSettings.mouseInfluence}
+        colorShift={heroSettings.recommendedSettings.colorShift}
+        zoom={heroSettings.recommendedSettings.zoom}
+        className="z-0"
+      />
 
       <div
         className="absolute inset-0 opacity-[0.015]"
@@ -59,7 +55,7 @@ export function HeroSection({ locale }: { locale: Locale }) {
       <div className="container mx-auto px-4 py-20 relative z-10">
         <div className="text-center max-w-5xl mx-auto">
           <motion.div
-            initial={{ opacity: 0, y: -20 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-primary/10 to-accent/10 border border-primary/30 mb-8"
@@ -69,7 +65,7 @@ export function HeroSection({ locale }: { locale: Locale }) {
           </motion.div>
 
           <motion.h1
-            initial={{ opacity: 0, y: 12 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
             className="text-4xl md:text-6xl lg:text-7xl font-bold text-foreground leading-tight mb-6"
@@ -89,7 +85,7 @@ export function HeroSection({ locale }: { locale: Locale }) {
           </div>
 
           <motion.p
-            initial={{ opacity: 0 }}
+            initial={false}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.3, duration: 0.8 }}
             className="text-lg md:text-xl text-foreground/70 max-w-3xl mx-auto leading-relaxed mb-12"
@@ -98,7 +94,7 @@ export function HeroSection({ locale }: { locale: Locale }) {
           </motion.p>
 
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.6 }}
             className="flex flex-col sm:flex-row gap-4 justify-center mb-16"
@@ -120,7 +116,7 @@ export function HeroSection({ locale }: { locale: Locale }) {
           </motion.div>
 
           <motion.div
-            initial={{ opacity: 0, y: 30 }}
+            initial={false}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.7, duration: 0.8 }}
             className="grid grid-cols-1 md:grid-cols-3 gap-4 text-left"

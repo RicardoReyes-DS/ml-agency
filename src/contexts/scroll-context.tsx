@@ -9,6 +9,7 @@ import {
   useRef,
   ReactNode,
 } from "react";
+import { useDecorativeMotionAllowed } from "@/hooks/use-performance";
 import { ScrollSectionProgress, ComplexFunctionType } from "@/lib/types";
 import { getSectionSettings, interpolateSettings } from "@/lib/complex-functions";
 
@@ -41,6 +42,7 @@ interface ScrollProviderProps {
 }
 
 export function ScrollProvider({ children }: ScrollProviderProps) {
+  const motionAllowed = useDecorativeMotionAllowed();
   const [scrollProgress, setScrollProgress] = useState(0);
   const [sectionProgress, setSectionProgress] = useState<Map<string, ScrollSectionProgress>>(
     new Map()
@@ -118,8 +120,9 @@ export function ScrollProvider({ children }: ScrollProviderProps) {
 
   // Set up scroll listener
   useEffect(() => {
-    // Initial calculation
-    requestAnimationFrame(() => {
+    if (!motionAllowed) return;
+    // Track the initial request as well as scroll requests.
+    rafRef.current = requestAnimationFrame(() => {
       calculateSectionProgress();
     });
 
@@ -133,7 +136,7 @@ export function ScrollProvider({ children }: ScrollProviderProps) {
         cancelAnimationFrame(rafRef.current);
       }
     };
-  }, [handleScroll, calculateSectionProgress]);
+  }, [handleScroll, calculateSectionProgress, motionAllowed]);
 
   // Get interpolated settings between two sections
   const getInterpolatedSettings = useCallback(

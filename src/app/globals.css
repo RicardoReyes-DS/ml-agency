@@ -125,3 +125,33 @@ section[id] {
   background: rgba(0, 212, 255, 0.3);
   color: var(--foreground);
 }
+
+
+/* Native navigation and readable controls at narrow mobile widths. */
+summary::-webkit-details-marker { display: none; }
+@media (max-width: 767px) {
+  #home a, #services a, #about a, #contact a, nav details a {
+    white-space: normal;
+    height: auto;
+    overflow-wrap: anywhere;
+  }
+  #home h1, #services h2, #about h2, #contact h2,
+  #about h3, #about h4, #contact h3, footer a {
+    overflow-wrap: anywhere;
+  }
+  #about .grid > *, #contact .grid > * { min-width: 0; }
+}
+@media (max-width: 479px) {
+  #about .grid.grid-cols-2 { grid-template-columns: minmax(0, 1fr); }
+}
+@media (prefers-reduced-motion: reduce) {
+  html, html:focus-within { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+    scroll-behavior: auto !important;
+  }
+  #home *, #services *, #about *, #contact *, footer *, nav * {
+    transform: none !important;
+  }
+}

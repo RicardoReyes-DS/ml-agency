@@ -2,7 +2,7 @@
 
 import { motion, useScroll, useTransform, useSpring, useMotionValue } from "framer-motion";
 import { useEffect, useRef } from "react";
-import { usePrefersReducedMotion } from "@/hooks/use-performance";
+import { useDecorativeMotionAllowed } from "@/hooks/use-performance";
 import { cn } from "@/lib/utils";
 
 interface InteractiveBlobProps {
@@ -11,12 +11,18 @@ interface InteractiveBlobProps {
   mouseStrength?: number; // How much it moves with mouse
 }
 
-export function InteractiveBlob({
+export function InteractiveBlob(props: InteractiveBlobProps) {
+  const enabled = useDecorativeMotionAllowed();
+  return enabled ? <AnimatedBlob {...props} /> : (
+    <div aria-hidden="true" className={cn("absolute pointer-events-none", props.className)} />
+  );
+}
+
+function AnimatedBlob({
   className,
   parallaxStrength = 0.2,
   mouseStrength = 0.4,
 }: InteractiveBlobProps) {
-  const prefersReducedMotion = usePrefersReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
   
   // Scroll Parallax
@@ -36,7 +42,6 @@ export function InteractiveBlob({
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
-      // Always track mouse, but conditionally apply based on preference in render
       const { clientX, clientY } = e;
       const { innerWidth, innerHeight } = window;
       
@@ -56,7 +61,6 @@ export function InteractiveBlob({
   const y = useTransform(
     [yParallax, ySpring],
     (latest: number[]) => {
-      if (prefersReducedMotion) return 0;
       const [parallax = 0, spring = 0] = latest;
       return parallax + spring;
     }
@@ -64,15 +68,16 @@ export function InteractiveBlob({
 
   const x = useTransform(
     xSpring,
-    (latest) => (prefersReducedMotion ? 0 : latest)
+    (latest) => latest
   );
 
   return (
     <motion.div
+      aria-hidden="true"
       ref={ref}
       className={cn("absolute pointer-events-none will-change-transform", className)}
       style={{ x, y }}
-      animate={prefersReducedMotion ? undefined : {
+      animate={{
         scale: [1, 1.1, 1],
         opacity: [0.6, 0.8, 0.6],
         rotate: [0, 10, 0],
